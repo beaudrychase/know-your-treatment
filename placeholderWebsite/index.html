@@ -1,18 +1,87 @@
-This is our Homepage.<br>
-<br>
-<a href="type1.html">Type 1 Things</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="type1thing1.html">Thing #1</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="type1thing2.html">Thing #2</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="type1thing3.html">Thing #3</a><br>
-<br>
-<a href="type2.html">Type 2 Things</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="type2thing1.html">Thing #1</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="type2thing2.html">Thing #2</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="type2thing3.html">Thing #3</a><br>
-<br>
-<a href="type3.html">Type 3 Things</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="type3thing1.html">Thing #1</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="type3thing2.html">Thing #2</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="type3thing3.html">Thing #3</a><br>
-<br>
-<a href="about.html">About</a><br>
+<!doctype html>
+<!-- index.html -->
+<!-- this file contains the navbar components that should be seen across all pages -->
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">K.Y.T.</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- menu bar links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+          <!-- home link -->
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+          </li>
+
+          <!-- Health Conditions Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Health Conditions
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="template.html">Template</a>
+              <a class="dropdown-item" href="#">HC2</a>
+              <a class="dropdown-item" href="#">HC3</a>
+            </div>
+          </li>
+
+          <!-- Treatments Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Treatments
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">T1</a>
+              <a class="dropdown-item" href="#">T2</a>
+              <a class="dropdown-item" href="#">T3</a>
+            </div>
+          </li>
+
+          <!-- Charities Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Charities
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">C1</a>
+              <a class="dropdown-item" href="#">C2</a>
+              <a class="dropdown-item" href="#">C3</a>
+            </div>
+          </li>
+
+          <!-- About Page-->
+          <li class="nav-item">
+        <a class="nav-link" href="about.html">About</a>
+      </li>
+          
+        </ul>
+
+        <!-- future search feature? --> 
+        <!-- <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form> -->
+      </div>
+    </nav>
+  </head>
+  <body>
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
