@@ -10,7 +10,7 @@ Caleb Barnwell      |cmb5827  |cmibarnwell      |          27.5              |  
 Beaudry Chase       |xxxxxxx  |xxxxxxx          |          xx                |       xx
 Travis Llado        |xxxxxxx  |xxxxxxx          |          xx                |       xx
 Brendan Miller      |xxxxxxx  |xxxxxxx          |          xx                |       xx
-Christopher Sauceda |xxxxxxx  |xxxxxxx          |          xx                |       xx
+Christopher Sauceda |ces3723  |csauce           |          12                |       11
 
 
 ### GitLab SHA
