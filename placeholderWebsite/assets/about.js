@@ -50,26 +50,31 @@
                     }
                 }
             );
-            document.getElementById('issuesCreated').innerHTML = numIssues;
+            document.getElementById('numIssues').innerHTML = numIssues;
         }
     );
     // Get commits information
     $.get(
         "https://gitlab.com/api/v4/projects/7160520/repository/commits?per_page=100&private_token=eX7szajR1g6q1C9hyCr4",
         function(gitlabData) {
+            var authorNames = ["cmibarnwell", "Travis Llado", "brendan miller", "woojunan", "beaudrychase", "Chris"];
             var numCommits = [];
-            usernames.forEach(function(element){numCommits.push(0);});
+            authorNames.forEach(function(element){numCommits.push(0);});
             gitlabData.forEach(
                 function(element) {
                     var ii;
-                    for (ii = 0; ii < usernames.length; ii++) {
-                        if (element.author_name == usernames[ii]) {
+                    for (ii = 0; ii < authorNames.length; ii++) {
+                        if (element.author_name == authorNames[ii]) {
                             numCommits[ii] += 1;
                         }
                     }
                 }
             );
-            document.getElementById('issuesCreated').innerHTML = numCommits;
+            document.getElementById('numCommits').innerHTML = numCommits;
+            
+            // Get tests information
+            numTests = [0,0,0,0,0,0];
+            document.getElementById('numTests').innerHTML = numTests;
         }
     );
 // });
