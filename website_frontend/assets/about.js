@@ -14,6 +14,13 @@ var chris = 5;
 // var usernames = [];
 var usernames =   ["cmibarnwell", "tllado",       "bpatmiller",     "woojunan", "beaudrychase", "csauce"];
 var authorNames = ["cmibarnwell", "Travis Llado", "brendan miller", "woojunan", "beaudrychase", "Chris" ];
+// var usernames = [];
+// var username["caleb"] = "cmibarnwell";
+// var username["travis"] = "tllado";
+// var username["brendan"] = "bpatmiller";
+// var username["woo"] = "woojunan";
+// var username["beaudry"] = "beaudrychase";
+// var username["chris"] = "csauce";
 
 
 
