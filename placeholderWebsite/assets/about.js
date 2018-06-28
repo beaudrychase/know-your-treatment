@@ -1,4 +1,4 @@
-$(document).ready(function(){
+// $(document).ready(function(){
     // Get project information
     $.get(
         "https://gitlab.com/api/v4/projects/7160520?private_token=eX7szajR1g6q1C9hyCr4",
@@ -26,4 +26,4 @@ $(document).ready(function(){
             $("#memberNames").html(names);
         }
     );
-});
+// });
