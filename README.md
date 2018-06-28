@@ -9,7 +9,7 @@ Woo An              |wa3768   |woojunan         |          15                |  
 Caleb Barnwell      |cmb5827  |cmibarnwell      |          27.5              |       22
 Beaudry Chase       |bc29552  |beaudrychase     |          15                |       10
 Travis Llado        |xxxxxxx  |xxxxxxx          |          xx                |       xx
-Brendan Miller      |xxxxxxx  |xxxxxxx          |          xx                |       xx
+Brendan Miller      |bmp665   |bpatmiller       |          12                |       10
 Christopher Sauceda |ces3723  |csauce           |          12                |       11
 
 
