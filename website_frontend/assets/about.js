@@ -21,17 +21,17 @@ var gitlabCommitsURL =  "https://gitlab.com/api/v4/projects/7160520/repository/c
 
 
 // Get all of our About info
-window.onload = function getEverything() {
-    getProject();
-    getIssues();
-    getCommits();
-    getTests();
-}
+// window.onload = function getEverything() {
+//     getProject();
+//     getIssues();
+//     getCommits();
+//     getTests();
+// }
 
 
 
 // Get project information
-function getProject() {
+// function getProject() {
     $.get(gitlabProjectURL, function(gitlabData) {
         document.getElementById('ourDescription').innerHTML = gitlabData.description;
         document.getElementById('ourName').innerHTML = gitlabData.name;
@@ -39,12 +39,12 @@ function getProject() {
         document.getElementById("ourHREF").setAttribute("href",gitlabData.web_url);
         document.getElementById('ourLastChange').innerHTML = gitlabData.last_activity_at;
     });
-}
+// }
 
 
 
 // Get issues information
-function getIssues() {
+// function getIssues() {
     $.get(gitlabIssuesURL, function(gitlabData) {
         var numIssues = [];
         usernames.forEach(function(element){numIssues.push(0);});
@@ -65,12 +65,12 @@ function getIssues() {
         document.getElementById('beaudryIssues').innerHTML = numIssues[beaudry];
         document.getElementById('chrisIssues').innerHTML = numIssues[chris];
     });
-}
+// }
 
 
 
 // Get commits information
-function getCommits() {
+// function getCommits() {
     $.get(gitlabCommitsURL, function(gitlabData) {
         // gitlab usernames and commit usernames aren't necessarily the same. need a better way to match these up.
         var numCommits = [];
@@ -92,23 +92,25 @@ function getCommits() {
         document.getElementById('beaudryCommits').innerHTML = numCommits[beaudry];
         document.getElementById('chrisCommits').innerHTML = numCommits[chris];
     });
-}
+// }
 
 
 
 // Get tests information
-function getTests() {
-    // Haven't created any tests yet, should create tests for javascript at least
-    // Not sure how to count this dynamically, don't think gitlab has an automatic metric for it, will have to implement it through out own DB
-    numTests = [0,0,0,0,0,0];
+// function getTests() {
+    $.get(gitlabCommitsURL, function(gitlabData) {
+        // Haven't created any tests yet, should create tests for javascript at least
+        // Not sure how to count this dynamically, don't think gitlab has an automatic metric for it, will have to implement it through out own DB
+        numTests = [0,0,0,0,0,0];
 
-    document.getElementById('calebTests').innerHTML = numTests[caleb];
-    document.getElementById('travisTests').innerHTML = numTests[travis];
-    document.getElementById('brendanTests').innerHTML = numTests[brendan];
-    document.getElementById('wooTests').innerHTML = numTests[woo];
-    document.getElementById('beaudryTests').innerHTML = numTests[beaudry];
-    document.getElementById('chrisTests').innerHTML = numTests[chris];
-}
+        document.getElementById('calebTests').innerHTML = numTests[caleb];
+        document.getElementById('travisTests').innerHTML = numTests[travis];
+        document.getElementById('brendanTests').innerHTML = numTests[brendan];
+        document.getElementById('wooTests').innerHTML = numTests[woo];
+        document.getElementById('beaudryTests').innerHTML = numTests[beaudry];
+        document.getElementById('chrisTests').innerHTML = numTests[chris];
+    });
+// }
 
 
 
