@@ -30,19 +30,16 @@
                     usernames.push(element.username);
                 }
             );
-            // $("#memberNames").html(names);
             document.getElementById('memberNames').innerHTML = names;
-            // $("#memberUsernames").html(usernames);
-            // document.getElementById('memberUsernames').innerHTML = usernames;
+            document.getElementById('memberUsernames').innerHTML = usernames;
         }
     );
     // Get issues information
     $.get(
         "https://gitlab.com/api/v4/projects/7160520/issues?scope=all&per_page=100&private_token=eX7szajR1g6q1C9hyCr4",
         function(gitlabData) {
-            var numIssues = [0,0,0,0,0,0];
-            // numIssues.apply(null, new Array(10)).map(Number.prototype.valueOf,0);
-            // var allIssues = [];
+            var numIssues = [];
+            usernames.forEach(function(element){numIssues.push(0);});
             gitlabData.forEach(
                 function(element) {
                     var ii;
@@ -51,31 +48,33 @@
                             numIssues[ii] += 1;
                         }
                     }
-                    // allIssues.push(element.author.username);
                 }
             );
-            document.getElementById('issuesCreated').innerHTML = numIssues;
+            document.getElementById('numIssues').innerHTML = numIssues;
         }
     );
     // Get commits information
-    // $.get(
-    //     "https://gitlab.com/api/v4/projects/7160520/issues?scope=all&per_page=100&private_token=eX7szajR1g6q1C9hyCr4",
-    //     function(gitlabData) {
-    //         var numCommits = [0,0,0,0,0,0];
-    //         // numIssues.apply(null, new Array(10)).map(Number.prototype.valueOf,0);
-    //         // var allIssues = [];
-    //         gitlabData.forEach(
-    //             function(element) {
-    //                 var ii;
-    //                 for (ii = 0; ii < usernames.length; ii++) {
-    //                     if (element.author.username == usernames[ii]) {
-    //                         numIssues[ii] += 1;
-    //                     }
-    //                 }
-    //                 allIssues.push(element.author.username);
-    //             }
-    //         );
-    //         document.getElementById('issuesCreated').innerHTML = numIssues;
-    //     }
-    // );
+    $.get(
+        "https://gitlab.com/api/v4/projects/7160520/repository/commits?per_page=100&private_token=eX7szajR1g6q1C9hyCr4",
+        function(gitlabData) {
+            var authorNames = ["cmibarnwell", "Travis Llado", "brendan miller", "woojunan", "beaudrychase", "Chris"];
+            var numCommits = [];
+            authorNames.forEach(function(element){numCommits.push(0);});
+            gitlabData.forEach(
+                function(element) {
+                    var ii;
+                    for (ii = 0; ii < authorNames.length; ii++) {
+                        if (element.author_name == authorNames[ii]) {
+                            numCommits[ii] += 1;
+                        }
+                    }
+                }
+            );
+            document.getElementById('numCommits').innerHTML = numCommits;
+            
+            // Get tests information
+            numTests = [0,0,0,0,0,0];
+            document.getElementById('numTests').innerHTML = numTests;
+        }
+    );
 // });
