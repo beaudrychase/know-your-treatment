@@ -4,23 +4,19 @@
 
 
 
-// Some global variables, because everyone loves global variables
+// global variables
 var caleb = 0;
 var travis = 1;
 var brendan = 2;
 var woo = 3;
 var beaudry = 4;
 var chris = 5;
-// var usernames = [];
 var usernames =   ["cmibarnwell", "tllado",       "bpatmiller",     "woojunan", "beaudrychase", "csauce"];
 var authorNames = ["cmibarnwell", "Travis Llado", "brendan miller", "woojunan", "beaudrychase", "Chris" ];
-// var usernames = [];
-// var username["caleb"] = "cmibarnwell";
-// var username["travis"] = "tllado";
-// var username["brendan"] = "bpatmiller";
-// var username["woo"] = "woojunan";
-// var username["beaudry"] = "beaudrychase";
-// var username["chris"] = "csauce";
+
+var gitlabProjectURL =  "https://gitlab.com/api/v4/projects/7160520?private_token=eX7szajR1g6q1C9hyCr4";
+var gitlabIssuesURL =   "https://gitlab.com/api/v4/projects/7160520/issues?scope=all&per_page=100&private_token=eX7szajR1g6q1C9hyCr4";
+var gitlabCommitsURL =  "https://gitlab.com/api/v4/projects/7160520/repository/commits?per_page=100&private_token=eX7szajR1g6q1C9hyCr4";
 
 
 
@@ -36,77 +32,66 @@ window.onload = function getEverything() {
 
 // Get project information
 function getProject() {
-    $.get(
-        "https://gitlab.com/api/v4/projects/7160520?private_token=eX7szajR1g6q1C9hyCr4",
-        function(gitlabData) {
-            document.getElementById('ourDescription').innerHTML = gitlabData.description;
-            document.getElementById('ourName').innerHTML = gitlabData.name;
-            document.getElementById('ourURL').innerHTML = gitlabData.web_url;
-            document.getElementById("ourHREF").setAttribute("href",gitlabData.web_url);
-            document.getElementById('ourLastChange').innerHTML = gitlabData.last_activity_at;
-        }
-    );
+    $.get(gitlabProjectURL, function(gitlabData) {
+        document.getElementById('ourDescription').innerHTML = gitlabData.description;
+        document.getElementById('ourName').innerHTML = gitlabData.name;
+        document.getElementById('ourURL').innerHTML = gitlabData.web_url;
+        document.getElementById("ourHREF").setAttribute("href",gitlabData.web_url);
+        document.getElementById('ourLastChange').innerHTML = gitlabData.last_activity_at;
+    });
 }
 
 
 
 // Get issues information
 function getIssues() {
-    $.get(
-        "https://gitlab.com/api/v4/projects/7160520/issues?scope=all&per_page=100&private_token=eX7szajR1g6q1C9hyCr4",
-        function(gitlabData) {
-            var numIssues = [];
-            usernames.forEach(function(element){numIssues.push(0);});
+    $.get(gitlabIssuesURL, function(gitlabData) {
+        var numIssues = [];
+        usernames.forEach(function(element){numIssues.push(0);});
 
-            gitlabData.forEach(function(element) {
-                var ii;
-                for (ii = 0; ii < usernames.length; ii++) {
-                    if (element.author.username == usernames[ii]) {
-                        numIssues[ii] += 1;
-                    }
+        gitlabData.forEach(function(element) {
+            var ii;
+            for (ii = 0; ii < usernames.length; ii++) {
+                if (element.author.username == usernames[ii]) {
+                    numIssues[ii] += 1;
                 }
-            });
+            }
+        });
 
-            // document.getElementById('numIssues').innerHTML = numIssues;
-            document.getElementById('calebIssues').innerHTML = numIssues[caleb];
-            document.getElementById('travisIssues').innerHTML = numIssues[travis];
-            document.getElementById('brendanIssues').innerHTML = numIssues[brendan];
-            document.getElementById('wooIssues').innerHTML = numIssues[woo];
-            document.getElementById('beaudryIssues').innerHTML = numIssues[beaudry];
-            document.getElementById('chrisIssues').innerHTML = numIssues[chris];
-        }
-    );
+        document.getElementById('calebIssues').innerHTML = numIssues[caleb];
+        document.getElementById('travisIssues').innerHTML = numIssues[travis];
+        document.getElementById('brendanIssues').innerHTML = numIssues[brendan];
+        document.getElementById('wooIssues').innerHTML = numIssues[woo];
+        document.getElementById('beaudryIssues').innerHTML = numIssues[beaudry];
+        document.getElementById('chrisIssues').innerHTML = numIssues[chris];
+    });
 }
 
 
 
 // Get commits information
 function getCommits() {
-    $.get(
-        "https://gitlab.com/api/v4/projects/7160520/repository/commits?per_page=100&private_token=eX7szajR1g6q1C9hyCr4",
-        function(gitlabData) {
-            // gitlab usernames and commit usernames aren't necessarily the same. need a better way to match these up.
-            var numCommits = [];
-            authorNames.forEach(function(element){numCommits.push(0);});
+    $.get(gitlabCommitsURL, function(gitlabData) {
+        // gitlab usernames and commit usernames aren't necessarily the same. need a better way to match these up.
+        var numCommits = [];
+        authorNames.forEach(function(element){numCommits.push(0);});
 
-            gitlabData.forEach(function(element) {
-                var ii;
-                for (ii = 0; ii < authorNames.length; ii++) {
-                    if (element.author_name == authorNames[ii]) {
-                        numCommits[ii] += 1;
-                    }
+        gitlabData.forEach(function(element) {
+            var ii;
+            for (ii = 0; ii < authorNames.length; ii++) {
+                if (element.author_name == authorNames[ii]) {
+                    numCommits[ii] += 1;
                 }
-            });
+            }
+        });
 
-            // document.getElementById('numCommits').innerHTML = numCommits;
-            document.getElementById('calebCommits').innerHTML = numCommits[caleb];
-            document.getElementById('travisCommits').innerHTML = numCommits[travis];
-            document.getElementById('brendanCommits').innerHTML = numCommits[brendan];
-            document.getElementById('wooCommits').innerHTML = numCommits[woo];
-            document.getElementById('beaudryCommits').innerHTML = numCommits[beaudry];
-            document.getElementById('chrisCommits').innerHTML = numCommits[chris];
-        }
-    );
+        document.getElementById('calebCommits').innerHTML = numCommits[caleb];
+        document.getElementById('travisCommits').innerHTML = numCommits[travis];
+        document.getElementById('brendanCommits').innerHTML = numCommits[brendan];
+        document.getElementById('wooCommits').innerHTML = numCommits[woo];
+        document.getElementById('beaudryCommits').innerHTML = numCommits[beaudry];
+        document.getElementById('chrisCommits').innerHTML = numCommits[chris];
+    });
 }
 
 
@@ -117,7 +102,6 @@ function getTests() {
     // Not sure how to count this dynamically, don't think gitlab has an automatic metric for it, will have to implement it through out own DB
     numTests = [0,0,0,0,0,0];
 
-    // document.getElementById('numTests').innerHTML = numTests;
     document.getElementById('calebTests').innerHTML = numTests[caleb];
     document.getElementById('travisTests').innerHTML = numTests[travis];
     document.getElementById('brendanTests').innerHTML = numTests[brendan];
