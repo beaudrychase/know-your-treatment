@@ -13,6 +13,9 @@ Brendan Miller      |bmp665   |bpatmiller       |          12                |  
 Christopher Sauceda |ces3723  |csauce           |          12                |       11
 
 
+### Link to our Technical Report
+knowyourtreatment.gitbook.io/project
+
 ### GitLab SHA
 762d0b00281bcc9ac3f1fbfd2f63936aff8fe301
 
