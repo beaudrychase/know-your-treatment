@@ -1,7 +1,6 @@
 deploy:
-  image: python:latest
+  image: ictu/sshpass
   script:
-    - sudo apt-get install sshpass
     - sshpass -V
     - export SSHPASS=$USER_PASS
     - sshpass -e scp -o stricthostkeychecking=no -r website_backend/ ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com:/var/www/
