@@ -1,7 +1,8 @@
 var React = require('react');
+var MyNavbar = require('./MyNavbar').default;
 
 export default class App extends React.Component {
 	render() {
-		return <h1> Hello World </h1> ;
+		return <MyNavbar /> ;
 	}
 }
