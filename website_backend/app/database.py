@@ -1,23 +1,21 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-import flask_restless
+
 from urllib.request import urlopen
 import simplejson
 
 app = Flask(__name__)
+app.config.from_pyfile('flask.cfg')
 
-app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:pass@localhost/diseases'
 db = SQLAlchemy(app)
-
+"""
 class Medication(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode, unique=True)
-    treated_diseases = db.Column(db.ARRAY(Disease))
+    treated_diseases = db.Column(db.ARRAY(db.Model))
 
-
-    __init__(self, resource):
-    	self.name = test
+    def __init__(self, resource):
+    	self.name = 'test'
 
 
 class Charity(db.Model):
@@ -25,9 +23,9 @@ class Charity(db.Model):
     name = db.Column(db.Unicode, unique=True)
 
 
-    __init__(self, resource):
-    	self.name = test
-
+    def __init__(self, resource):
+    	self.name = 'test'
+"""
 
 class Disease(db.Model):
     id = db.Column(db.Integer, primary_key=True)

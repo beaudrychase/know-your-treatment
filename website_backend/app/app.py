@@ -11,4 +11,4 @@ manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=database.db)
 manager.create_api(Disease, methods=['GET'])
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80)
+    app.run(host="0.0.0.0", port=8080)
