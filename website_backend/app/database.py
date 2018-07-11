@@ -10,6 +10,25 @@ app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:pass@localhost/diseases'
 db = SQLAlchemy(app)
 
+class Medication(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Unicode, unique=True)
+    treated_diseases = db.Column(db.ARRAY(Disease))
+
+
+    __init__(self, resource):
+    	self.name = test
+
+
+class Charity(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Unicode, unique=True)
+
+
+    __init__(self, resource):
+    	self.name = test
+
+
 class Disease(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode, unique=True)
