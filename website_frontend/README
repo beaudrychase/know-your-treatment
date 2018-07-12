@@ -1,0 +1,7 @@
+INSTRUCTIONS FOR SETTING UP SERVER
+
+1. Install Nodejs (I installed Nodejs from tar.xz from Nodejs' website and it includes npm the js package manager)
+2. cd into website_frontend directory and use npm install to install all dependencies needed for the server
+3. use "npm run build" to compile all .jsx into run formats
+4. use "npm run start" to create the webpack instance
+5. by default, localhost:8080 should be able to access the website
