@@ -1,7 +1,7 @@
 FROM python:3
 
 RUN apt-get update            && \
-    apt-get -y install sudo vim postgresql
+    apt-get -y install vim
 
 RUN pip install --upgrade pip  && \
     pip --version              && \
@@ -14,10 +14,8 @@ RUN pip install --upgrade pip  && \
     pip install flask-restless && \
     pip install flask-mysql    && \
     pip install flask-sqlalchemy && \
-    pip install simplejson      &&\
-    pip install psycopg2       &&\
     pip list
 
 EXPOSE 8080
 
-ENTRYPOINT /app/init.sh && /bin/bash
+CMD /bin/bash
