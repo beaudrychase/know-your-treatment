@@ -1,14 +1,15 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import IntegrityError
 
 from urllib.request import urlopen
-import simplejson
+import json
 
 app = Flask(__name__)
-app.config.from_pyfile('flask.cfg')
-
+app.config['DEBUG'] = True
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
-db.create_all()
 
 """
 class Medication(db.Model):
@@ -17,7 +18,9 @@ class Medication(db.Model):
     treated_diseases = db.Column(db.ARRAY(db.Model))
 
     def __init__(self, resource):
-    	self.name = 'test'
+        self.name = 'test'
+
+
 """
 
 class Charity(db.Model):
@@ -62,14 +65,13 @@ class Charity(db.Model):
         self.parent_ein = resource['parent_ein']
         self.longitude = resource['longitude']
         latitude = resource['latitude']
-    	
 
 
 class Disease(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode, unique=True)
-    facts = db.Column(db.Unicode)
-    symptoms = db.Column(db.ARRAY(db.Unicode))
+    #facts = db.Column(db.Unicode)
+    symptoms = db.Column(db.Unicode)
     transmission = db.Column(db.Unicode)
     diagnosis = db.Column(db.Unicode)
     treatment = db.Column(db.Unicode)
@@ -79,38 +81,39 @@ class Disease(db.Model):
     wiki = db.Column(db.Unicode)
 
     def __init__(self, resource):
-    	self.name = resource['name'][: -6] #the -6 removes ' : WHO' from the end of the name
-    	self.facts = resource['facts']
-    	self.symptoms = resource['symptoms']
-    	self.transmission = resource['transmission']
-    	self.diagnosis = resource['diagnosis']
-    	self.treatment = resource['treatment']
-    	self.prevention = resource['prevention']
-    	self.more = resource['more']
-    	self.is_active = resource['is_active'];
+        self.name = resource['name'][: -6] #the -6 removes ' : WHO' from the end of the name
+        #self.facts = resource['facts']
+        self.symptoms = resource['symptoms']
+        self.transmission = resource['transmission']
+        self.diagnosis = resource['diagnosis']
+        self.treatment = resource['treatment']
+        self.prevention = resource['prevention']
+        self.more = resource['more']
+        self.is_active = resource['is_active']
+        self.wiki = ''
 
-    	#url = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=' + self.name
-    	#data = simplejson.load(urlopen(url))
-    	#The problem is that the page has a unique number that we need to get to access the
-    	#nested dict, this finds the number and then uses it to get the contents of that key.
-    	#self.wiki = data['query']['pages'][next(iter(data['query']['pages']))]['extract']
+        #url = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=' + self.name
+        #data = simplejson.load(urlopen(url))
+        #The problem is that the page has a unique number that we need to get to access the
+        #nested dict, this finds the number and then uses it to get the contents of that key.
+        #self.wiki = data['query']['pages'][next(iter(data['query']['pages']))]['extract']
 
-def initDiseases():
-	url = 'https://disease-info-api.herokuapp.com/diseases.json'
-	data = simplejson.load(urlopen(url))
-	for info in data['diseases']:
-			db.session.add( Disease(info) )
-			#db.session.commit()
+def initDisease():
+    url = 'https://disease-info-api.herokuapp.com/diseases.json'
+    data = json.load(urlopen(url))
+    for info in data['diseases']:
+        try:
+            db.session.add( Disease(info) )
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+            # in case of adding duplicates
 
-def initCharities():
+def initCharity():
     url = 'http://data.orghunter.com/v1/charitysearch?user_key=5090f8b7b0c373370039798d01066edf&searchTerm=AIDs'
     data = simplejson.load(urlopen(url))
-    print(data)
+    #print(data)
 
 def clearDB():
     db.reflect()
     db.drop_all()
-
-initCharities()
-db.create_all()
-initDiseases()
