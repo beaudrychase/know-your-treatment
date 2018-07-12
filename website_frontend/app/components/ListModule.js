@@ -10,12 +10,12 @@ export default class ListModule extends React.Component {
 	}
 
 	componentWillMount() {
-		fetch('https://disease-info-api.herokuapp.com/diseases.json')
+		fetch('http://api.knowyourtreatment.com/api/disease')
 		.then(results => {
 			return results.json();
 		}).then(data => {
-			this.setState({names: data.diseases.map((d) => {
-				/*console.log(d.name);*/
+			this.setState({names: data.objects.map((d) => {
+				console.log(d.name);
 				return d.name;
 			})});
 			/*console.log(this.state.names);*/
