@@ -8,11 +8,13 @@ db.create_all()
 db.session.commit()
 database.initDisease()
 database.initCharity()
-#database.initMedication()
+# database.initMedication()
+
 
 @app.route('/')
 def hello_world():
-	return 'go to /api/disease to see our disease endpoint'
+    return 'go to /api/[disease/charity/medication] to see our api endpoints'
+
 
 manager = flask_restless.APIManager(app, flask_sqlalchemy_db=database.db)
 disease_blueprint = manager.create_api(database.Disease, methods=['GET'])

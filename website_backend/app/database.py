@@ -23,6 +23,7 @@ class Medication(db.Model):
 
 """
 
+
 class Charity(db.Model):
     ein = db.Column(db.Integer, primary_key=True)
     charityName = db.Column(db.Unicode, unique=True)
@@ -43,7 +44,7 @@ class Charity(db.Model):
     longitude = db.Column(db.Float)
     latitude = db.Column(db.Float)
     disease_id = db.Column(db.Integer, db.ForeignKey('disease.id'),
-        nullable=False)
+                           nullable=False)
 
     def __init__(self, resource, disease_id):
         self.ein = resource['ein']
@@ -82,7 +83,8 @@ class Disease(db.Model):
     charities = db.relationship('Charity', backref='disease', lazy=True)
 
     def __init__(self, resource):
-        self.name = resource['name'][: -6] #the -6 removes ' : WHO' from the end of the name
+        # the -6 removes ' : WHO' from the end of the name
+        self.name = resource['name'][: -6]
         #self.facts = resource['facts']
         self.symptoms = resource['symptoms']
         self.transmission = resource['transmission']
@@ -95,32 +97,35 @@ class Disease(db.Model):
 
         #url = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=' + self.name
         #data = simplejson.load(urlopen(url))
-        #The problem is that the page has a unique number that we need to get to access the
-        #nested dict, this finds the number and then uses it to get the contents of that key.
+        # The problem is that the page has a unique number that we need to get to access the
+        # nested dict, this finds the number and then uses it to get the contents of that key.
         #self.wiki = data['query']['pages'][next(iter(data['query']['pages']))]['extract']
+
 
 def initDisease():
     url = 'https://disease-info-api.herokuapp.com/diseases.json'
     data = json.load(urlopen(url))
     for info in data['diseases']:
         try:
-            db.session.add( Disease(info) )
+            db.session.add(Disease(info))
             db.session.commit()
         except IntegrityError:
             db.session.rollback()
             # in case of adding duplicates
 
+
 def initCharity():
     baseUrl = 'http://data.orghunter.com/v1/charitysearch?user_key=5090f8b7b0c373370039798d01066edf&rows=2&searchTerm='
     for disease in Disease.query.all():
-        data = json.load( urlopen(baseUrl + disease.name.replace(' ','%20')) )
+        data = json.load(urlopen(baseUrl + disease.name.replace(' ', '%20')))
         for info in data['data']:
             try:
-                db.session.add( Charity(info, disease.id) )
+                db.session.add(Charity(info, disease.id))
                 db.session.commit()
             except IntegrityError:
                 db.session.rollback()
                 # in case of adding duplicates
+
 
 def clearDB():
     db.reflect()
