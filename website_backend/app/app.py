@@ -5,9 +5,6 @@ from database import app as app
 from database import db as db
 import database
 
-
-
-
 def initialize():
 	database.clearDB()
 	db.create_all()
@@ -32,4 +29,4 @@ disease_blueprint = manager.create_api(database.Disease, methods=['GET'])
 charity_blueprint = manager.create_api(database.Charity, methods=['GET'])
 treatment_blueprint = manager.create_api(database.Treatment, methods=['GET'])
 # Make available to all domains
-app.run(host="0.0.0.0", port=8080, use_reloader=False)
+app.run(host="0.0.0.0", port=80, use_reloader=False)
