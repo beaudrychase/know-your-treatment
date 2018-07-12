@@ -13,6 +13,7 @@ RUN pip install --upgrade pip  && \
     pip install flask          && \
     pip install flask-restless && \
     pip install flask-mysql    && \
+    pip install flask-cors     && \
     pip install flask-sqlalchemy && \
     pip install requests        &&\
     pip list
