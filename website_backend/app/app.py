@@ -5,9 +5,6 @@ from database import app as app
 from database import db as db
 import database
 
-
-
-
 def initialize():
 	database.clearDB()
 	db.create_all()
@@ -23,13 +20,13 @@ def home_page():
    			'/api/charity/  --  ' + str([x.charityName for x in database.Charity.query.all()]) + '<br>' +\
     		'/api/treatment/  --  ' + str([x.name for x in database.Treatment.query.all()])
 
-if __name__ == "__main__":
-    app = Flask(__name__)
-    CORS(app)
-    initialize()
-    manager = flask_restless.APIManager(app, flask_sqlalchemy_db=database.db)
-    disease_blueprint = manager.create_api(database.Disease, methods=['GET'])
-    charity_blueprint = manager.create_api(database.Charity, methods=['GET'])
-    treatment_blueprint = manager.create_api(database.Treatment, methods=['GET'])
-    # Make available to all domains
-    app.run(host="0.0.0.0", port=8080, use_reloader=False)
+
+app = Flask(__name__)
+CORS(app)
+initialize()
+manager = flask_restless.APIManager(app, flask_sqlalchemy_db=database.db)
+disease_blueprint = manager.create_api(database.Disease, methods=['GET'])
+charity_blueprint = manager.create_api(database.Charity, methods=['GET'])
+treatment_blueprint = manager.create_api(database.Treatment, methods=['GET'])
+# Make available to all domains
+app.run(host="0.0.0.0", port=80, use_reloader=False)
