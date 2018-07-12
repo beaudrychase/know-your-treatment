@@ -1,7 +1,7 @@
 FROM python:3
 
 RUN apt-get update            && \
-    apt-get -y install vim postgresql
+    apt-get -y install sudo vim postgresql
 
 RUN pip install --upgrade pip  && \
     pip --version              && \
@@ -19,11 +19,5 @@ RUN pip install --upgrade pip  && \
     pip list
 
 EXPOSE 8080
-
-# postgres setup
-ENV POSTGRES_URL="127.0.0.1:5432"
-ENV POSTGRES_USER="postgres"
-ENV POSTGRES_PW="dbpw"
-ENV POSTGRES_DB="kyt"
 
 CMD bash
