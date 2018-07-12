@@ -20,9 +20,9 @@ backend_deploy:
     - date
     - uname -a
     - ls -l
-  script:
     - echo "$USER_PASS" > idb-backend.pem
     - chmod 400 idb-backend.pem
+  script:
     - echo "--- tar over ssh ---"
     - tar cpf - ./website_backend | ssh -o StrictHostKeyChecking=no -v -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com "tar xpf - -C /home/ec2-user"
     - echo "--- ssh ---"
