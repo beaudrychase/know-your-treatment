@@ -19,6 +19,6 @@ RUN pip install --upgrade pip  && \
 
 ENV FLASK_DEBUG=1
 ENV FLASK_APP=app.py
-EXPOSE 8080
+EXPOSE 80
 
 CMD /bin/bash
