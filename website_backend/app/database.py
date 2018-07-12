@@ -4,6 +4,7 @@ from sqlalchemy.exc import IntegrityError
 
 from urllib.request import urlopen
 import json
+import requests
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -11,17 +12,23 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
 
-"""
-class Medication(db.Model):
+
+# for many-to-many relations from diseases to various treatments
+Disease_Treatment = db.Table('disease_treatment',
+    db.Column('treatment_id', db.Integer, db.ForeignKey('treatment.id'), primary_key=True),
+    db.Column('disease_id', db.Integer, db.ForeignKey('disease.id'), primary_key=True)
+)
+
+class Treatment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode, unique=True)
-    treated_diseases = db.Column(db.ARRAY(db.Model))
+    treatment_type = db.Column(db.Unicode)
+    text = db.Column(db.Unicode)
 
     def __init__(self, resource):
-        self.name = 'test'
-
-
-"""
+        self.name = resource['name']
+        self.treatment_type = resource['treatment_type']
+        self.info = resource['text']
 
 
 class Charity(db.Model):
@@ -44,7 +51,7 @@ class Charity(db.Model):
     longitude = db.Column(db.Float)
     latitude = db.Column(db.Float)
     disease_id = db.Column(db.Integer, db.ForeignKey('disease.id'),
-                           nullable=False)
+        nullable=False)
 
     def __init__(self, resource, disease_id):
         self.ein = resource['ein']
@@ -81,10 +88,11 @@ class Disease(db.Model):
     is_active = db.Column(db.Boolean)
     wiki = db.Column(db.Unicode)
     charities = db.relationship('Charity', backref='disease', lazy=True)
+    treatments = db.relationship('Treatment', secondary=Disease_Treatment, lazy='select',
+    backref=db.backref('diseases', lazy=True))
 
     def __init__(self, resource):
-        # the -6 removes ' : WHO' from the end of the name
-        self.name = resource['name'][: -6]
+        self.name = resource['name'][: -6] #the -6 removes ' : WHO' from the end of the name
         #self.facts = resource['facts']
         self.symptoms = resource['symptoms']
         self.transmission = resource['transmission']
@@ -97,35 +105,77 @@ class Disease(db.Model):
 
         #url = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=' + self.name
         #data = simplejson.load(urlopen(url))
-        # The problem is that the page has a unique number that we need to get to access the
-        # nested dict, this finds the number and then uses it to get the contents of that key.
+        #The problem is that the page has a unique number that we need to get to access the
+        #nested dict, this finds the number and then uses it to get the contents of that key.
         #self.wiki = data['query']['pages'][next(iter(data['query']['pages']))]['extract']
-
 
 def initDisease():
     url = 'https://disease-info-api.herokuapp.com/diseases.json'
     data = json.load(urlopen(url))
     for info in data['diseases']:
         try:
-            db.session.add(Disease(info))
+            db.session.add( Disease(info) )
             db.session.commit()
         except IntegrityError:
             db.session.rollback()
             # in case of adding duplicates
 
-
 def initCharity():
     baseUrl = 'http://data.orghunter.com/v1/charitysearch?user_key=5090f8b7b0c373370039798d01066edf&rows=2&searchTerm='
     for disease in Disease.query.all():
-        data = json.load(urlopen(baseUrl + disease.name.replace(' ', '%20')))
+        data = json.load( urlopen(baseUrl + disease.name.replace(' ','%20')) )
         for info in data['data']:
             try:
-                db.session.add(Charity(info, disease.id))
+                db.session.add( Charity(info, disease.id) )
                 db.session.commit()
             except IntegrityError:
                 db.session.rollback()
                 # in case of adding duplicates
 
+def initTreatment():
+    for disease in Disease.query.all():
+        print(disease.name, '------------------------')
+        # query wikipedia for a given condition  
+        searchUrl = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=&srsearch='+(disease.name).replace(' ','%20')
+        print(searchUrl)
+        disease_wiki_title = json.load(urlopen(searchUrl))['query']['search'][0]['title'].replace(' ', '%20')
+
+        baseUrl = 'https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=json&rvsection=0&rvparse&titles='+disease_wiki_title
+        data = json.load( urlopen(baseUrl) )
+        textData = (next(iter(data['query']['pages'].values()))['revisions'][0]['*'])
+        textList = textData.split('<tr>')
+        # iterate through the wikipedia infobox, grab only certain fields
+        for section in textList:
+            sectionName = section.split('</th')[0][16:]
+            if sectionName in ['Medication', 'Prevention', 'Treatment']:
+                # if there are links to other wiki pages
+                text = ''
+                if '/wiki/' in section:
+                    links = (section.split('<a href='))
+                    print(links)
+
+                    suffix = section.split('/wiki/')[1].split('"')[0]
+                    sectionUrl = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='+suffix
+                    print('sectionUrl', sectionUrl)
+                    text = next(iter(json.load( urlopen(sectionUrl) )['query']['pages'].values()))['extract']
+                # otherwise
+                #else:
+                    #text = section.split('</th><td>\n')[1].split('<')[0]
+                    #print(text)
+
+                    if (text!=''):
+                        try:
+                            info = {'name':'',
+                                    'treatment_type':sectionName,
+                                    'text':text,
+                                    'wiki_link':suffix}
+                            #db.session.add( Treatment(info) )
+                            #db.session.commit()
+                        except IntegrityError:
+                            pass
+                            db.session.rollback()
+                            # in case of adding duplicates
+   
 
 def clearDB():
     db.reflect()

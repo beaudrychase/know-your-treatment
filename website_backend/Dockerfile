@@ -14,6 +14,7 @@ RUN pip install --upgrade pip  && \
     pip install flask-restless && \
     pip install flask-mysql    && \
     pip install flask-sqlalchemy && \
+    pip install requests        &&\
     pip list
 
 EXPOSE 8080
