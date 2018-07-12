@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 import flask_restless
 from database import app as app
 from database import db as db
@@ -28,4 +29,6 @@ charity_blueprint = manager.create_api(database.Charity, methods=['GET'])
 treatment_blueprint = manager.create_api(database.Treatment, methods=['GET'])
 
 if __name__ == "__main__":
+    app = Flask(__name__)
+    CORS(app)
     app.run(host="0.0.0.0", port=80, use_reloader=False)
