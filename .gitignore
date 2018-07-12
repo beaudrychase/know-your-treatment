@@ -2,3 +2,4 @@
 *.pem
 *.pyc
 website_backend/app/__pycache/
+website_backend/app/init.sh
