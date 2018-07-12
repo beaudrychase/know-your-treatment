@@ -5,7 +5,7 @@ backend_test:
     - uname -a
     - ls -l
   script:
-    - python /app/test.py
+    - python website_backend/app/test.py
 
 backend_deploy:
   only:
