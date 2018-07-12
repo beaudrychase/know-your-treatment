@@ -2,7 +2,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 
-from urllib.request import urlopen
 import json
 import requests
 
@@ -101,7 +100,7 @@ class Disease(db.Model):
 
 def initDisease():
     url = 'https://disease-info-api.herokuapp.com/diseases.json'
-    data = json.load(urlopen(url))
+    data = requests.get(url).json()
     for info in data['diseases']:
         try:
             db.session.add( Disease(info) )
@@ -115,7 +114,7 @@ def initDisease():
 def initCharity():
     baseUrl = 'http://data.orghunter.com/v1/charitysearch?user_key=5090f8b7b0c373370039798d01066edf&rows=2&searchTerm='
     for disease in Disease.query.all():
-        data = json.load( urlopen(baseUrl + disease.name.replace(' ','%20')) )
+        data = requests.get(baseUrl + disease.name.replace(' ','%20')).json()
         for info in data['data']:
             try:
                 db.session.add( Charity(info, disease.id) )
@@ -129,12 +128,14 @@ def initCharity():
 def initTreatment():
     baseUrl = 'https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=json&rvsection=0&rvparse&titles='
     baseSearchUrl = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=&srsearch='
+    j = 0
     for disease in Disease.query.all():
+        j+=1
         # query wikipedia for a given condition  
         searchUrl = baseSearchUrl+(disease.name).replace(' ','%20')
         disease_wiki_title = requests.get(searchUrl).json()['query']['search'][0]['title'].replace(' ', '%20')
         # access the page
-        data = json.load( urlopen(baseUrl+disease_wiki_title) )
+        data = requests.get(baseUrl+disease_wiki_title).json()
         textData = (next(iter(data['query']['pages'].values()))['revisions'][0]['*'])
         textList = textData.split('<tr>')
         # iterate through the wikipedia infobox, grab only certain fields
@@ -150,12 +151,12 @@ def initTreatment():
 
                     suffix = section.split('/wiki/')[1].split('"')[0]
                     sectionUrl = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='+suffix
-                    text = next(iter(json.load( urlopen(sectionUrl) )['query']['pages'].values()))['extract']
+                    text = next(iter(requests.get(sectionUrl).json()['query']['pages'].values()))['extract']
                     # in case the link requires a redirect/is a subpage
                     if (text==''):
                         sectionSearchUrl = baseSearchUrl+suffix
-                        treatment_wiki_title = json.load(urlopen(searchUrl))['query']['search'][0]['title'].replace(' ', '%20')
-                        text = next(iter(json.load( urlopen('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='+treatment_wiki_title) )['query']['pages'].values()))['extract']
+                        treatment_wiki_title = requests.get(searchUrl).json()['query']['search'][0]['title'].replace(' ', '%20')
+                        text = next(iter(requests.get('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='+treatment_wiki_title).json()['query']['pages'].values()))['extract']
 
                     if (text!=''):
                         try:
@@ -164,12 +165,13 @@ def initTreatment():
                                     'text':text}
                             db.session.add( Treatment(info) )
                             db.session.commit()
+                            disease.treatments = disease.treatments + [Treatment.query.filter_by(name=suffix.replace('_',' ')).first()]
+                            db.session.commit()
                         except IntegrityError:
                             print('IntegrityError', info['name'])
                             db.session.rollback()
                             # in case of adding duplicates
-                        disease.treatments = disease.treatments + [Treatment.query.filter_by(name=suffix.replace('_',' ')).first()]
-                        db.session.commit()
+                        
 
     print('initialized treatment table with', j, 'objects')
    

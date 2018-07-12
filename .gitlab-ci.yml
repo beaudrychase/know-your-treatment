@@ -1,6 +1,8 @@
 deploy:
+  only:
+    release
   image: python:latest
   script:
-    - echo $USER_PASS > idb-backend.pem
+    - echo "$USER_PASS" > idb-backend.pem
     - chmod 400 idb-backend.pem
     - scp -i "idb-backend.pem" -r website_backend/ ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com:/var/www/
