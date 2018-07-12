@@ -9,9 +9,18 @@ backend_test:
 
 backend_deploy:
   only:
-    - release
-  image: python:latest
+    - deploy
+  image: "registry.gitlab.com/cmibarnwell/idb-project-swe:latest"
+  before_script:
+    - date
+    - uname -a
+    - ls -l
   script:
-    - echo "$USER_PASS" > idb-backend.pem
+    - echo "$BE_EC2_PASS" > idb-backend.pem
     - chmod 400 idb-backend.pem
-    - scp -i "idb-backend.pem" -r website_backend/ ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com:/var/www/
+    - scp -i "idb-backend.pem" -r website_backend/ ubuntu@ec2-34-238-244-3.compute-1.amazonaws.com:/var/www
+    - ssh -i "idb-backend.pem" ubuntu@ec2-34-238-244-3.compute-1.amazonaws.com
+    - sudo apt update
+    - cd /var/www/website_backend
+    - sudo docker build -t backend .
+    - sudo docker run -it -v /var/www/website_backend/app:/app -w /app -p 8080 backend python test.py

@@ -13,9 +13,14 @@ def initialize():
 	database.initTreatment(10)
 	print('all tables initialized')
 
+initialize()
+
 @app.route('/')
-def hello_world():
-    return 'go to /api/[disease/charity/treatment] to see our api endpoints'
+def home_page():
+    return	'/api/disease/  --  ' + str([x.name for x in database.Disease.query.all()]) + '<br>' +\
+   			'/api/charity/  --  ' + str([x.charityName for x in database.Charity.query.all()]) + '<br>' +\
+    		'/api/treatment/  --  ' + str([x.name for x in database.Treatment.query.all()])
+
 
 manager = flask_restless.APIManager(app, flask_sqlalchemy_db=database.db)
 disease_blueprint = manager.create_api(database.Disease, methods=['GET'])

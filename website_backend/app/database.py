@@ -8,7 +8,7 @@ import requests
 app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/kyt.db'
 db = SQLAlchemy(app)
 
 # for many-to-many relations from diseases to various treatments
