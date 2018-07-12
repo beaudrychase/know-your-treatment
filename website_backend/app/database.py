@@ -4,10 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from urllib.request import urlopen
 import simplejson
 
-app = Flask(__name__)
-app.config.from_pyfile('flask.cfg')
-
-db = SQLAlchemy(app)
 """
 class Medication(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -68,5 +64,11 @@ def clearDB():
     db.reflect()
     db.drop_all()
 
+
+app = Flask(__name__)
+app.config.from_pyfile('flask.cfg')
+
+db = SQLAlchemy(app)
 db.create_all()
+
 initDiseases()
