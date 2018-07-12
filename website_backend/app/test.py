@@ -1,11 +1,15 @@
 import app
+from unittest import main, TestCase
 
-print('beginning test')
-app.initialize()
-print('app.Disease.query.all()')
-print([x.name for x in app.database.Disease.query.all()])
-print('app.Charity.query.all()')
-print([x.charityName for x in app.database.Charity.query.all()])
-print('app.Treatment.query.all()')
-print([x.name for x in app.database.Treatment.query.all()])
-print('ending test')
+class MyUnitTests (TestCase) :
+    def test1 (self) :
+        self.assertNotEqual([x.name for x in app.database.Disease.query.all()], [])
+
+    def test2 (self) :
+        self.assertNotEqual([x.charityName for x in app.database.Charity.query.all()], [])
+
+    def test3 (self) :
+        self.assertNotEqual([x.name for x in app.database.Treatment.query.all()], [])
+
+if __name__ == "__main__" : # pragma: no cover
+    main()
