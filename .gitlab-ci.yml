@@ -1,17 +1,19 @@
 backend_test:
-  image: "registry.gitlab.com/cmibarnwell/idb-project-swe:latest"
+  image: "python:latest"
   before_script:
     - date
     - uname -a
     - ls -l
+    - docker build -t backend ./website_backend
+    - docker run -v ./website_backend/app:/app -w /app -p 80:80 backend
   script:
-    - python website_backend/app/test.py
+    - docker exec $(docker ps --format "{{.Names}}") python website_backend/app/test.py
 
 backend_deploy:
   only:
     variables:
       - $CI_COMMIT_MESSAGE =~ /deploy/i
-  image: "registry.gitlab.com/cmibarnwell/idb-project-swe:latest"
+  image: "python.latest"
   before_script:
     - date
     - uname -a
