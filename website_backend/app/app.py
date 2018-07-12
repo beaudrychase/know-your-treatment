@@ -9,7 +9,7 @@ def hello_world():
     return 'Hello, World!'
 
 manager = flask_restless.APIManager(app, flask_sqlalchemy_db=database.db)
-disease_blueprint = manager.create_api(database.Disease, methods=['GET'])
+disease_blueprint = manager.create_api('diseases', database.Disease, methods=['GET'])
 
 
 if __name__ == "__main__":
