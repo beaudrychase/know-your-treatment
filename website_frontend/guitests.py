@@ -49,6 +49,7 @@ class GUI_tests(unittest.TestCase) :
 		self.assertEqual(websiteURL + "about", driver.current_url)
 		driver.close()
 
+	# Tests the links on the home page
 	def test_homepage_links(self) :
 		websiteURL = self.websiteURL
 		driver = self.driver
@@ -58,6 +59,7 @@ class GUI_tests(unittest.TestCase) :
 		self.assertEqual(websiteURL + "charities", driver.current_url)
 		driver.close()
 
+	# Tests the links on the about page
 	def test_about_page_links(self) :
 		websiteURL = self.websiteURL
 		driver = self.driver
