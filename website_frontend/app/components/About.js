@@ -7,9 +7,9 @@ const element1 = (
     </div>
 );
 
+const data = fetch("https://gitlab.com/api/v4/projects/7160520?private_token=eX7szajR1g6q1C9hyCr4");
 
-
-const element2 = (
+const staticContent = (
     <div>
         <h2 class="display-3 text-center">About Our Project:</h2>
         <table align="center" width="800">
@@ -154,9 +154,5 @@ const element2 = (
 );
 
 export default class About extends React.Component {
-	render() {
-		return (
-            element2
-        );
-	}
+	render() {return(staticContent);}
 }
