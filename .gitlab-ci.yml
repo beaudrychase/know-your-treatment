@@ -17,12 +17,12 @@ backend_deploy:
     - uname -a
     - ls -l
   script:
-    - echo "$BE_EC2_PASS"
-    - echo "$BE_EC2_PASS" > idb-backend.pem
+    - echo "$USER_PASS"
+    - echo "$USER_PASS" > idb-backend.pem
     - chmod 400 idb-backend.pem
-    - scp -v -o StrictHostKeyChecking=no -i "idb-backend.pem" -r website_backend/ ubuntu@ec2-34-238-244-3.compute-1.amazonaws.com:/var/www
-    - ssh -v -o StrictHostKeyChecking=no -i "idb-backend.pem" ubuntu@ec2-34-238-244-3.compute-1.amazonaws.com
+    - scp -v -o StrictHostKeyChecking=no -i "idb-backend.pem" -r website_backend/ ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com:/var/www
+    - ssh -v -o StrictHostKeyChecking=no -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com
     - sudo apt update
     - cd /var/www/website_backend
     - sudo docker build -t backend .
-    - sudo docker run -it -v /var/www/website_backend/app:/app -w /app -p 8080 backend python test.py
+    - sudo docker run -it -v /var/www/website_backend/app:/app -w /app -p 80:80 backend python test.py
