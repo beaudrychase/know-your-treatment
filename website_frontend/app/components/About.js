@@ -7,6 +7,8 @@ const element1 = (
     </div>
 );
 
+
+
 const element2 = (
     <div>
         <h2 class="display-3 text-center">About Our Project:</h2>
@@ -55,24 +57,24 @@ const element2 = (
                 </td>
             </tr>
             <tr>
-                <td>
+                <td><p>
                     Responsibilities: Fullstack<br></br>
                     Number of commits: <span id="calebCommits"></span><br></br>
                     Number of issues: <span id="calebIssues"></span><br></br>
-                    Number of tests: <span id="calebTests"></span><br></br>
-                </td>
-                <td>
+                    Number of tests: <span id="calebTests"></span>
+                </p></td>
+                <td><p>
                     Responsibilities: Frontend<br></br>
                     Number of commits: <span id="travisCommits"></span><br></br>
                     Number of issues: <span id="travisIssues"></span><br></br>
-                    Number of tests: <span id="travisTests"></span><br></br>
-                </td>
-                <td>
+                    Number of tests: <span id="travisTests"></span>
+                </p></td>
+                <td><p>
                     Responsibilities: Backend<br></br>
                     Number of commits: <span id="brendanCommits"></span><br></br>
                     Number of issues: <span id="brendanIssues"></span><br></br>
-                    Number of tests: <span id="brendanTests"></span><br></br>
-                </td>
+                    Number of tests: <span id="brendanTests"></span>
+                </p></td>
             </tr>
             <tr>
                 <td>
@@ -108,24 +110,24 @@ const element2 = (
                 </td>
             </tr>
             <tr>
-                <td>
-                    Responsibilities: Frontend<br></br>
+                <td><p>
+                    Responsibilities: Fullstack<br></br>
                     Number of commits: <span id="wooCommits"></span><br></br>
                     Number of issues: <span id="wooIssues"></span><br></br>
-                    Number of tests: <span id="wooTests"></span><br></br>
-                </td>
-                <td>
+                    Number of tests: <span id="wooTests"></span>
+                </p></td>
+                <td><p>
                     Responsibilities: Backend<br></br>
                     Number of commits: <span id="beaudryCommits"></span><br></br>
                     Number of issues: <span id="beaudryIssues"></span><br></br>
-                    Number of tests: <span id="beaudryTests"></span><br></br>
-                </td>
-                <td>
-                    Responsibilities: Fullstack<br></br>
+                    Number of tests: <span id="beaudryTests"></span>
+                </p></td>
+                <td><p>
+                    Responsibilities: Frontend<br></br>
                     Number of commits: <span id="chrisCommits"></span><br></br>
                     Number of issues: <span id="chrisIssues"></span><br></br>
-                    Number of tests: <span id="chrisTests"></span><br></br>
-                </td>
+                    Number of tests: <span id="chrisTests"></span>
+                </p></td>
             </tr>
         </table>
         <table align="center" width="800">
