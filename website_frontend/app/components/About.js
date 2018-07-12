@@ -21,13 +21,13 @@ const element2 = (
             </tr>
             <tr>
                 <td>
-                    <img src="assets/images/profile_caleb.jpg" width="200"></img>
+                    <img src="profile_caleb.jpg" width="200"></img>
                 </td>
                 <td>
-                    <img src="assets/images/profile_travis.jpg" width="200"></img>
+                    <img src="profile_travis.jpg" width="200"></img>
                 </td>
                 <td>
-                    <img src="assets/images/profile_brendan.jpg" width="200"></img>
+                    <img src="profile_brendan.jpg" width="200"></img>
                 </td>
             </tr>
             <tr>
@@ -74,13 +74,13 @@ const element2 = (
             </tr>
             <tr>
                 <td>
-                    <img src="assets/images/profile_woo.jpg" width="200"></img>
+                    <img src="profile_woo.jpg" width="200"></img>
                 </td>
                 <td>
-                    <img src="assets/images/profile_beaudry.jpg" width="200"></img>
+                    <img src="profile_beaudry.jpg" width="200"></img>
                 </td>
                 <td>
-                    <img src="assets/images/profile_chris.jpg" width="200"></img>
+                    <img src="profile_chris.jpg" width="200"></img>
                 </td>
             </tr>
             <tr>
@@ -148,9 +148,9 @@ const element2 = (
 );
 
 export default class About extends React.Component {
-    render() {
-        return (
+	render() {
+		return (
             element2
         );
-    }
+	}
 }
