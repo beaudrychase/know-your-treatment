@@ -16,16 +16,52 @@ class Medication(db.Model):
 
     def __init__(self, resource):
     	self.name = 'test'
-
+"""
 
 class Charity(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Unicode, unique=True)
+    ein = db.Column(db.Integer, primary_key=True)
+    charityName = db.Column(db.Unicode, unique=True)
+    url = db.Column(db.Unicode)
+    donationUrl = db.Column(db.Unicode)
+    city = db.Column(db.Unicode)
+    state = db.Column(db.Unicode)
+    zipCode = db.Column(db.Unicode)
+    start = db.Column(db.Integer)
+    rows = db.Column(db.Integer)
+    recordCount = db.Column(db.Integer)
+    score = db.Column(db.Integer)
+    acceptingDonations = db.Column(db.Boolean)
+    category = db.Column(db.Unicode)
+    eligibleCd = db.Column(db.Boolean)
+    deductabilityCd = db.Column(db.Boolean)
+    missionStatement = db.Column(db.Unicode)
+    parent_ein = db.Column(db.Boolean)
+    longitude = db.Column(db.Float)
+    latitude = db.Column(db.Float)
 
 
     def __init__(self, resource):
-    	self.name = 'test'
-"""
+        self.ein = resource['ein']
+        self.charityName = resource['charityName']
+        self.url = resource['url']
+        self.donationUrl = resource['donationUrl']
+        self.city = resource['city']
+        self.state = resource['state']
+        self.zipCode = resource['zipCode']
+        self.start = resource['start']
+        self.rows = resource['rows']
+        self.recordCount = resource['recordCount']
+        self.score = resource['score']
+        self.acceptingDonations = resource['acceptingDonations']
+        self.category = resource['category']
+        self.eligibleCd = resource['eligibleCd']
+        self.deductabilityCd = resource['deductabilityCd']
+        self.missionStatement = resource['missionStatement']
+        self.parent_ein = resource['parent_ein']
+        self.longitude = resource['longitude']
+        latitude = resource['latitude']
+    	
+
 
 class Disease(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -64,9 +100,16 @@ def initDiseases():
 			db.session.add( Disease(info) )
 			#db.session.commit()
 
+def initCharities():
+    url = 'http://data.orghunter.com/v1/charitysearch?user_key=5090f8b7b0c373370039798d01066edf&searchTerm=AIDs'
+    data = simplejson.load(urlopen(url))
+    print(data)
+
 def clearDB():
     db.reflect()
     db.drop_all()
 
+
+initCharities()
 db.create_all()
 initDiseases()
