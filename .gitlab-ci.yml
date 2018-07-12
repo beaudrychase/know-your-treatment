@@ -8,9 +8,8 @@ backend_test:
     - uname -a
     - ls -l
     - docker build -t backend ./website_backend
-    - docker run -v website_backend/app:/app -w /app -p 80:80 backend
   script:
-    - docker exec $(docker ps --format "{{.Names}}") python website_backend/app/test.py
+    - docker run -v ${PWD}/website_backend/app:/app -w /app -d -p 80:80 backend python test.py
 
 backend_deploy:
   only:
@@ -21,10 +20,10 @@ backend_deploy:
     - date
     - uname -a
     - ls -l
-  script:
     - echo "$USER_PASS" > idb-backend.pem
     - chmod 400 idb-backend.pem
+  script:
     - echo "--- tar over ssh ---"
     - tar cpf - ./website_backend | ssh -o StrictHostKeyChecking=no -v -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com "tar xpf - -C /home/ec2-user"
     - echo "--- ssh ---"
-    - ssh -v -o StrictHostKeyChecking=no -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com 'cd /home/ec2-user/website_backend; docker container stop $(docker ps -q); docker container kill $(docker ps -q); docker system prune; docker build -t backend .; docker run -v /home/ec2-user/website_backend/app:/app -w /app -d --restart=always -p 80:80 -t backend; docker exec $(docker ps --format "{{.Names}}") python test.py; docker exec $(docker ps --format "{{.Names}}") flask run --host=0.0.0.0 --port=80'
+    - ssh -v -o StrictHostKeyChecking=no -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com 'cd /home/ec2-user/website_backend; docker container stop $(docker ps -q); docker container kill $(docker ps -q); docker system prune; docker build -t backend .; docker run -v /home/ec2-user/website_backend/app:/app -w /app -d --restart=always -p 80:80 -t backend; docker exec $(docker ps --format "{{.Names}}") python test.py; docker exec $(docker ps --format "{{.Names}}") flask run --host=0.0.0.0 --port=80 &;'
