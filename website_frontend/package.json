@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --display-error-details",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
