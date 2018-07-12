@@ -23,5 +23,4 @@ backend_deploy:
     - echo "--- tar over ssh ---"
     - tar cpf - ./website_backend | ssh -o StrictHostKeyChecking=no -v -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com "tar xpf - -C /home/ec2-user"
     - echo "--- ssh ---"
-    - ssh -v -o StrictHostKeyChecking=no -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com
-    - sudo apt update
+    - ssh -v -o StrictHostKeyChecking=no -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com 'docker container ls; docker exec $(docker ps --format "{{.Names}}") python test.py;'
