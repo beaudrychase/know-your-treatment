@@ -10,10 +10,8 @@ def initialize():
 	db.session.commit()
 	database.initDisease()
 	database.initCharity()
-	database.initTreatment()
+	database.initTreatment(10)
 	print('all tables initialized')
-
-initialize()
 
 @app.route('/')
 def hello_world():

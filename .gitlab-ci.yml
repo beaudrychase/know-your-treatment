@@ -1,6 +1,14 @@
-deploy:
+backend_test:
+  image: "registry.gitlab.com/cmibarnwell/idb-project-swe:latest"
+  before_script:
+    - date
+    - uname -a
+  script:
+    - python test.py
+
+backend_deploy:
   only:
-    release
+    - release
   image: python:latest
   script:
     - echo "$USER_PASS" > idb-backend.pem

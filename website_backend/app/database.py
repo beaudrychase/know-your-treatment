@@ -125,12 +125,14 @@ def initCharity():
     print('initialized charity table')
 
 
-def initTreatment():
+def initTreatment(limit):
     baseUrl = 'https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=json&rvsection=0&rvparse&titles='
     baseSearchUrl = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=&srsearch='
     j = 0
     for disease in Disease.query.all():
         j+=1
+        if j>=limit:
+            break
         # query wikipedia for a given condition  
         searchUrl = baseSearchUrl+(disease.name).replace(' ','%20')
         disease_wiki_title = requests.get(searchUrl).json()['query']['search'][0]['title'].replace(' ', '%20')
