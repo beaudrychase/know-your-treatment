@@ -9,7 +9,8 @@ backend_test:
 
 backend_deploy:
   only:
-    - deploy
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /deploy to aws/i
   image: "registry.gitlab.com/cmibarnwell/idb-project-swe:latest"
   before_script:
     - date
