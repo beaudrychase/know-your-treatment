@@ -10,7 +10,7 @@ backend_test:
 backend_deploy:
   only:
     variables:
-      - $CI_COMMIT_MESSAGE =~ /deploy to aws/i
+      - $CI_COMMIT_MESSAGE =~ /deploy/i
   image: "registry.gitlab.com/cmibarnwell/idb-project-swe:latest"
   before_script:
     - date
@@ -25,4 +25,4 @@ backend_deploy:
     - sudo apt update
     - cd /var/www/website_backend
     - sudo docker build -t backend .
-    - sudo docker run -it -v /var/www/website_backend/app:/app -w /app -p 80:80 backend python test.py
+    - sudo docker run -it -v /var/www/website_backend/app:/app -w /app -p 8080:8080 backend python test.py
