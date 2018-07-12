@@ -1,10 +1,9 @@
 import { Navbar,
          NavbarBrand,
-         NavItem,
-         NavLink
+         NavItem
         } from 'reactstrap';
-
-var React = require('react');
+import { Link } from 'react-router-dom';
+import React from 'react';
 
 export default class MyNavbar extends React.Component {
 	render() {
@@ -15,25 +14,20 @@ export default class MyNavbar extends React.Component {
                                 <strong>Know Your Treatment</strong> 
                         </NavbarBrand>
 
-
                         <NavItem active>
-                                <NavLink to="#">Home</NavLink>
+                                <Link to="/charities">Charities</Link>
                         </NavItem>
 
                         <NavItem active>
-                                <NavLink to="#">About</NavLink>
+                                <Link to="/healthconditions">Health Conditions</Link>
                         </NavItem>
 
                         <NavItem active>
-                                <NavLink to="#">Charities</NavLink>
+                                <Link to="/medications">Medications</Link>
                         </NavItem>
 
                         <NavItem active>
-                                <NavLink to="#">Health Conditions</NavLink>
-                        </NavItem>
-
-                        <NavItem active>
-                                <NavLink to="#">Medications</NavLink>
+                                <Link to="/about">About</Link>
                         </NavItem>
                         </Navbar>
 		);
