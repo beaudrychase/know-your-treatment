@@ -8,6 +8,8 @@ app = Flask(__name__)
 app.config.from_pyfile('flask.cfg')
 
 db = SQLAlchemy(app)
+db.create_all()
+
 """
 class Medication(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -108,7 +110,6 @@ def initCharities():
 def clearDB():
     db.reflect()
     db.drop_all()
-
 
 initCharities()
 db.create_all()

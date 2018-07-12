@@ -20,4 +20,4 @@ RUN pip install --upgrade pip  && \
 
 EXPOSE 8080
 
-CMD bash
+ENTRYPOINT /app/init.sh && /bin/bash
