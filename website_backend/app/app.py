@@ -16,7 +16,7 @@ def hello_world():
 
 manager = flask_restless.APIManager(app, flask_sqlalchemy_db=database.db)
 disease_blueprint = manager.create_api(database.Disease, methods=['GET'])
-#charity_blueprint = manager.create_api(database.Charity, methods=['GET'])
+charity_blueprint = manager.create_api(database.Charity, methods=['GET'])
 #medication_blueprint = manager.create_api(database.Medication, methods=['GET'])
 
 

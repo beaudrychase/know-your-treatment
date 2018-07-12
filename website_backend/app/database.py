@@ -38,14 +38,14 @@ class Charity(db.Model):
     acceptingDonations = db.Column(db.Boolean)
     category = db.Column(db.Unicode)
     eligibleCd = db.Column(db.Boolean)
-    deductabilityCd = db.Column(db.Boolean)
     missionStatement = db.Column(db.Unicode)
     parent_ein = db.Column(db.Boolean)
     longitude = db.Column(db.Float)
     latitude = db.Column(db.Float)
+    disease_id = db.Column(db.Integer, db.ForeignKey('disease.id'),
+        nullable=False)
 
-
-    def __init__(self, resource):
+    def __init__(self, resource, disease_id):
         self.ein = resource['ein']
         self.charityName = resource['charityName']
         self.url = resource['url']
@@ -60,11 +60,11 @@ class Charity(db.Model):
         self.acceptingDonations = resource['acceptingDonations']
         self.category = resource['category']
         self.eligibleCd = resource['eligibleCd']
-        self.deductabilityCd = resource['deductabilityCd']
         self.missionStatement = resource['missionStatement']
         self.parent_ein = resource['parent_ein']
         self.longitude = resource['longitude']
-        latitude = resource['latitude']
+        self.latitude = resource['latitude']
+        self.disease_id = disease_id
 
 
 class Disease(db.Model):
@@ -79,6 +79,7 @@ class Disease(db.Model):
     more = db.Column(db.Unicode)
     is_active = db.Column(db.Boolean)
     wiki = db.Column(db.Unicode)
+    charities = db.relationship('Charity', backref='disease', lazy=True)
 
     def __init__(self, resource):
         self.name = resource['name'][: -6] #the -6 removes ' : WHO' from the end of the name
@@ -110,9 +111,16 @@ def initDisease():
             # in case of adding duplicates
 
 def initCharity():
-    url = 'http://data.orghunter.com/v1/charitysearch?user_key=5090f8b7b0c373370039798d01066edf&searchTerm=AIDs'
-    data = json.load(urlopen(url))
-    #print(data)
+    baseUrl = 'http://data.orghunter.com/v1/charitysearch?user_key=5090f8b7b0c373370039798d01066edf&rows=2&searchTerm='
+    for disease in Disease.query.all():
+        data = json.load( urlopen(baseUrl + disease.name.replace(' ','%20')) )
+        for info in data['data']:
+            try:
+                db.session.add( Charity(info, disease.id) )
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
+                # in case of adding duplicates
 
 def clearDB():
     db.reflect()
