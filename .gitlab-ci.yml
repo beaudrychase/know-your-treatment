@@ -23,8 +23,6 @@ backend_deploy:
     - echo "$USER_PASS" > idb-backend.pem
     - chmod 400 idb-backend.pem
   script:
-    - echo "--- tar over ssh ---"
     - tar cpf - ./website_backend | ssh -o StrictHostKeyChecking=no -v -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com "tar xpf - -C /home/ec2-user"
-    - echo "--- ssh ---"
     - ssh -v -o StrictHostKeyChecking=no -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com 'cd /home/ec2-user/website_backend; docker container stop $(docker ps -q); docker container kill $(docker ps -q); docker system prune; docker build -t backend .; docker run -v /home/ec2-user/website_backend/app:/app -w /app -d --restart=always -p 80:80 -t backend; docker exec $(docker ps --format "{{.Names}}") python test.py;'
     - ssh -v -o StrictHostKeyChecking=no -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com 'cd /home/ec2-user/website_backend; docker exec -d $(docker ps --format "{{.Names}}") flask run --host=0.0.0.0 --port=80;'
