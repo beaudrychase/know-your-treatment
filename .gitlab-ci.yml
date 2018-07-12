@@ -8,9 +8,9 @@ backend_test:
     - python website_backend/app/test.py
 
 backend_deploy:
-  only:
-    variables:
-      - $CI_COMMIT_MESSAGE =~ /deploy/i
+    #only:
+    #variables:
+    #  - $CI_COMMIT_MESSAGE =~ /deploy/i
   image: "registry.gitlab.com/cmibarnwell/idb-project-swe:latest"
   before_script:
     - date
