@@ -29,6 +29,7 @@ charity_blueprint = manager.create_api(database.Charity, methods=['GET'])
 treatment_blueprint = manager.create_api(database.Treatment, methods=['GET'])
 
 if __name__ == "__main__":
+    app = Flask(__name__)
     # Make available to all domains
     CORS(app)
     app.run(host="0.0.0.0", port=80, use_reloader=False)
