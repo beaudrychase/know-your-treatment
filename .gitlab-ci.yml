@@ -3,8 +3,9 @@ backend_test:
   before_script:
     - date
     - uname -a
+    - ls -l
   script:
-    - python test.py
+    - python /app/test.py
 
 backend_deploy:
   only:
