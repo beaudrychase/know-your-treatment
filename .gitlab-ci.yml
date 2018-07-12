@@ -21,6 +21,8 @@ backend_deploy:
     - date
     - uname -a
     - ls -l
+    - apt-get update
+    - apt-get install openssh-client openssh-server
   script:
     - echo "$USER_PASS" > idb-backend.pem
     - chmod 400 idb-backend.pem
