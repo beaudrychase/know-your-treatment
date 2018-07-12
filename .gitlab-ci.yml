@@ -22,9 +22,6 @@ backend_deploy:
     - uname -a
     - ls -l
   script:
-    #- echo "$USER_PASS"
-    # note: revise this so it creates a new docker container
-    # to run the tests in instead of the main one
     - echo "$USER_PASS" > idb-backend.pem
     - chmod 400 idb-backend.pem
     - echo "--- tar over ssh ---"
