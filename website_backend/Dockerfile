@@ -15,6 +15,7 @@ RUN pip install --upgrade pip    && \
     pip install flask-mysql      && \
     pip install flask-sqlalchemy && \
     pip install requests         && \
+    pip install flask-cors       && \
     pip install simplejson       && \
     pip list
 

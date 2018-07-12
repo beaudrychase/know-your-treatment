@@ -1,22 +1,44 @@
 import React from 'react';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 
+// Global variables, everyone's favorite
+var caleb = 0;
+var travis = 1;
+var brendan = 2;
+var woo = 3;
+var beaudry = 4;
+var chris = 5;
+var usernames =   ["cmibarnwell", "tllado",       "bpatmiller",     "woojunan", "beaudrychase", "csauce"];
+var authorNames = ["cmibarnwell", "Travis Llado", "brendan miller", "woojunan", "beaudrychase", "Chris" ];
+var numCommits = [0, 0, 0, 0, 0, 0];
+var numIssues = [0, 0, 0, 0, 0, 0];
+var numTests = [0, 0, 0, 0, 0, 0];
+
+// Page builder
 export default class About extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {
-            ourDescription: [],
-            ourName: []
+            ourCommits: []
         };
     }
 
     componentWillMount() {
+        // Get project data
         fetch("https://gitlab.com/api/v4/projects/7160520?private_token=eX7szajR1g6q1C9hyCr4")
         .then(results => results.json())
-        .then(gitlabData => this.setState({
-            ourDescription: gitlabData.description,
-            ourName:        gitlabData.name,
-            ourURL:         gitlabData.web_url,
-            ourLastChange:  gitlabData.last_activity_at
+        .then(projectData => this.setState({
+            ourDescription: projectData.description,
+            ourName:        projectData.name,
+            ourURL:         projectData.web_url,
+            ourLastChange:  projectData.last_activity_at
+        }));
+
+        // Get commits data
+        fetch("https://gitlab.com/api/v4/projects/7160520/issues?scope=all&per_page=100&private_token=eX7szajR1g6q1C9hyCr4")
+        .then(results => results.json())
+        .then(commitsData => this.setState({
+            ourCommits: commitsData.map((element) => element.author.username)
         }));
     }
 
@@ -25,8 +47,9 @@ export default class About extends React.Component {
             <h2 class="display-3 text-center">About Our Project:</h2>
             <table align="center" width="800">
                 <p>We are six Software Engineering students from the University of Texas at Austin and we are creating <b>{this.state.ourDescription}</b>.</p>
-                <p>Our Gitlab project, <b>{this.state.ourName}</b>, last updated on <b>{this.state.ourLastChange}</b>, can be found at <b>{this.state.ourURL}</b>.</p>
+                <p>Our Gitlab project, <b>{this.state.ourName}</b>, last updated on <b>{this.state.ourLastChange}</b>, can be found at <b><a href={this.state.ourURL}>{this.state.ourURL}</a></b>.</p>
                 <p>Our API documentation can be found on <b><a href="https://documenter.getpostman.com/view/4692440/RWEmKHEN">Postman</a></b>.</p>
+                <p>Our Technical Report can be found on <b><a href="https://knowyourtreatment.gitbook.io/project">Gitbook</a></b>.</p>
             </table>
             <table align="center" cellpadding="10">
                 <tr>
@@ -70,21 +93,21 @@ export default class About extends React.Component {
                 <tr>
                     <td><p>
                         Responsibilities: Fullstack<br></br>
-                        Number of commits: <span id="calebCommits"></span><br></br>
-                        Number of issues: <span id="calebIssues"></span><br></br>
-                        Number of tests: <span id="calebTests"></span>
+                        Number of commits: {numCommits[caleb].toString()}<br></br>
+                        Number of issues: {numIssues[caleb].toString()}<br></br>
+                        Number of tests: {numTests[caleb].toString()}
                     </p></td>
                     <td><p>
                         Responsibilities: Frontend<br></br>
-                        Number of commits: <span id="travisCommits"></span><br></br>
-                        Number of issues: <span id="travisIssues"></span><br></br>
-                        Number of tests: <span id="travisTests"></span>
+                        Number of commits: {numCommits[travis].toString()}<br></br>
+                        Number of issues: {numIssues[travis].toString()}<br></br>
+                        Number of tests: {numTests[travis].toString()}
                     </p></td>
                     <td><p>
                         Responsibilities: Backend<br></br>
-                        Number of commits: <span id="brendanCommits"></span><br></br>
-                        Number of issues: <span id="brendanIssues"></span><br></br>
-                        Number of tests: <span id="brendanTests"></span>
+                        Number of commits: {numCommits[brendan].toString()}<br></br>
+                        Number of issues: {numIssues[brendan].toString()}<br></br>
+                        Number of tests: {numTests[brendan].toString()}
                     </p></td>
                 </tr>
                 <tr>
@@ -123,21 +146,21 @@ export default class About extends React.Component {
                 <tr>
                     <td><p>
                         Responsibilities: Fullstack<br></br>
-                        Number of commits: <span id="wooCommits"></span><br></br>
-                        Number of issues: <span id="wooIssues"></span><br></br>
-                        Number of tests: <span id="wooTests"></span>
+                        Number of commits: {numCommits[woo].toString()}<br></br>
+                        Number of issues: {numIssues[woo].toString()}<br></br>
+                        Number of tests: {numTests[woo].toString()}
                     </p></td>
                     <td><p>
                         Responsibilities: Backend<br></br>
-                        Number of commits: <span id="beaudryCommits"></span><br></br>
-                        Number of issues: <span id="beaudryIssues"></span><br></br>
-                        Number of tests: <span id="beaudryTests"></span>
+                        Number of commits: {numCommits[beaudry].toString()}<br></br>
+                        Number of issues: {numIssues[beaudry].toString()}<br></br>
+                        Number of tests: {numTests[beaudry].toString()}
                     </p></td>
                     <td><p>
                         Responsibilities: Frontend<br></br>
-                        Number of commits: <span id="chrisCommits"></span><br></br>
-                        Number of issues: <span id="chrisIssues"></span><br></br>
-                        Number of tests: <span id="chrisTests"></span>
+                        Number of commits: {numCommits[chris].toString()}<br></br>
+                        Number of issues: {numIssues[chris].toString()}<br></br>
+                        Number of tests: {numTests[chris].toString()}
                     </p></td>
                 </tr>
             </table>
