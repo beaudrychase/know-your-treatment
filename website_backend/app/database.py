@@ -111,7 +111,7 @@ def initDisease():
 
 def initCharity():
     url = 'http://data.orghunter.com/v1/charitysearch?user_key=5090f8b7b0c373370039798d01066edf&searchTerm=AIDs'
-    data = simplejson.load(urlopen(url))
+    data = json.load(urlopen(url))
     #print(data)
 
 def clearDB():
