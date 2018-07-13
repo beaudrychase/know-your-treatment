@@ -8,7 +8,7 @@ backend_test:
     - ls -l
     - docker build -t backend ./website_backend
   script:
-    - docker run -it -v ${PWD}/website_backend/app:/app -w /app -d -p 80:80 backend /bin/bash -c "python test.py; newman postman_tests.json"
+    - docker run -it -v ${PWD}/website_backend/app:/app -w /app -p 80:80 backend /bin/bash -c "python test.py; newman run https://www.getpostman.com/collections/cb7214822e9c2b3e9ec4 -x"
 
 backend_deploy:
   only:
