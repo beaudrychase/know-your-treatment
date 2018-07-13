@@ -17,6 +17,7 @@ class AppTestCase(unittest.TestCase):
 		db.session.rollback()
 		create_sample_disease()
 		create_sample_charity()
+		create_sample_treatment()
 		
 
 	def test_disease_name(self):		
@@ -130,9 +131,10 @@ class AppTestCase(unittest.TestCase):
 
 
 
+
 	def test_treatment_id(self):
 		sample = db.session.query(database.Treatment).filter_by(id=1).one()
-		assert 'Sample id' == sample.id
+		assert 1 == sample.id
 
 	def test_treatment_name(self):
 		sample = db.session.query(database.Treatment).filter_by(name='Sample name').one()
@@ -147,8 +149,8 @@ class AppTestCase(unittest.TestCase):
 		assert 'Sample text' == sample.text
 
 	def test_treatment_wiki_link(self):
-		sample = db.session.query(database.Treatment).filter_by(wiki_link='Sample wiki_link').one()
-		assert 'Sample wiki_link' == sample.wiki_link
+		sample = db.session.query(database.Treatment).filter_by(wiki_link='https://en.wikipedia.org/wiki/Sample%20name').one()
+		assert 'https://en.wikipedia.org/wiki/Sample%20name' == sample.wiki_link
 
 
 	
@@ -205,12 +207,12 @@ def create_sample_treatment():
 					    'name' : 'Sample name',
 					    'treatment_type' : 'Sample treatment_type',
 					    'text' : 'Sample text',
-					    'wiki_link' : 'Sample wiki_link',
+					    'wiki_link' : 'Sample wiki_link'
 					    }
 	sample_treatment = json.dumps(sample_treatment)
 	sample_treatment_json = json.loads(sample_treatment)
 	try:
-		db.session.add( database.Treatment(sample_treatment_json, 1))
+		db.session.add( database.Treatment(sample_treatment_json))
 	except IntegrityError:
 		pass
 		db.session.rollback()
