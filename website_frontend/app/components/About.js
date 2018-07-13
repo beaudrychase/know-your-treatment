@@ -11,16 +11,11 @@ const brendan = 2;
 const woo = 3;
 const beaudry = 4;
 const chris = 5;
-const authorNames = ["cmibarnwell", "Travis Llado", "brendan miller", "woojunan", "beaudrychase", "Chris" ];
-const usernames =   ["cmibarnwell", "tllado",       "bpatmiller",     "woojunan", "beaudrychase", "csauce"];
+const authorNames = ["cmibarnwell", "Travis Llado", "brendan miller", "woojunan", "Beaudry Chase", "Chris" ];
+const usernames =   ["cmibarnwell", "tllado",       "bpatmiller",     "woojunan", "beaudrychase",  "csauce"];
 const gitlabProjectURL = "https://gitlab.com/api/v4/projects/7160520?private_token=eX7szajR1g6q1C9hyCr4";
 const gitlabCommitsURL = "https://gitlab.com/api/v4/projects/7160520/repository/commits?per_page=100&private_token=eX7szajR1g6q1C9hyCr4";
 const gitlabIssuesURL =  "https://gitlab.com/api/v4/projects/7160520/issues?scope=all&per_page=100&private_token=eX7szajR1g6q1C9hyCr4";
-
-// Global Variables
-var numCommits = [0, 0, 0, 0, 0, 0];
-var numIssues = [0, 0, 0, 0, 0, 0];
-var numTests = [0, 0, 0, 0, 0, 0];
 
 
 
@@ -29,13 +24,17 @@ export default class About extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {
-            // numCommits: [0, 0, 0, 0, 0, 0],
-            // numIssues: [0, 0, 0, 0, 0, 0],
-            // numTests: [0, 0, 0, 0, 0, 0]
+            ourDescription: "",
+            ourName:        "",
+            ourURL:         "",
+            ourLastChange:  "",
+            numCommits:     [0, 0, 0, 0, 0, 0],
+            numIssues:      [0, 0, 0, 0, 0, 0],
+            numTests:       [0, 0, 0, 0, 0, 0]
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         // Get project data
         fetch(gitlabProjectURL)
         .then(results => results.json())
@@ -46,38 +45,43 @@ export default class About extends React.Component {
             ourLastChange:  projectData.last_activity_at
         }));
 
+        // Counts the number of times each name appears on the list
+        function tally(ourList, ourNames) {
+            // console.log(ourList);
+            // console.log(ourNames);
+            var totals = [];
+            ourNames.forEach(function() {
+                totals.push(0)
+            });
+
+            ourList.forEach(function(thisItem) {
+                for (var thisName = 0; thisName < ourNames.length; thisName++) {
+                    if (thisItem == ourNames[thisName]) {
+                        totals[thisName] += 1;
+                    }
+                }
+            });
+
+            return totals;
+        }
+
         // Get commits data
         fetch(gitlabCommitsURL)
         .then(results => results.json())
-        .then(function(commitsData) {
-            commitsData.forEach(function(element) {
-                console.log(element.author_name);
-                for (var index = 0; index < authorNames.length; index++) {
-                    if (element.author_name == authorNames[index]) {
-                        numCommits[index] += 1;
-                    }
-                }
-                console.log(numCommits);
-            });
-        });
+        .then(commitsData => commitsData.map(thisCommit => thisCommit.author_name))
+        .then(commitNames => this.setState({numCommits: tally(commitNames, authorNames)}));
 
         // Get issues data
         fetch(gitlabIssuesURL)
         .then(results => results.json())
-        .then(function(issuesData) {
-            issuesData.forEach(function(element) {
-                for (var index = 0; index < usernames.length; index++) {
-                    if (element.author.username == usernames[index]) {
-                        numIssues[index] += 1;
-                    }
-                }
-            });
-        });
+        .then(issuesData => issuesData.map(thisIssue => thisIssue.author.username))
+        .then(issueNames => this.setState({numIssues: tally(issueNames, usernames)}));
+
+        // Get tests data
+        console.log("You need to code up your test counter");
     }
 
     render() {
-        console.log("commits: " + numCommits.toString());
-        console.log("issues:  " + numIssues.toString());
         return(
         <div>
             <h2 class="display-3 text-center">About Our Project:</h2>
@@ -128,21 +132,21 @@ export default class About extends React.Component {
                 <tr>
                     <td><p>
                         Responsibilities: Fullstack<br></br>
-                        Number of commits: {numCommits[caleb].toString()}<br></br>
-                        Number of issues: {numIssues[caleb].toString()}<br></br>
-                        Number of tests: {numTests[caleb].toString()}
+                        Number of commits: {this.state.numCommits[caleb].toString()}<br></br>
+                        Number of issues: {this.state.numIssues[caleb].toString()}<br></br>
+                        Number of tests: {this.state.numTests[caleb].toString()}
                     </p></td>
                     <td><p>
                         Responsibilities: Frontend<br></br>
-                        Number of commits: {numCommits[travis].toString()}<br></br>
-                        Number of issues: {numIssues[travis].toString()}<br></br>
-                        Number of tests: {numTests[travis].toString()}
+                        Number of commits: {this.state.numCommits[travis].toString()}<br></br>
+                        Number of issues: {this.state.numIssues[travis].toString()}<br></br>
+                        Number of tests: {this.state.numTests[travis].toString()}
                     </p></td>
                     <td><p>
                         Responsibilities: Backend<br></br>
-                        Number of commits: {numCommits[brendan].toString()}<br></br>
-                        Number of issues: {numIssues[brendan].toString()}<br></br>
-                        Number of tests: {numTests[brendan].toString()}
+                        Number of commits: {this.state.numCommits[brendan].toString()}<br></br>
+                        Number of issues: {this.state.numIssues[brendan].toString()}<br></br>
+                        Number of tests: {this.state.numTests[brendan].toString()}
                     </p></td>
                 </tr>
                 <tr>
@@ -181,21 +185,21 @@ export default class About extends React.Component {
                 <tr>
                     <td><p>
                         Responsibilities: Fullstack<br></br>
-                        Number of commits: {numCommits[woo].toString()}<br></br>
-                        Number of issues: {numIssues[woo].toString()}<br></br>
-                        Number of tests: {numTests[woo].toString()}
+                        Number of commits: {this.state.numCommits[woo].toString()}<br></br>
+                        Number of issues: {this.state.numIssues[woo].toString()}<br></br>
+                        Number of tests: {this.state.numTests[woo].toString()}
                     </p></td>
                     <td><p>
                         Responsibilities: Backend<br></br>
-                        Number of commits: {numCommits[beaudry].toString()}<br></br>
-                        Number of issues: {numIssues[beaudry].toString()}<br></br>
-                        Number of tests: {numTests[beaudry].toString()}
+                        Number of commits: {this.state.numCommits[beaudry].toString()}<br></br>
+                        Number of issues: {this.state.numIssues[beaudry].toString()}<br></br>
+                        Number of tests: {this.state.numTests[beaudry].toString()}
                     </p></td>
                     <td><p>
                         Responsibilities: Frontend<br></br>
-                        Number of commits: {numCommits[chris].toString()}<br></br>
-                        Number of issues: {numIssues[chris].toString()}<br></br>
-                        Number of tests: {numTests[chris].toString()}
+                        Number of commits: {this.state.numCommits[chris].toString()}<br></br>
+                        Number of issues: {this.state.numIssues[chris].toString()}<br></br>
+                        Number of tests: {this.state.numTests[chris].toString()}
                     </p></td>
                 </tr>
             </table>
