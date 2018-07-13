@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Home from './Home';
 import ListModule from './ListModule';
 import About from './About';
@@ -11,13 +11,11 @@ export default class App extends React.Component {
 			<div>
 				<MyNavbar /> 
 
-				<Switch>
-					<Route exact path='/' component={Home}/>
-					<Route path='/charities' component={ListModule}/>
-					<Route path='/healthconditions' component={ListModule}/>
-					<Route path='/medications' component={ListModule}/>
-					<Route path='/about' component={About}/>
-				</Switch>
+				<Route exact path='/' component={Home}/>
+				<Route path='/charities' component={ListModule}/>
+				<Route path='/healthconditions' component={ListModule}/>
+				<Route path='/medications' component={ListModule}/>
+				<Route path='/about' component={About}/>
 			</div>
 		);
 	}
