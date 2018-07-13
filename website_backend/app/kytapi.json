@@ -1,0 +1,495 @@
+{
+	"variables": [],
+	"info": {
+		"name": "KYT APIs",
+		"_postman_id": "cec85ca0-2dde-e785-7dea-778a07a2c017",
+		"description": "Comprehensive filter documentation can be found at:\nhttps://flask-restless.readthedocs.io/en/latest/filtering.html",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get disease list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Returns object(s)\"] = responseBody.has(\"objects\")"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "api.knowyourtreatment.com/api/disease",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Full data for all diseases"
+			},
+			"response": []
+		},
+		{
+			"name": "Get charity list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Returns object(s)\"] = responseBody.has(\"objects\")"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "api.knowyourtreatment.com/api/charity\n",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Full data for all charities"
+			},
+			"response": []
+		},
+		{
+			"name": "Get treatment list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Returns object(s)\"] = responseBody.has(\"objects\")"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "api.knowyourtreatment.com/api/treatment",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Full data for all treatments"
+			},
+			"response": []
+		},
+		{
+			"name": "Get disease info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Returns object(s)\"] = responseBody.has(\"objects\")"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "api.knowyourtreatment.com/api/disease?q={\"filters\":[{\"name\":\"name\", \"op\":\"eq\", \"val\":\"Malaria\"}]}",
+					"host": [
+						"api",
+						"knowyourtreatment",
+						"com"
+					],
+					"path": [
+						"api",
+						"disease"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{\"filters\":[{\"name\":\"name\", \"op\":\"eq\", \"val\":\"Malaria\"}]}",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "",
+							"value": "",
+							"equals": false,
+							"description": "",
+							"disabled": true
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.api+json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Get data for a specific disease (ex. Malaria)"
+			},
+			"response": [
+				{
+					"id": "96734808-17f3-4f17-a126-6bfe513cde43",
+					"name": "Get data for Malaria",
+					"originalRequest": {
+						"url": {
+							"raw": "api.knowyourtreatment.com/api/disease?q={\"filters\":[{\"name\":\"name\", \"op\":\"eq\",\"val\":\"Malaria\"}]}",
+							"host": [
+								"api",
+								"knowyourtreatment",
+								"com"
+							],
+							"path": [
+								"api",
+								"disease"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "{\"filters\":[{\"name\":\"name\", \"op\":\"eq\",\"val\":\"Malaria\"}]}",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "",
+									"value": "",
+									"equals": false,
+									"description": "",
+									"disabled": true
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"description": ""
+							}
+						],
+						"body": {}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "content-length",
+							"key": "content-length",
+							"value": "76",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json, application/json",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "date",
+							"key": "date",
+							"value": "Thu, 12 Jul 2018 19:28:17 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "link",
+							"key": "link",
+							"value": "<http://ec2-34-218-254-20.us-west-2.compute.amazonaws.com/api/disease?page=0&results_per_page=10>; rel=\"last\", <http://ec2-34-218-254-20.us-west-2.compute.amazonaws.com/api/disease?page=0&results_per_page=10>; rel=\"last\"",
+							"description": "Used to express a typed relationship with another resource, where the relation type is defined by RFC 5988",
+							"isLink": true
+						},
+						{
+							"name": "server",
+							"key": "server",
+							"value": "Werkzeug/0.14.1 Python/3.7.0",
+							"description": "A name for the server"
+						},
+						{
+							"name": "vary",
+							"key": "vary",
+							"value": "Accept",
+							"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
+						}
+					],
+					"cookie": [],
+					"responseTime": 191,
+					"body": "{\n    \"num_results\": 1,\n    \"objects\": [\n        {\n            \"charities\": [\n                {\n                    \"acceptingDonations\": true,\n                    \"category\": \"International, Foreign Affairs and National Security\",\n                    \"charityName\": \"MALARIA FINI\",\n                    \"city\": \"NEW FRANKLIN\",\n                    \"disease_id\": 2,\n                    \"donationUrl\": \"http://donate.makemydonation.org/donate/260760732\",\n                    \"ein\": 260760732,\n                    \"eligibleCd\": true,\n                    \"latitude\": 39.017906,\n                    \"longitude\": -92.737228,\n                    \"missionStatement\": \"\",\n                    \"parent_ein\": true,\n                    \"recordCount\": 27,\n                    \"rows\": 2,\n                    \"score\": 5,\n                    \"start\": 0,\n                    \"state\": \"Missouri\",\n                    \"url\": \"http://www.orghunter.com/organization/260760732\",\n                    \"zipCode\": \"65274-9614\"\n                },\n                {\n                    \"acceptingDonations\": true,\n                    \"category\": \"International, Foreign Affairs and National Security\",\n                    \"charityName\": \"END MALARIA NOW\",\n                    \"city\": \"LOS ANGELES\",\n                    \"disease_id\": 2,\n                    \"donationUrl\": \"http://donate.makemydonation.org/donate/271654299\",\n                    \"ein\": 271654299,\n                    \"eligibleCd\": true,\n                    \"latitude\": 34.055204,\n                    \"longitude\": -118.383881,\n                    \"missionStatement\": \"\",\n                    \"parent_ein\": true,\n                    \"recordCount\": 27,\n                    \"rows\": 2,\n                    \"score\": 5,\n                    \"start\": 0,\n                    \"state\": \"California\",\n                    \"url\": \"http://www.orghunter.com/organization/271654299\",\n                    \"zipCode\": \"90035-1403\"\n                }\n            ],\n            \"diagnosis\": \"\\n  \\t\\t\\n  \\t\\tEarly diagnosis and treatment of malaria reduces disease and prevents deaths. It also contributes to reducing malaria transmission. The best available treatment, particularly for P. falciparum malaria, is artemisinin-based combination therapy (ACT). \\n  \\t\\t\\n  \\t\\tWHO recommends that all cases of suspected malaria be confirmed using parasite-based diagnostic testing (either microscopy or rapid diagnostic test) before administering treatment. Results of parasitological confirmation can be available in 30 minutes or less. Treatment, solely on the basis of symptoms should only be considered when a parasitological diagnosis is not possible. More detailed recommendations are available in the \\\"WHO Guidelines for the treatment of malaria\\\", third edition, published in April 2015.\",\n            \"id\": 2,\n            \"is_active\": true,\n            \"more\": \"Source is http://www.who.int/entity/mediacentre/factsheets/fs094/en/index.html\",\n            \"name\": \"Malaria\",\n            \"prevention\": \"\\n  \\t\\t\\n  \\t\\tVector control is the main way to prevent and reduce malaria transmission. If coverage of vector control interventions within a specific area is high enough, then a measure of protection will be conferred across the community. \\n  \\t\\t\\n  \\t\\tWHO recommends protection for all people at risk of malaria with effective malaria vector control. Two forms of vector control – insecticide-treated mosquito nets and indoor residual spraying – are effective in a wide range of circumstances. \",\n            \"symptoms\": \"\\n  \\t\\t\\n  \\t\\tMalaria is an acute febrile illness. In a non-immune individual, symptoms appear 7 days or more (usually 10–15 days) after the infective mosquito bite. The first symptoms – fever, headache, chills and vomiting – may be mild and difficult to recognize as malaria. If not treated within 24 hours, P. falciparum malaria can progress to severe illness, often leading to death. \\n  \\t\\t\\n  \\t\\tChildren with severe malaria frequently develop one or more of the following symptoms: severe anaemia, respiratory distress in relation to metabolic acidosis, or cerebral malaria. In adults, multi-organ involvement is also frequent. In malaria endemic areas, people may develop partial immunity, allowing asymptomatic infections to occur.\",\n            \"transmission\": \"\\n  \\t\\t\\n  \\t\\tIn most cases, malaria is transmitted through the bites of female Anopheles mosquitoes. There are more than 400 different species of Anopheles mosquito; around 30 are malaria vectors of major importance. All of the important vector species bite between dusk and dawn. The intensity of transmission depends on factors related to the parasite, the vector, the human host, and the environment.\\n  \\t\\t\\n  \\t\\tAnopheles mosquitoes lay their eggs in water, which hatch into larvae, eventually emerging as adult mosquitoes. The female mosquitoes seek a blood meal to nurture their eggs. Each species of Anopheles mosquito has its own preferred aquatic habitat; for example, some prefer small, shallow collections of fresh water, such as puddles and hoof prints, which are abundant during the rainy season in tropical countries.\\n  \\t\\t\\n  \\t\\tTransmission is more intense in places where the mosquito lifespan is longer (so that the parasite has time to complete its development inside the mosquito) and where it prefers to bite humans rather than other animals. The long lifespan and strong human-biting habit of the African vector species is the main reason why nearly 90% of the world's malaria cases are in Africa.\\n  \\t\\t\\n  \\t\\tTransmission also depends on climatic conditions that may affect the number and survival of mosquitoes, such as rainfall patterns, temperature and humidity. In many places, transmission is seasonal, with the peak during and just after the rainy season. Malaria epidemics can occur when climate and other conditions suddenly favour transmission in areas where people have little or no immunity to malaria. They can also occur when people with low immunity move into areas with intense malaria transmission, for instance to find work, or as refugees. \\n  \\t\\t\\n  \\t\\tHuman immunity is another important factor, especially among adults in areas of moderate or intense transmission conditions. Partial immunity is developed over years of exposure, and while it never provides complete protection, it does reduce the risk that malaria infection will cause severe disease. For this reason, most malaria deaths in Africa occur in young children, whereas in areas with less transmission and low immunity, all age groups are at risk.\",\n            \"treatment\": \"\\n  \\t\\t\\n  \\t\\tEarly diagnosis and treatment of malaria reduces disease and prevents deaths. It also contributes to reducing malaria transmission. The best available treatment, particularly for P. falciparum malaria, is artemisinin-based combination therapy (ACT). \\n  \\t\\t\\n  \\t\\tWHO recommends that all cases of suspected malaria be confirmed using parasite-based diagnostic testing (either microscopy or rapid diagnostic test) before administering treatment. Results of parasitological confirmation can be available in 30 minutes or less. Treatment, solely on the basis of symptoms should only be considered when a parasitological diagnosis is not possible. More detailed recommendations are available in the \\\"WHO Guidelines for the treatment of malaria\\\", third edition, published in April 2015.\",\n            \"treatments\": [\n                {\n                    \"id\": 2,\n                    \"name\": \"Mosquito net\",\n                    \"text\": \"A mosquito net offers protection against mosquitos, flies, and other insects, and thus against the diseases they may carry. Examples include malaria, dengue fever, yellow fever, zika virus and various forms of encephalitis, including the West Nile virus. To be effective the mesh of a mosquito net must be fine enough to exclude such insects without reducing visibility or air flow to unacceptable levels. It is possible to increase the effectiveness of a mosquito net greatly by treating it with an appropriate insecticide or mosquito repellant.\\nResearch has shown mosquito nets to be an extremely effective method of malaria prevention, averting approximately 451 million cases of malaria over the period 2000–2015.\",\n                    \"treatment_type\": \"Prevention\",\n                    \"wiki_link\": \"https://en.wikipedia.org/wiki/Mosquito%20net\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Antimalarial medication\",\n                    \"text\": \"Antimalarial medications, also known as antimalarials, are designed to prevent or cure malaria. Such drugs may be used for some or all of the following:\\n\\nTreatment of malaria in individuals with suspected or confirmed infection\\nPrevention of infection in individuals visiting a malaria-endemic region who have no immunity (malaria prophylaxis)\\nRoutine intermittent treatment of certain groups in endemic regions (intermittent preventive therapy)Some antimalarial agents, particularly chloroquine and hydroxychloroquine, are also used in the treatment of rheumatoid arthritis and lupus-associated arthritis.\\nCurrent practice in treating cases of malaria is based on the concept of combination therapy (e.g., Coartem), since this offers several advantages, including reduced risk of treatment failure, reduced risk of developing resistance, enhanced convenience, and reduced side-effects.  Prompt parasitological confirmation by microscopy, or alternatively by rapid diagnostic tests, is recommended in all patients suspected of malaria before treatment is started. Treatment solely on the basis of clinical suspicion should only be considered when a parasitological diagnosis is not accessible.\",\n                    \"treatment_type\": \"Medication\",\n                    \"wiki_link\": \"https://en.wikipedia.org/wiki/Antimalarial%20medication\"\n                }\n            ]\n        }\n    ],\n    \"page\": 1,\n    \"total_pages\": 1\n}"
+				}
+			]
+		},
+		{
+			"name": "Search for disease (like/not case sensitive)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Returns object(s)\"] = responseBody.has(\"objects\")"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "api.knowyourtreatment.com/api/disease?q={\"filters\":[{\"name\":\"name\", \"op\":\"like\", \"val\":\"rubella\"}]}",
+					"host": [
+						"api",
+						"knowyourtreatment",
+						"com"
+					],
+					"path": [
+						"api",
+						"disease"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{\"filters\":[{\"name\":\"name\", \"op\":\"like\", \"val\":\"rubella\"}]}",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Query for diseases with approximately the same name"
+			},
+			"response": [
+				{
+					"id": "9c9c4a34-db15-4b14-a06b-6d152af4ac6d",
+					"name": "Search for colera",
+					"originalRequest": {
+						"url": {
+							"raw": "http://ec2-34-218-254-20.us-west-2.compute.amazonaws.com/api/disease?q={\"filters\":[{\"name\":\"name\", \"op\":\"like\", \"val\":\"rubella\"}]}",
+							"protocol": "http",
+							"host": [
+								"ec2-34-218-254-20",
+								"us-west-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"api",
+								"disease"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "{\"filters\":[{\"name\":\"name\", \"op\":\"like\", \"val\":\"rubella\"}]}",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"_postman_previewtype": "parsed",
+					"header": [],
+					"cookie": [],
+					"responseTime": 0,
+					"body": "{\n    \"num_results\": 1,\n    \"objects\": [\n        {\n            \"charities\": [],\n            \"diagnosis\": null,\n            \"id\": 12,\n            \"is_active\": true,\n            \"more\": \"Source is http://www.who.int/entity/mediacentre/factsheets/fs367/en/index.html\",\n            \"name\": \"Rubella\",\n            \"prevention\": null,\n            \"symptoms\": \"\\n  \\t\\t\\n  \\t\\tIn children, the disease is usually mild, with symptoms including a rash, low fever (\\n  \\t\\t\\n  \\t\\tOnce a person is infected, the virus spreads throughout the body in about 5-7 days. Symptoms usually appear 2 to 3 weeks after exposure. The most infectious period is usually 1–5 days after the appearance of the rash. \\n  \\t\\t\\n  \\t\\tWhen a woman is infected with the rubella virus early in pregnancy, she has a 90% chance of passing the virus on to her fetus. This can cause miscarriage, stillbirth or severe birth defects known as CRS. Infants with CRS may excrete the virus for a year or more.\",\n            \"transmission\": null,\n            \"treatment\": null,\n            \"treatments\": []\n        }\n    ],\n    \"page\": 1,\n    \"total_pages\": 1\n}"
+				}
+			]
+		},
+		{
+			"name": "Get treatment by Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Returns object\"] = responseBody.has(\"id\")",
+							"tests[\"Returns 1 object\"] = !responseBody.has(\"num_results\")"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "api.knowyourtreatment.com/api/treatment/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "each object has a unique integer id (1-x) associated with them."
+			},
+			"response": [
+				{
+					"id": "abdcd180-88aa-4adf-8449-8a9e95c33fac",
+					"name": "Get the first treatment object",
+					"originalRequest": {
+						"url": "api.knowyourtreatment.com/api/treatment/1",
+						"method": "GET",
+						"header": [],
+						"body": {}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "access-control-allow-origin",
+							"key": "access-control-allow-origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "content-length",
+							"key": "content-length",
+							"value": "2401",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json, application/json",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "date",
+							"key": "date",
+							"value": "Fri, 13 Jul 2018 18:16:48 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "server",
+							"key": "server",
+							"value": "Werkzeug/0.14.1 Python/3.7.0",
+							"description": "A name for the server"
+						},
+						{
+							"name": "vary",
+							"key": "vary",
+							"value": "Accept",
+							"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
+						}
+					],
+					"cookie": [],
+					"responseTime": 222,
+					"body": "{\n    \"diseases\": [\n        {\n            \"diagnosis\": null,\n            \"id\": 1,\n            \"is_active\": true,\n            \"more\": \"Source is http://www.who.int/entity/mediacentre/factsheets/fs099/en/index.html\",\n            \"name\": \"Rabies\",\n            \"prevention\": null,\n            \"symptoms\": null,\n            \"transmission\": null,\n            \"treatment\": null\n        }\n    ],\n    \"id\": 1,\n    \"image\": \"http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&pithumbsize=100&&titles=Rabies%20vaccine\",\n    \"name\": \"Rabies vaccine\",\n    \"price\": null,\n    \"text\": \"Rabies vaccine is a vaccine used to prevent rabies. There are a number of vaccines available that are both safe and effective. They can be used to prevent rabies before and for a period of time after exposure to the virus such as by a dog or bat bite. The immunity that develops is long lasting after a full course. Doses are usually given by injection into the skin or muscle. After exposure vaccination is typically used along with rabies immunoglobulin. It is recommended that those who are at high risk of exposure be vaccinated before potential exposure. Vaccines are effective in humans and other animals. Vaccinating dogs is very effective in preventing the spread of rabies to humans.Rabies vaccines may be safely used in all age groups. About 35 to 45 percent of people develop a brief period of redness and pain at the injection site. About 5 to 15 percent of people may have fever, headaches, or nausea. After exposure to rabies there is no contraindication to its use. Most vaccines do not contain thimerosal. Vaccines made from nerve tissue are used in a few countries, mainly in Asia and Latin America, but are less effective and have greater side effects. Their use is thus not recommended by the World Health Organization.The first rabies vaccine was introduced in 1885, and was followed by an improved version in 1908. Millions of people globally have been vaccinated and it is estimated that this saves more than 250,000 people a year. It is on the World Health Organization's List of Essential Medicines, the most effective and safe medicines needed in a health system. The wholesale cost in the developing world is between 44 and 78 USD for a course of treatment as of 2014. In the United States a course of rabies vaccine is more than 750 USD.\",\n    \"treatment_type\": \"Prevention\",\n    \"wiki_link\": \"https://en.wikipedia.org/wiki/Rabies%20vaccine\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get disease by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Returns object\"] = responseBody.has(\"id\")",
+							"tests[\"Returns 1 object\"] = !responseBody.has(\"num_results\")"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "api.knowyourtreatment.com/api/disease/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "each object has a unique integer id (1-x) associated with them."
+			},
+			"response": [
+				{
+					"id": "9bb0c15d-b248-4ce8-ae2a-ba56baa68c7b",
+					"name": "Get the first treatment object",
+					"originalRequest": {
+						"url": "api.knowyourtreatment.com/api/treatment/1",
+						"method": "GET",
+						"header": [],
+						"body": {}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "access-control-allow-origin",
+							"key": "access-control-allow-origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "content-length",
+							"key": "content-length",
+							"value": "2401",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json, application/json",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "date",
+							"key": "date",
+							"value": "Fri, 13 Jul 2018 18:16:48 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "server",
+							"key": "server",
+							"value": "Werkzeug/0.14.1 Python/3.7.0",
+							"description": "A name for the server"
+						},
+						{
+							"name": "vary",
+							"key": "vary",
+							"value": "Accept",
+							"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
+						}
+					],
+					"cookie": [],
+					"responseTime": 222,
+					"body": "{\n    \"diseases\": [\n        {\n            \"diagnosis\": null,\n            \"id\": 1,\n            \"is_active\": true,\n            \"more\": \"Source is http://www.who.int/entity/mediacentre/factsheets/fs099/en/index.html\",\n            \"name\": \"Rabies\",\n            \"prevention\": null,\n            \"symptoms\": null,\n            \"transmission\": null,\n            \"treatment\": null\n        }\n    ],\n    \"id\": 1,\n    \"image\": \"http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&pithumbsize=100&&titles=Rabies%20vaccine\",\n    \"name\": \"Rabies vaccine\",\n    \"price\": null,\n    \"text\": \"Rabies vaccine is a vaccine used to prevent rabies. There are a number of vaccines available that are both safe and effective. They can be used to prevent rabies before and for a period of time after exposure to the virus such as by a dog or bat bite. The immunity that develops is long lasting after a full course. Doses are usually given by injection into the skin or muscle. After exposure vaccination is typically used along with rabies immunoglobulin. It is recommended that those who are at high risk of exposure be vaccinated before potential exposure. Vaccines are effective in humans and other animals. Vaccinating dogs is very effective in preventing the spread of rabies to humans.Rabies vaccines may be safely used in all age groups. About 35 to 45 percent of people develop a brief period of redness and pain at the injection site. About 5 to 15 percent of people may have fever, headaches, or nausea. After exposure to rabies there is no contraindication to its use. Most vaccines do not contain thimerosal. Vaccines made from nerve tissue are used in a few countries, mainly in Asia and Latin America, but are less effective and have greater side effects. Their use is thus not recommended by the World Health Organization.The first rabies vaccine was introduced in 1885, and was followed by an improved version in 1908. Millions of people globally have been vaccinated and it is estimated that this saves more than 250,000 people a year. It is on the World Health Organization's List of Essential Medicines, the most effective and safe medicines needed in a health system. The wholesale cost in the developing world is between 44 and 78 USD for a course of treatment as of 2014. In the United States a course of rabies vaccine is more than 750 USD.\",\n    \"treatment_type\": \"Prevention\",\n    \"wiki_link\": \"https://en.wikipedia.org/wiki/Rabies%20vaccine\"\n}"
+				}
+			]
+		},
+		{
+			"name": "get charity by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"tests[\"Returns object\"] = responseBody.has(\"id\")",
+							"tests[\"Returns 1 object\"] = !responseBody.has(\"num_results\")"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "api.knowyourtreatment.com/api/charity/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "each object has a unique integer id (1-x) associated with them."
+			},
+			"response": []
+		}
+	]
+}

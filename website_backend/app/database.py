@@ -23,17 +23,14 @@ class Treatment(db.Model):
     treatment_type = db.Column(db.Unicode)
     text = db.Column(db.Unicode)
     wiki_link = db.Column(db.Unicode)
-    image = db.Column(db.Unicode)
-    price = db.Column(db.Unicode)
+    image_link = db.Column(db.Unicode)
 
     def __init__(self, resource):
         self.name = resource['name']
         self.treatment_type = resource['treatment_type']
         self.text = resource['text']
         self.wiki_link = 'https://en.wikipedia.org/wiki/' + resource['name'].replace(' ','%20')
-        self.image = 'http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&pithumbsize=100&&titles='+resource['name'].replace(' ','%20')
-
-
+        self.image_link = get_image_link(self.name)
 
 class Charity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -55,6 +52,7 @@ class Charity(db.Model):
     parent_ein = db.Column(db.Boolean)
     longitude = db.Column(db.Float)
     latitude = db.Column(db.Float)
+
     disease_id = db.Column(db.Integer, db.ForeignKey('disease.id'),
         nullable=False)
 
@@ -77,8 +75,8 @@ class Charity(db.Model):
         self.parent_ein = resource['parent_ein']
         self.longitude = resource['longitude']
         self.latitude = resource['latitude']
-        self.disease_id = disease_id
 
+        self.disease_id = disease_id
 
 class Disease(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -90,6 +88,7 @@ class Disease(db.Model):
     prevention = db.Column(db.Unicode)
     more = db.Column(db.Unicode)
     is_active = db.Column(db.Boolean)
+    image_link = db.Column(db.Unicode)
     charities = db.relationship('Charity', backref='disease', lazy=True)
     treatments = db.relationship('Treatment', secondary=Disease_Treatment, lazy='select',
     backref=db.backref('diseases', lazy=True))
@@ -103,6 +102,7 @@ class Disease(db.Model):
         self.prevention = resource['prevention']
         self.more = resource['more']
         self.is_active = resource['is_active']
+        self.image_link = get_image_link(self.name)
 
 def initDisease():
     url = 'https://disease-info-api.herokuapp.com/diseases.json'
@@ -131,6 +131,14 @@ def initCharity():
     print('initialized charity table')
 
 
+def get_image_link(term):
+    term = term.replace(' ','+')
+    key = '9546071-7450d2f1cec80ec110ca1f90c'
+    url = 'https://pixabay.com/api/?key=' + key + '&q=' + term + '&per_page=1'
+    #r = requests.get( url=url ).json()
+    #print(r)
+    return term
+
 def initTreatment(limit):
     baseUrl = 'https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=json&rvsection=0&rvparse&titles='
     baseSearchUrl = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=&srsearch='
@@ -153,13 +161,11 @@ def initTreatment(limit):
                 # if there are links to other wiki pages
                 text = ''
                 if '/wiki/' in section:
-                    #links = (section.split('<a href='))
-                    #for link in links:
-                    #print(link.split)
-
+                    # extract link title
                     suffix = section.split('/wiki/')[1].split('"')[0]
                     sectionUrl = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='+suffix
                     text = next(iter(requests.get(sectionUrl).json()['query']['pages'].values()))['extract']
+
                     # in case the link requires a redirect/is a subpage
                     if (text==''):
                         sectionSearchUrl = baseSearchUrl+suffix
@@ -170,7 +176,8 @@ def initTreatment(limit):
                         try:
                             info = {'name':suffix.replace('_',' '),
                                     'treatment_type':sectionName,
-                                    'text':text}
+                                    'text':text,
+                                    'price':0}
                             db.session.add( Treatment(info) )
                             db.session.commit()
                             disease.treatments = disease.treatments + [Treatment.query.filter_by(name=suffix.replace('_',' ')).first()]
