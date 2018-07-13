@@ -1,5 +1,6 @@
 import React from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
+import { Link, Switch, Route } from 'react-router-dom';
 
 export default class ListModule extends React.Component {
 	constructor(props) {
@@ -7,6 +8,7 @@ export default class ListModule extends React.Component {
 		/*console.log(props);*/
 		this.state = {
 			title: '',
+			route: '',
 			names: []
 		};
 
@@ -19,16 +21,19 @@ export default class ListModule extends React.Component {
 			case "/healthconditions":
 
 				this.state.title = 'Health Conditions';
+				this.state.route = '/healthconditions/'
 				break;
 
 			case "/charities":
 
 				this.state.title = 'Charities';
+				this.state.route = '/charities/';
 				break;
 
 			case "/medications":
 
 				this.state.title = 'Medications';
+				this.state.route = '/medications/';
 		}
 
 		/*console.log(this.state.title);*/
@@ -79,8 +84,8 @@ export default class ListModule extends React.Component {
 				<h1> { this.state.title } </h1>
 				<ListGroup>
 					{this.state.names.map(function(name, index) {
-						return <ListGroupItem key={index}> { name } </ListGroupItem>;
-					})}
+						return <ListGroupItem key={index}><Link to={this.state.route + name}> {name} </Link></ListGroupItem>;
+					}, this)}
 				</ListGroup>
 			</div>
 		);
