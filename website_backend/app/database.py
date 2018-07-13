@@ -30,7 +30,7 @@ class Treatment(db.Model):
         self.treatment_type = resource['treatment_type']
         self.text = resource['text']
         self.wiki_link = 'https://en.wikipedia.org/wiki/' + resource['name'].replace(' ','%20')
-        self.image_link = resource['image_link']
+        self.image_link = get_image_link(self.name)
 
 class Charity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -161,10 +161,7 @@ def initTreatment(limit):
                 # if there are links to other wiki pages
                 text = ''
                 if '/wiki/' in section:
-                    #links = (section.split('<a href='))
-                    #for link in links:
-                    #print(link.split)
-
+                    # extract link title
                     suffix = section.split('/wiki/')[1].split('"')[0]
                     sectionUrl = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='+suffix
                     text = next(iter(requests.get(sectionUrl).json()['query']['pages'].values()))['extract']
@@ -174,9 +171,6 @@ def initTreatment(limit):
                         sectionSearchUrl = baseSearchUrl+suffix
                         treatment_wiki_title = requests.get(searchUrl).json()['query']['search'][0]['title'].replace(' ', '%20')
                         text = next(iter(requests.get('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='+treatment_wiki_title).json()['query']['pages'].values()))['extract']
-
-                    # get accompyaning image
-                    image_link = get_image_link(suffix.replace('_','+'))
 
                     if (text!=''):
                         try:
