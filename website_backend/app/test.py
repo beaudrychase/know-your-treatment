@@ -127,6 +127,30 @@ class AppTestCase(unittest.TestCase):
 		sample = db.session.query(database.Charity).filter_by(latitude=2.0).one()
 		assert 2.0 == sample.latitude
 
+
+
+
+	def test_treatment_id(self):
+		sample = db.session.query(database.Treatment).filter_by(id=1).one()
+		assert 'Sample id' == sample.id
+
+	def test_treatment_name(self):
+		sample = db.session.query(database.Treatment).filter_by(name='Sample name').one()
+		assert 'Sample name' == sample.name
+
+	def test_treatment_treatment_type(self):
+		sample = db.session.query(database.Treatment).filter_by(treatment_type='Sample treatment_type').one()
+		assert 'Sample treatment_type' == sample.treatment_type
+
+	def test_treatment_text(self):
+		sample = db.session.query(database.Treatment).filter_by(text='Sample text').one()
+		assert 'Sample text' == sample.text
+
+	def test_treatment_wiki_link(self):
+		sample = db.session.query(database.Treatment).filter_by(wiki_link='Sample wiki_link').one()
+		assert 'Sample wiki_link' == sample.wiki_link
+
+
 	
 def create_sample_disease():
 	#Assumes the database has already been initialized.
@@ -172,6 +196,21 @@ def create_sample_charity():
 	sample_charity_json = json.loads(sample_charity)
 	try:
 		db.session.add( database.Charity(sample_charity_json, 1))
+	except IntegrityError:
+		pass
+		db.session.rollback()
+
+def create_sample_treatment():
+	sample_treatment = {'id' : 1,
+					    'name' : 'Sample name',
+					    'treatment_type' : 'Sample treatment_type',
+					    'text' : 'Sample text',
+					    'wiki_link' : 'Sample wiki_link',
+					    }
+	sample_treatment = json.dumps(sample_treatment)
+	sample_treatment_json = json.loads(sample_treatment)
+	try:
+		db.session.add( database.Treatment(sample_treatment_json, 1))
 	except IntegrityError:
 		pass
 		db.session.rollback()
