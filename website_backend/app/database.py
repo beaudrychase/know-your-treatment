@@ -52,7 +52,6 @@ class Charity(db.Model):
     parent_ein = db.Column(db.Boolean)
     longitude = db.Column(db.Float)
     latitude = db.Column(db.Float)
-
     disease_id = db.Column(db.Integer, db.ForeignKey('disease.id'),
         nullable=False)
 
@@ -75,7 +74,6 @@ class Charity(db.Model):
         self.parent_ein = resource['parent_ein']
         self.longitude = resource['longitude']
         self.latitude = resource['latitude']
-
         self.disease_id = disease_id
 
 class Disease(db.Model):
@@ -132,12 +130,12 @@ def initCharity():
 
 
 def get_image_link(term):
-    term = term.replace(' ','+')
-    key = '9546071-7450d2f1cec80ec110ca1f90c'
-    url = 'https://pixabay.com/api/?key=' + key + '&q=' + term + '&per_page=1'
-    #r = requests.get( url=url ).json()
-    #print(r)
-    return term
+    url = 'https://pixabay.com/api/?key=9546071-7450d2f1cec80ec110ca1f90c&q=' + term.replace(' ','+')
+    r = requests.get( url=url ).json()
+    if (r['totalHits'] > 1):
+        return r['hits'][0]['webformatURL']
+    else:
+        return ''
 
 def initTreatment(limit):
     baseUrl = 'https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=json&rvsection=0&rvparse&titles='
