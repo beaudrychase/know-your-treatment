@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Button, Layout} from 'reactstrap';
-import "../../assets/jumbotron.css";
+import "./jumbotron.css";
 
 export default class Home extends React.Component {
     render() {return(

@@ -1,7 +1,6 @@
 // Dependencies
 import React from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
-// import profileTravis from "../../assets/images/profile_travis.jpg"
 
 
 
@@ -106,150 +105,151 @@ export default class About extends React.Component {
 
     render() {
         return(
-        <div>
-            <h2 class="display-3 text-center">About Our Project</h2>
-            <table align="center" width="800">
-                <p>We are six Software Engineering students from the University of Texas at Austin and we are creating <b>{this.state.ourDescription}</b>.</p>
-                <p>Our Gitlab project, <b>{this.state.ourName}</b>, was last updated at <b>{this.state.ourLastChange}</b> and is available at <b><a href={this.state.ourURL}>{this.state.ourURL}</a></b>.</p>
-                <p>Our API documentation is available on <b><a href="https://documenter.getpostman.com/view/4692440/RWMBSAp3">Postman</a></b> and our technical report is available on <b><a href="https://knowyourtreatment.gitbook.io/project">Gitbook</a></b>.</p>
-            </table>
-            <table align="center" cellpadding="10">
-                <tr>
-                    <td>
-                        <h2>Our Team</h2>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <img src={require("../../assets/images/profile_caleb.jpg")} width="200" />
-                    </td>
-                    <td>
-                        <img src={require("../../assets/images/profile_travis.jpg")} width="200" />
-                    </td>
-                    <td>
-                        <img src={require("../../assets/images/profile_brendan.jpg")} width="200" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <h3>Caleb Barnwell</h3>
-                    </td>
-                    <td>
-                        <h3>Travis Llado</h3>
-                    </td>
-                    <td>
-                        <h3>Brendan Miller</h3>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="240" valign="top">
-                        Caleb is working on his BS in Computer Science and Mathematics. He is from Bozeman, MT and Midland, TX. He enjoys snowboarding, RPG games, and reading.
-                    </td>
-                    <td width="240" valign="top">
-                        Travis is a robotics engineer who wants to write better software
-                    </td>
-                    <td width="240" valign="top">
-                        Brendan is a mathematician who wishes he were better at Algebra and frontend development.
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>
-                        Responsibilities: Fullstack<br />
-                        Number of commits: {this.state.numCommits[caleb].toString()}<br />
-                        Number of issues: {this.state.numIssues[caleb].toString()}<br />
-                        Number of tests: {this.state.numTests[caleb].toString()}
-                    </p></td>
-                    <td><p>
-                        Responsibilities: Frontend<br />
-                        Number of commits: {this.state.numCommits[travis].toString()}<br />
-                        Number of issues: {this.state.numIssues[travis].toString()}<br />
-                        Number of tests: {this.state.numTests[travis].toString()}
-                    </p></td>
-                    <td><p>
-                        Responsibilities: Backend<br />
-                        Number of commits: {this.state.numCommits[brendan].toString()}<br />
-                        Number of issues: {this.state.numIssues[brendan].toString()}<br />
-                        Number of tests: {this.state.numTests[brendan].toString()}
-                    </p></td>
-                </tr>
-                <tr>
-                    <td>
-                        <img src={require("../../assets/images/profile_woo.jpg")} width="200" />
-                    </td>
-                    <td>
-                        <img src={require("../../assets/images/profile_beaudry.jpg")} width="200" />
-                    </td>
-                    <td>
-                        <img src={require("../../assets/images/profile_chris.jpg")} width="200" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <h3>Woo An</h3>
-                    </td>
-                    <td>
-                        <h3>Beaudry Chase</h3>
-                    </td>
-                    <td>
-                        <h3>Chris Sauceda</h3>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="240" valign="top">
-                        UT CS major who enjoys watching and playing basketball
-                    </td>
-                    <td width="240" valign="top">
-                        Student at UT Austin. Studies CS and dabbles in rock climbing.
-                    </td>
-                    <td width="240" valign="top">
-                        Senior ECE major
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>
-                        Responsibilities: Fullstack<br />
-                        Number of commits: {this.state.numCommits[woo].toString()}<br />
-                        Number of issues: {this.state.numIssues[woo].toString()}<br />
-                        Number of tests: {this.state.numTests[woo].toString()}
-                    </p></td>
-                    <td><p>
-                        Responsibilities: Backend<br />
-                        Number of commits: {this.state.numCommits[beaudry].toString()}<br />
-                        Number of issues: {this.state.numIssues[beaudry].toString()}<br />
-                        Number of tests: {this.state.numTests[beaudry].toString()}
-                    </p></td>
-                    <td><p>
-                        Responsibilities: Frontend<br />
-                        Number of commits: {this.state.numCommits[chris].toString()}<br />
-                        Number of issues: {this.state.numIssues[chris].toString()}<br />
-                        Number of tests: {this.state.numTests[chris].toString()}
-                    </p></td>
-                </tr>
-            </table>
-            <table align="center" width="800">
-                <h2>Our Tools</h2>
-                <b>GitLab​</b>
-                <p>GitLab is the git repository manager that we use to develop knowyourtreatment.com.</p>
+            <div>
+                <h2 class="display-3 text-center">About Our Project</h2>
+                <table align="center" width="800">
+                    <p>We are six Software Engineering students from the University of Texas at Austin and we are creating <b>{this.state.ourDescription}</b>.</p>
+                    <p>Our Gitlab project, <b>{this.state.ourName}</b>, was last updated at <b>{this.state.ourLastChange}</b> and is available at <b><a href={this.state.ourURL}>{this.state.ourURL}</a></b>.</p>
+                    <p>Our API documentation is available on <b><a href="https://documenter.getpostman.com/view/4692440/RWMBSAp3">Postman</a></b> and our technical report is available on <b><a href="https://knowyourtreatment.gitbook.io/project">Gitbook</a></b>.</p>
+                </table>
+                <table align="center" cellpadding="10">
+                    <tr>
+                        <td>
+                            <h2>Our Team</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src={require("./images/profile_caleb.jpg")} width="200" />
+                        </td>
+                        <td>
+                            <img src={require("./images/profile_travis.jpg")} width="200" />
+                        </td>
+                        <td>
+                            <img src={require("./images/profile_brendan.jpg")} width="200" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3>Caleb Barnwell</h3>
+                        </td>
+                        <td>
+                            <h3>Travis Llado</h3>
+                        </td>
+                        <td>
+                            <h3>Brendan Miller</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="240" valign="top">
+                            Caleb is working on his BS in Computer Science and Mathematics. He is from Bozeman, MT and Midland, TX. He enjoys snowboarding, RPG games, and reading.
+                        </td>
+                        <td width="240" valign="top">
+                            Travis is a robotics engineer who wants to write better software
+                        </td>
+                        <td width="240" valign="top">
+                            Brendan is a mathematician who wishes he were better at Algebra and frontend development.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>
+                            Responsibilities: Fullstack<br />
+                            Number of commits: {this.state.numCommits[caleb].toString()}<br />
+                            Number of issues: {this.state.numIssues[caleb].toString()}<br />
+                            Number of tests: {this.state.numTests[caleb].toString()}
+                        </p></td>
+                        <td><p>
+                            Responsibilities: Frontend<br />
+                            Number of commits: {this.state.numCommits[travis].toString()}<br />
+                            Number of issues: {this.state.numIssues[travis].toString()}<br />
+                            Number of tests: {this.state.numTests[travis].toString()}
+                        </p></td>
+                        <td><p>
+                            Responsibilities: Backend<br />
+                            Number of commits: {this.state.numCommits[brendan].toString()}<br />
+                            Number of issues: {this.state.numIssues[brendan].toString()}<br />
+                            Number of tests: {this.state.numTests[brendan].toString()}
+                        </p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src={require("./images/profile_woo.jpg")} width="200" />
+                        </td>
+                        <td>
+                            <img src={require("./images/profile_beaudry.jpg")} width="200" />
+                        </td>
+                        <td>
+                            <img src={require("./images/profile_chris.jpg")} width="200" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3>Woo An</h3>
+                        </td>
+                        <td>
+                            <h3>Beaudry Chase</h3>
+                        </td>
+                        <td>
+                            <h3>Chris Sauceda</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="240" valign="top">
+                            UT CS major who enjoys watching and playing basketball
+                        </td>
+                        <td width="240" valign="top">
+                            Student at UT Austin. Studies CS and dabbles in rock climbing.
+                        </td>
+                        <td width="240" valign="top">
+                            Senior ECE major
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>
+                            Responsibilities: Fullstack<br />
+                            Number of commits: {this.state.numCommits[woo].toString()}<br />
+                            Number of issues: {this.state.numIssues[woo].toString()}<br />
+                            Number of tests: {this.state.numTests[woo].toString()}
+                        </p></td>
+                        <td><p>
+                            Responsibilities: Backend<br />
+                            Number of commits: {this.state.numCommits[beaudry].toString()}<br />
+                            Number of issues: {this.state.numIssues[beaudry].toString()}<br />
+                            Number of tests: {this.state.numTests[beaudry].toString()}
+                        </p></td>
+                        <td><p>
+                            Responsibilities: Frontend<br />
+                            Number of commits: {this.state.numCommits[chris].toString()}<br />
+                            Number of issues: {this.state.numIssues[chris].toString()}<br />
+                            Number of tests: {this.state.numTests[chris].toString()}
+                        </p></td>
+                    </tr>
+                </table>
+                <table align="center" width="800">
+                    <h2>Our Tools</h2>
+                    <b>GitLab​</b>
+                    <p>GitLab is the git repository manager that we use to develop knowyourtreatment.com.</p>
 
-                ​<b>Postman​</b>
-                <p>Postman is a HTTP client for testing web services. For this project we used it for developing our RESTful API.</p>
+                    ​<b>Postman​</b>
+                    <p>Postman is a HTTP client for testing web services. For this project we used it for developing our RESTful API.</p>
 
-                ​<b>Amazon Web Services​</b>
-                <p>Amazon Web Services is a cloud services platform that we used to host our development and production websites.</p>
+                    ​<b>Amazon Web Services​</b>
+                    <p>Amazon Web Services is a cloud services platform that we used to host our development and production websites.</p>
 
-                ​<b>GitBook​</b>
-                <p>GitBook is a documentation platform that we used to write our technical reports.</p>
+                    ​<b>GitBook​</b>
+                    <p>GitBook is a documentation platform that we used to write our technical reports.</p>
 
-                ​<b>Bootstrap​</b>
-                <p>Bootstrap is a frontend framework that we used for designing our website.</p>
+                    ​<b>Bootstrap​</b>
+                    <p>Bootstrap is a frontend framework that we used for designing our website.</p>
 
-                ​<b>Slack​</b>
-                <p>Slack is a team communication tool that is great for development projects. It has integrations for many of the other tools that we used such as GitLab and Postman.</p>
-            </table>
-            <hr />
-            <footer class="container">
-                <p>© Know Your Treatment 2018</p>
-            </footer>
-        </div>
-    );}
+                    ​<b>Slack​</b>
+                    <p>Slack is a team communication tool that is great for development projects. It has integrations for many of the other tools that we used such as GitLab and Postman.</p>
+                </table>
+                <hr />
+                <footer class="container">
+                    <p>© Know Your Treatment 2018</p>
+                </footer>
+            </div>
+        );
+    }
 }
