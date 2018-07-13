@@ -165,7 +165,8 @@ def create_sample_disease():
 						'treatment' : 'Sample treatment',
 						'prevention' : 'Sample prevention',
 						'more' : 'Sample more',
-						'is_active' : True
+						'is_active' : True,
+						'image_link' : 'www.example.com/image.png'
 						}
 	sample_disease = json.dumps(sample_disease)
 	sample_disease_json = json.loads(sample_disease)
@@ -212,7 +213,8 @@ def create_sample_treatment():
 					    'name' : 'Sample name',
 					    'treatment_type' : 'Sample treatment_type',
 					    'text' : 'Sample text',
-					    'wiki_link' : 'Sample wiki_link'
+					    'wiki_link' : 'Sample wiki_link',
+					    'image_link' : 'www.example.com/image.png'
 					    }
 	sample_treatment = json.dumps(sample_treatment)
 	sample_treatment_json = json.loads(sample_treatment)

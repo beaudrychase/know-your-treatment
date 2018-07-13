@@ -30,7 +30,7 @@ class Treatment(db.Model):
         self.treatment_type = resource['treatment_type']
         self.text = resource['text']
         self.wiki_link = 'https://en.wikipedia.org/wiki/' + resource['name'].replace(' ','%20')
-        self.image_link = get_image_link(self.name)
+        self.image_link = resource['image_link']
 
 class Charity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -100,13 +100,15 @@ class Disease(db.Model):
         self.prevention = resource['prevention']
         self.more = resource['more']
         self.is_active = resource['is_active']
-        self.image_link = get_image_link(self.name)
+        self.image_link = resource['image_link']
 
 def initDisease():
     url = 'https://disease-info-api.herokuapp.com/diseases.json'
     data = requests.get(url).json()
     for info in data['diseases']:
         try:
+            image_link = get_image_link(info['name'])
+            info['image_link'] = image_link
             db.session.add( Disease(info) )
             db.session.commit()
         except IntegrityError:
@@ -175,6 +177,7 @@ def initTreatment(limit):
                             info = {'name':suffix.replace('_',' '),
                                     'treatment_type':sectionName,
                                     'text':text,
+                                    'image_link':get_image_link(suffix.replace('_','+')),
                                     'price':0}
                             db.session.add( Treatment(info) )
                             db.session.commit()
