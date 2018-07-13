@@ -68,7 +68,7 @@ export default class ListModule extends React.Component {
 				break;
 
 			case 'Charities':
-				this.fetchArray('http://api.knowyourtreatment.com/api/charity', 'charityName');
+				this.fetchArray('http://api.knowyourtreatment.com/api/charity', 'name');
 				break;
 
 			case 'Medications':

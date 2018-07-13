@@ -38,7 +38,7 @@ export default class HealthModel extends React.Component {
 						transmission: d.transmission,
 						treatment_text: d.treatment,
 						charities: d.charities.map((c) => {
-							return c.charityName;
+							return c.name;
 						}),
 
 						treatments: d.treatments.map((t) => {
