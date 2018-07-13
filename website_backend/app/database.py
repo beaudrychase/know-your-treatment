@@ -177,7 +177,6 @@ def initTreatment(limit):
                             info = {'name':suffix.replace('_',' '),
                                     'treatment_type':sectionName,
                                     'text':text,
-                                    'image_link':image_link,
                                     'price':0}
                             db.session.add( Treatment(info) )
                             db.session.commit()
