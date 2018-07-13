@@ -28,7 +28,11 @@ var numTests = [0, 0, 0, 0, 0, 0];
 export default class About extends React.Component {
 	constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            // numCommits: [0, 0, 0, 0, 0, 0],
+            // numIssues: [0, 0, 0, 0, 0, 0],
+            // numTests: [0, 0, 0, 0, 0, 0]
+        };
     }
 
     componentWillMount() {
@@ -47,11 +51,13 @@ export default class About extends React.Component {
         .then(results => results.json())
         .then(function(commitsData) {
             commitsData.forEach(function(element) {
+                console.log(element.author_name);
                 for (var index = 0; index < authorNames.length; index++) {
                     if (element.author_name == authorNames[index]) {
                         numCommits[index] += 1;
                     }
                 }
+                console.log(numCommits);
             });
         });
 
