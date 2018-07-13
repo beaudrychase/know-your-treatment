@@ -11,7 +11,7 @@ def initialize():
 	db.session.commit()
 	database.initDisease()
 	database.initCharity()
-	database.initTreatment(50)
+	database.initTreatment(25)
 	print('all tables initialized')
 
 @app.route('/')
