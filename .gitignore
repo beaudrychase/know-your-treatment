@@ -1,5 +1,8 @@
 .DS_Store
+website_backend/app/makefile
 *.pem
 *.pyc
 website_backend/app/__pycache/
 website_backend/app/init.sh
+
+website_backend/app/__pycache__/
