@@ -1,35 +1,52 @@
 @startuml
-Object Charities {
-	name: string
-	website_link: string
-	related_diseases: string
-	city: string
-	state: string
-	zipCode: int
-	acceptingDonations: bool
-	missionStatement: string
+Object Charity {
+	id = Integer
+    ein = Integer
+    name = String
+    url = String
+    donationUrl = String
+    city = String
+    state = String
+    zipCode = String
+    start = Integer
+    rows = Integer
+    recordCount = Integer
+    score = Integer
+    acceptingDonations = Boolean
+    category = String
+    eligibleCd = Boolean
+    missionStatement = String
+    parent_ein = Boolean
+    longitude = Float
+    latitude = Float
+    disease_id = Integer
 }
 
-Object HealthConditions {
-	name: string
-	symptoms: string
-	transmission : string
-	treatment_overview: string
-	prevention: string
-	medication: string
-	charity: string
+Object Disease {
+	id = Integer
+    name = String
+    symptoms = String
+    transmission = String
+    diagnosis = String
+    treatment = String
+    prevention = String
+    more = String
+    is_active = Boolean
+    image_link = String
+    charities = Array[Charity]
+    treatments = Array[Treatment]
 }
 
-Object Medications {
-	name: string
-	average_dosage: string
-	side_effects: string
-	ingredients: string
-	manufacturer: string
-	related_diseases: string
+Object Treatment {
+	id = Integer
+    name = String
+    treatment_type = String
+    text = String
+    wiki_link = String
+    image_link = String
 }
 
-Charities - HealthConditions
-HealthConditions - Medications
-Charities - Medications
+Charity - Disease
+Disease - Treatment
+Charity - Treatment
 @enduml
