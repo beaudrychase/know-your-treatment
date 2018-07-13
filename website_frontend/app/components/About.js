@@ -110,7 +110,7 @@ export default class About extends React.Component {
             <table align="center" width="800">
                 <p>We are six Software Engineering students from the University of Texas at Austin and we are creating <b>{this.state.ourDescription}</b>.</p>
                 <p>Our Gitlab project, <b>{this.state.ourName}</b>, was last updated at <b>{this.state.ourLastChange}</b> and is available at <b><a href={this.state.ourURL}>{this.state.ourURL}</a></b>.</p>
-                <p>Our API documentation is available on <b><a href="https://documenter.getpostman.com/view/4692440/RWEmKHEN">Postman</a></b> and our technical report is available on <b><a href="https://knowyourtreatment.gitbook.io/project">Gitbook</a></b>.</p>
+                <p>Our API documentation is available on <b><a href="https://documenter.getpostman.com/view/4692440/RWMBSAp3">Postman</a></b> and our technical report is available on <b><a href="https://knowyourtreatment.gitbook.io/project">Gitbook</a></b>.</p>
             </table>
             <table align="center" cellpadding="10">
                 <tr>
