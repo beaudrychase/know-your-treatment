@@ -120,13 +120,13 @@ export default class About extends React.Component {
                 </tr>
                 <tr>
                     <td>
-                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_caleb.jpg" width="200"></img>
+                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_caleb.jpg" width="200" />
                     </td>
                     <td>
-                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_travis.jpg" width="200"></img>
+                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_travis.jpg" width="200" />
                     </td>
                     <td>
-                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_brendan.jpg" width="200"></img>
+                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_brendan.jpg" width="200" />
                     </td>
                 </tr>
                 <tr>
@@ -153,33 +153,33 @@ export default class About extends React.Component {
                 </tr>
                 <tr>
                     <td><p>
-                        Responsibilities: Fullstack<br></br>
-                        Number of commits: {this.state.numCommits[caleb].toString()}<br></br>
-                        Number of issues: {this.state.numIssues[caleb].toString()}<br></br>
+                        Responsibilities: Fullstack<br />
+                        Number of commits: {this.state.numCommits[caleb].toString()}<br />
+                        Number of issues: {this.state.numIssues[caleb].toString()}<br />
                         Number of tests: {this.state.numTests[caleb].toString()}
                     </p></td>
                     <td><p>
-                        Responsibilities: Frontend<br></br>
-                        Number of commits: {this.state.numCommits[travis].toString()}<br></br>
-                        Number of issues: {this.state.numIssues[travis].toString()}<br></br>
+                        Responsibilities: Frontend<br />
+                        Number of commits: {this.state.numCommits[travis].toString()}<br />
+                        Number of issues: {this.state.numIssues[travis].toString()}<br />
                         Number of tests: {this.state.numTests[travis].toString()}
                     </p></td>
                     <td><p>
-                        Responsibilities: Backend<br></br>
-                        Number of commits: {this.state.numCommits[brendan].toString()}<br></br>
-                        Number of issues: {this.state.numIssues[brendan].toString()}<br></br>
+                        Responsibilities: Backend<br />
+                        Number of commits: {this.state.numCommits[brendan].toString()}<br />
+                        Number of issues: {this.state.numIssues[brendan].toString()}<br />
                         Number of tests: {this.state.numTests[brendan].toString()}
                     </p></td>
                 </tr>
                 <tr>
                     <td>
-                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_woo.jpg" width="200"></img>
+                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_woo.jpg" width="200" />
                     </td>
                     <td>
-                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_beaudry.jpg" width="200"></img>
+                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_beaudry.jpg" width="200" />
                     </td>
                     <td>
-                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_chris.jpg" width="200"></img>
+                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_chris.jpg" width="200" />
                     </td>
                 </tr>
                 <tr>
@@ -206,21 +206,21 @@ export default class About extends React.Component {
                 </tr>
                 <tr>
                     <td><p>
-                        Responsibilities: Fullstack<br></br>
-                        Number of commits: {this.state.numCommits[woo].toString()}<br></br>
-                        Number of issues: {this.state.numIssues[woo].toString()}<br></br>
+                        Responsibilities: Fullstack<br />
+                        Number of commits: {this.state.numCommits[woo].toString()}<br />
+                        Number of issues: {this.state.numIssues[woo].toString()}<br />
                         Number of tests: {this.state.numTests[woo].toString()}
                     </p></td>
                     <td><p>
-                        Responsibilities: Backend<br></br>
-                        Number of commits: {this.state.numCommits[beaudry].toString()}<br></br>
-                        Number of issues: {this.state.numIssues[beaudry].toString()}<br></br>
+                        Responsibilities: Backend<br />
+                        Number of commits: {this.state.numCommits[beaudry].toString()}<br />
+                        Number of issues: {this.state.numIssues[beaudry].toString()}<br />
                         Number of tests: {this.state.numTests[beaudry].toString()}
                     </p></td>
                     <td><p>
-                        Responsibilities: Frontend<br></br>
-                        Number of commits: {this.state.numCommits[chris].toString()}<br></br>
-                        Number of issues: {this.state.numIssues[chris].toString()}<br></br>
+                        Responsibilities: Frontend<br />
+                        Number of commits: {this.state.numCommits[chris].toString()}<br />
+                        Number of issues: {this.state.numIssues[chris].toString()}<br />
                         Number of tests: {this.state.numTests[chris].toString()}
                     </p></td>
                 </tr>
@@ -245,6 +245,7 @@ export default class About extends React.Component {
                 ​<b>Slack​</b>
                 <p>Slack is a team communication tool that is great for development projects. It has integrations for many of the other tools that we used such as GitLab and Postman.</p>
             </table>
+            <hr />
             <footer class="container">
                 <p>© Know Your Treatment 2018</p>
             </footer>

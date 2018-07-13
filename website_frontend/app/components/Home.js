@@ -33,6 +33,7 @@ export default class Home extends React.Component {
                     </div>
                 </div>
             </div>
+            <hr></hr>
             <footer class="container">
                 <p>© Know Your Treatment 2018</p>
             </footer>
