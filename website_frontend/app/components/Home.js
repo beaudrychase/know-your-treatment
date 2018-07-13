@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-// import backgroundImage from "blood.jpg";
+import {Link} from 'react-router-dom';
+import {Button, Layout} from 'reactstrap';
 
 export default class Home extends React.Component {
     render() {return(
@@ -15,21 +14,23 @@ export default class Home extends React.Component {
                     <Link to="/charities" class="btn btn-primary">Find charities now</Link>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <h2>Health Conditions</h2>
-                    <p>Learn more about current health conditions.</p>
-                    <Link to="/healthconditions" class="btn btn-primary">View Details</Link>
-                </div>
-                <div class="col-md-4">
-                    <h2>Charities</h2>
-                    <p>Explore which organizations are working to support health problems.</p>
-                    <Link to="/charities" class="btn btn-primary">View Details</Link>
-                </div>
-                <div class="col-md-4">
-                    <h2>Medications</h2>
-                    <p>Learn more about the medications and treatments available.</p>
-                    <Link to="/medications" class="btn btn-primary">View Details</Link>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h2>Health Conditions</h2>
+                        <p>Learn more about current health conditions.</p>
+                        <Link to="/healthconditions" class="btn btn-secondary">View Details</Link>
+                    </div>
+                    <div class="col-md-4">
+                        <h2>Charities</h2>
+                        <p>Explore which organizations are working to support health problems.</p>
+                        <Link to="/charities" class="btn btn-secondary">View Details</Link>
+                    </div>
+                    <div class="col-md-4">
+                        <h2>Medications</h2>
+                        <p>Learn more about the medications and treatments available.</p>
+                        <Link to="/medications" class="btn btn-secondary">View Details</Link>
+                    </div>
                 </div>
             </div>
             <footer class="container">

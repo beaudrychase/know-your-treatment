@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Navbar, NavbarBrand, NavItem} from 'reactstrap';
-import {Button} from 'react-bootstrap';
 
 export default class MyNavbar extends React.Component {
 	render() {return(
