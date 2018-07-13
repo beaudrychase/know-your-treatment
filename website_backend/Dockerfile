@@ -22,4 +22,4 @@ RUN pip install --upgrade pip    && \
 ENV FLASK_DEBUG=1
 ENV FLASK_APP=app.py
 
-CMD python /app/app.py & 
+CMD /bin/bash

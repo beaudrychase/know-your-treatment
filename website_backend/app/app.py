@@ -29,4 +29,4 @@ if __name__ == '__main__':
 	initialize()
 	CORS(app)
 	# Make available to all domains
-	app.run(host="0.0.0.0", port=80, use_reloader=False)
+	app.run(host="0.0.0.0", port=80)
