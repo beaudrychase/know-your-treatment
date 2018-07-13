@@ -65,17 +65,34 @@ export default class About extends React.Component {
             return totals;
         }
 
+        // Adds two arrays element-wise
+        function addArrays(array1, array2) {
+            for(var index = 0; index < array1.length; index++) {
+                array1[index] = array1[index] + array2[index];
+            }
+
+            return array1;
+        }
+
         // Get commits data
-        fetch(gitlabCommitsURL)
-        .then(results => results.json())
-        .then(commitsData => commitsData.map(thisCommit => thisCommit.author_name))
-        .then(commitNames => this.setState({numCommits: tally(commitNames, authorNames)}));
+        // Assumes we have <= 10 pages of results (100 per page)
+        for(var pageNum = 1; pageNum < 10; pageNum++) {
+            fetch(gitlabCommitsURL + "&page=" + pageNum)
+            .then(results => results.json())
+            .then(commitsData => commitsData.map(thisCommit => thisCommit.author_name))
+            .then(commitNames => tally(commitNames, authorNames))
+            .then(thisPageTotals => addArrays(thisPageTotals, this.state.numCommits))
+            .then(allPagesTotals => this.setState({numCommits: allPagesTotals}));
+        }
 
         // Get issues data
+        // Assumes we have <= 10 pages of results (100 per page)
         fetch(gitlabIssuesURL)
         .then(results => results.json())
         .then(issuesData => issuesData.map(thisIssue => thisIssue.author.username))
-        .then(issueNames => this.setState({numIssues: tally(issueNames, usernames)}));
+        .then(issueNames => tally(issueNames, usernames))
+        .then(thisPageTotals => addArrays(thisPageTotals, this.state.numIssues))
+        .then(allPagesTotals => this.setState({numIssues: allPagesTotals}));
 
         // Get tests data
         console.log("You need to code up your test counter");
