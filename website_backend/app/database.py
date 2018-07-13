@@ -36,8 +36,9 @@ class Treatment(db.Model):
 
 
 class Charity(db.Model):
-    ein = db.Column(db.Integer, primary_key=True)
-    charityName = db.Column(db.Unicode, unique=True)
+    id = db.Column(db.Integer, primary_key=True)
+    ein = db.Column(db.Integer)
+    name = db.Column(db.Unicode, unique=True)
     url = db.Column(db.Unicode)
     donationUrl = db.Column(db.Unicode)
     city = db.Column(db.Unicode)
@@ -59,7 +60,7 @@ class Charity(db.Model):
 
     def __init__(self, resource, disease_id):
         self.ein = resource['ein']
-        self.charityName = resource['charityName']
+        self.name = resource['charityName']
         self.url = resource['url']
         self.donationUrl = resource['donationUrl']
         self.city = resource['city']

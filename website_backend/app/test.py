@@ -60,9 +60,9 @@ class AppTestCase(unittest.TestCase):
 		sample = db.session.query(database.Charity).filter_by(ein=1).one()
 		self.assertEqual( 1, sample.ein)
 
-	def test_charity_charityName(self):
-		sample = db.session.query(database.Charity).filter_by(charityName="Sample charityName").one()
-		self.assertEqual( "Sample charityName", sample.charityName)
+	def test_charity_name(self):
+		sample = db.session.query(database.Charity).filter_by(name="Sample name").one()
+		self.assertEqual( "Sample name", sample.name)
 
 	def test_charity_url(self):
 		sample = db.session.query(database.Charity).filter_by(url="Sample url").one()
@@ -97,11 +97,11 @@ class AppTestCase(unittest.TestCase):
 		self.assertEqual( 4, sample.recordCount)
 
 	def test_charity_score(self):
-		sample = db.session.query(database.Charity).filter_by(score=5,  charityName="Sample charityName").one()
+		sample = db.session.query(database.Charity).filter_by(score=5,  name="Sample name").one()
 		self.assertEqual( 5, sample.score)
 
 	def test_charity_acceptingDonations(self):
-		sample = db.session.query(database.Charity).filter_by(acceptingDonations=True, charityName="Sample charityName").one()
+		sample = db.session.query(database.Charity).filter_by(acceptingDonations=True, name="Sample name").one()
 		self.assertEqual(True, sample.acceptingDonations)
 
 	def test_charity_category(self):
@@ -109,7 +109,7 @@ class AppTestCase(unittest.TestCase):
 		self.assertEqual( "Sample category", sample.category)
 
 	def test_charity_eligibleCd(self):
-		sample = db.session.query(database.Charity).filter_by(eligibleCd=True,  charityName="Sample charityName").one()
+		sample = db.session.query(database.Charity).filter_by(eligibleCd=True,  name="Sample name").one()
 		self.assertEqual(True, sample.eligibleCd)
 
 	def test_charity_missionStatement(self):
@@ -117,7 +117,7 @@ class AppTestCase(unittest.TestCase):
 		self.assertEqual( "Sample missionStatement", sample.missionStatement)
 
 	def test_charity_parent_ein(self):
-		sample = db.session.query(database.Charity).filter_by(parent_ein=True,  charityName="Sample charityName").one()
+		sample = db.session.query(database.Charity).filter_by(parent_ein=True,  name="Sample name").one()
 		self.assertEqual(True, sample.parent_ein)
 
 	def test_charity_longitude(self):
@@ -177,8 +177,9 @@ def create_sample_disease():
 	return sample_disease_json
 
 def create_sample_charity():
-	sample_charity={'ein' : 1,
-					'charityName' : 'Sample charityName', 
+	sample_charity={'id' : 1,
+					'ein' : 1,
+					'charityName' : 'Sample name', 
 				    'url' : 'Sample url', 
 				    'donationUrl' : 'Sample donationUrl', 
 				    'city' : 'Sample city', 
@@ -236,7 +237,7 @@ if __name__ == '__main__':
 
 # 
 # print('app.Charity.query.all()')
-# print([x.charityName for x in app.database.Charity.query.all()])
+# print([x.name for x in app.database.Charity.query.all()])
 # print('app.Treatment.query.all()')
 # print([x.name for x in app.database.Treatment.query.all()])
 # print('ending test')
