@@ -11,7 +11,8 @@ const brendan = 2;
 const woo = 3;
 const beaudry = 4;
 const chris = 5;
-const authorNames = ["cmibarnwell", "Travis Llado", "brendan miller", "woojunan", "Beaudry Chase", "Chris" ];
+const authorEmails = ["calebbarnwell@gmail.com", "travisllado@utexas.edu", "brendanmiller.ca@gmail.com", "woo.an31@live.com", "beauchase213@gmail.com", "csauce@utexas.edu"];
+// const authorNames = ["cmibarnwell", "Travis Llado", "brendan miller", "woojunan", "Beaudry Chase", "Chris" ];    // used to use these for counting commits
 const usernames =   ["cmibarnwell", "tllado",       "bpatmiller",     "woojunan", "beaudrychase",  "csauce"];
 const gitlabProjectURL = "https://gitlab.com/api/v4/projects/7160520?private_token=eX7szajR1g6q1C9hyCr4";
 const gitlabCommitsURL = "https://gitlab.com/api/v4/projects/7160520/repository/commits?per_page=100&private_token=eX7szajR1g6q1C9hyCr4";
@@ -28,7 +29,7 @@ export default class About extends React.Component {
             ourName:        "",
             ourURL:         "",
             ourLastChange:  "",
-            numCommits:     [0, 0, 0, 0, 0, 0],
+            numCommits:     [0, 8, 0, 0, 0, 0],
             numIssues:      [0, 0, 0, 0, 0, 0],
             numTests:       [0, 0, 0, 8, 34, 0]
         };
@@ -79,8 +80,8 @@ export default class About extends React.Component {
         for(var pageNum = 1; pageNum < 10; pageNum++) {
             fetch(gitlabCommitsURL + "&page=" + pageNum)
             .then(results => results.json())
-            .then(commitsData => commitsData.map(thisCommit => thisCommit.author_name))
-            .then(commitNames => tally(commitNames, authorNames))
+            .then(commitsData => commitsData.map(thisCommit => thisCommit.author_email))
+            .then(commitNames => tally(commitNames, authorEmails))
             .then(thisPageTotals => addArrays(thisPageTotals, this.state.numCommits))
             .then(allPagesTotals => this.setState({numCommits: allPagesTotals}));
         }
