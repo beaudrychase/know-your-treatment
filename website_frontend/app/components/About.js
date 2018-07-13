@@ -77,6 +77,7 @@ export default class About extends React.Component {
 
         // Get commits data
         // Assumes we have <= 10 pages of results (100 per page)
+        // a while loop that checks the length of the last result would be good
         for(var pageNum = 1; pageNum < 10; pageNum++) {
             fetch(gitlabCommitsURL + "&page=" + pageNum)
             .then(results => results.json())
@@ -88,12 +89,15 @@ export default class About extends React.Component {
 
         // Get issues data
         // Assumes we have <= 10 pages of results (100 per page)
-        fetch(gitlabIssuesURL)
-        .then(results => results.json())
-        .then(issuesData => issuesData.map(thisIssue => thisIssue.author.username))
-        .then(issueNames => tally(issueNames, usernames))
-        .then(thisPageTotals => addArrays(thisPageTotals, this.state.numIssues))
-        .then(allPagesTotals => this.setState({numIssues: allPagesTotals}));
+        // a while loop that checks the length of the last result would be good
+        for(var pageNum = 1; pageNum < 10; pageNum++) {
+            fetch(gitlabIssuesURL + "&page=" + pageNum)
+            .then(results => results.json())
+            .then(issuesData => issuesData.map(thisIssue => thisIssue.author.username))
+            .then(issueNames => tally(issueNames, usernames))
+            .then(thisPageTotals => addArrays(thisPageTotals, this.state.numIssues))
+            .then(allPagesTotals => this.setState({numIssues: allPagesTotals}));
+        }
 
         // Get tests data
         console.log("You need to code up your test counter");
