@@ -3,12 +3,19 @@ Object Charities {
 	name: string
 	website_link: string
 	related_diseases: string
+	city: string
+	state: string
+	zipCode: int
+	acceptingDonations: bool
+	missionStatement: string
 }
 
 Object HealthConditions {
 	name: string
 	symptoms: string
+	transmission : string
 	treatment_overview: string
+	prevention: string
 	medication: string
 	charity: string
 }
