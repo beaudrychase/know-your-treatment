@@ -1,31 +1,39 @@
+// Dependencies
 import React from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 
-// Global variables, everyone's favorite
-var caleb = 0;
-var travis = 1;
-var brendan = 2;
-var woo = 3;
-var beaudry = 4;
-var chris = 5;
-var usernames =   ["cmibarnwell", "tllado",       "bpatmiller",     "woojunan", "beaudrychase", "csauce"];
-var authorNames = ["cmibarnwell", "Travis Llado", "brendan miller", "woojunan", "beaudrychase", "Chris" ];
+
+
+// Global Constants
+const caleb = 0;
+const travis = 1;
+const brendan = 2;
+const woo = 3;
+const beaudry = 4;
+const chris = 5;
+const authorNames = ["cmibarnwell", "Travis Llado", "brendan miller", "woojunan", "beaudrychase", "Chris" ];
+const usernames =   ["cmibarnwell", "tllado",       "bpatmiller",     "woojunan", "beaudrychase", "csauce"];
+const gitlabProjectURL = "https://gitlab.com/api/v4/projects/7160520?private_token=eX7szajR1g6q1C9hyCr4";
+const gitlabCommitsURL = "https://gitlab.com/api/v4/projects/7160520/repository/commits?per_page=100&private_token=eX7szajR1g6q1C9hyCr4";
+const gitlabIssuesURL =  "https://gitlab.com/api/v4/projects/7160520/issues?scope=all&per_page=100&private_token=eX7szajR1g6q1C9hyCr4";
+
+// Global Variables
 var numCommits = [0, 0, 0, 0, 0, 0];
 var numIssues = [0, 0, 0, 0, 0, 0];
 var numTests = [0, 0, 0, 0, 0, 0];
+
+
 
 // Page builder
 export default class About extends React.Component {
 	constructor(props) {
         super(props);
-        this.state = {
-            ourCommits: []
-        };
+        this.state = {};
     }
 
     componentWillMount() {
         // Get project data
-        fetch("https://gitlab.com/api/v4/projects/7160520?private_token=eX7szajR1g6q1C9hyCr4")
+        fetch(gitlabProjectURL)
         .then(results => results.json())
         .then(projectData => this.setState({
             ourDescription: projectData.description,
@@ -35,21 +43,42 @@ export default class About extends React.Component {
         }));
 
         // Get commits data
-        fetch("https://gitlab.com/api/v4/projects/7160520/issues?scope=all&per_page=100&private_token=eX7szajR1g6q1C9hyCr4")
+        fetch(gitlabCommitsURL)
         .then(results => results.json())
-        .then(commitsData => this.setState({
-            ourCommits: commitsData.map((element) => element.author.username)
-        }));
+        .then(function(commitsData) {
+            commitsData.forEach(function(element) {
+                for (var index = 0; index < authorNames.length; index++) {
+                    if (element.author_name == authorNames[index]) {
+                        numCommits[index] += 1;
+                    }
+                }
+            });
+        });
+
+        // Get issues data
+        fetch(gitlabIssuesURL)
+        .then(results => results.json())
+        .then(function(issuesData) {
+            issuesData.forEach(function(element) {
+                for (var index = 0; index < usernames.length; index++) {
+                    if (element.author.username == usernames[index]) {
+                        numIssues[index] += 1;
+                    }
+                }
+            });
+        });
     }
 
-    render() {return(
+    render() {
+        console.log("commits: " + numCommits.toString());
+        console.log("issues:  " + numIssues.toString());
+        return(
         <div>
             <h2 class="display-3 text-center">About Our Project:</h2>
             <table align="center" width="800">
                 <p>We are six Software Engineering students from the University of Texas at Austin and we are creating <b>{this.state.ourDescription}</b>.</p>
-                <p>Our Gitlab project, <b>{this.state.ourName}</b>, last updated on <b>{this.state.ourLastChange}</b>, can be found at <b><a href={this.state.ourURL}>{this.state.ourURL}</a></b>.</p>
-                <p>Our API documentation can be found on <b><a href="https://documenter.getpostman.com/view/4692440/RWEmKHEN">Postman</a></b>.</p>
-                <p>Our Technical Report can be found on <b><a href="https://knowyourtreatment.gitbook.io/project">Gitbook</a></b>.</p>
+                <p>Our Gitlab project, <b>{this.state.ourName}</b>, was last updated at <b>{this.state.ourLastChange}</b> and is available at <b><a href={this.state.ourURL}>{this.state.ourURL}</a></b>.</p>
+                <p>Our API documentation is available on <b><a href="https://documenter.getpostman.com/view/4692440/RWEmKHEN">Postman</a></b> and our Technical Report is available on <b><a href="https://knowyourtreatment.gitbook.io/project">Gitbook</a></b>.</p>
             </table>
             <table align="center" cellpadding="10">
                 <tr>
