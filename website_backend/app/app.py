@@ -17,7 +17,7 @@ def initialize():
 @app.route('/')
 def home_page():
     return	'/api/disease/  --  ' + str([x.name for x in database.Disease.query.all()]) + '<br>' +\
-   		'/api/charity/  --  ' + str([x.charityName for x in database.Charity.query.all()]) + '<br>' +\
+   			'/api/charity/  --  ' + str([x.charityName for x in database.Charity.query.all()]) + '<br>' +\
     		'/api/treatment/  --  ' + str([x.name for x in database.Treatment.query.all()])
 
 manager = flask_restless.APIManager(app, flask_sqlalchemy_db=database.db)

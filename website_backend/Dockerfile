@@ -22,4 +22,4 @@ RUN pip install --upgrade pip    && \
 ENV FLASK_DEBUG=1
 ENV FLASK_APP=app.py
 
-CMD flask run --host=0.0.0.0 --port=80
+CMD python /app/app.py
