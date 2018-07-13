@@ -10,7 +10,7 @@ export default class ListModule extends React.Component {
 			names: []
 		};
 
-		console.log(props.location.pathname);
+		/*console.log(props.location.pathname);*/
 		this.fetchArray = this.fetchArray.bind(this);
 
 		/* Determine which list to render from location */
@@ -31,31 +31,27 @@ export default class ListModule extends React.Component {
 				this.state.title = 'Medications';
 		}
 
-		console.log(this.state.title);
+		/*console.log(this.state.title);*/
 	}
 
 	/* fetches array of names for each model  
 		url -- url to fetch from
 		nameLabel -- tag for the data containing the name */
 	fetchArray(url, nameLabel) {
-		var Arr = ['1', '2', '3'];
+		/*console.log(url);
+		console.log(nameLabel);*/
 		
-		/*
 		fetch(url)
 		.then(results => {
 			return results.json();
 		}).then(data => {
-			
-			Arr = data.objects.map((d) => {
-				
-				return d.data[nameLabel];
+				/*console.log(data);*/
+				this.setState({names: data.objects.map((d) => {
+										console.log(d[nameLabel]);
+										return d[nameLabel];
+									  })
+				});
 			});
-			
-		})
-		*/
-
-		console.log(Arr);
-		return Arr;
 	}
 
 	componentWillMount() {
@@ -63,15 +59,15 @@ export default class ListModule extends React.Component {
 		switch (this.state.title) {
 
 			case 'Health Conditions':
-				this.setState({names: this.fetchArray('http://api.knowyourtreatment.com/api/disease', 'name')});
+				this.fetchArray('http://api.knowyourtreatment.com/api/disease', 'name');
 				break;
 
 			case 'Charities':
-				this.setState({names: this.fetchArray('http://api.knowyourtreatment.com/api/charity', 'charityName')});
+				this.fetchArray('http://api.knowyourtreatment.com/api/charity', 'charityName');
 				break;
 
 			case 'Medications':
-				this.setState({names: this.fetchArray('http://api.knowyourtreatment.com/api/treatment', 'name')});
+				this.fetchArray('http://api.knowyourtreatment.com/api/treatment', 'name');
 
 		}
 		
