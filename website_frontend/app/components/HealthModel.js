@@ -53,43 +53,49 @@ export default class HealthModel extends React.Component {
 	render() {
 
 		return(
-				<div>
-					<h1> {this.state.name} </h1>;
+				<div class="container">
+                    <br />
+					<h3>{this.state.name}</h3>
+                    <br />
 
-					<h2> Diagnosis </h2>
-					<p> {this.state.diagnosis} </p>
+					<h5>Diagnosis</h5>
+					<p>{this.state.diagnosis}</p>
 
-					<h2> Symptoms </h2>
-					<p> {this.state.symptoms } </p>
+					<h5>Symptoms</h5>
+					<p>{this.state.symptoms }</p>
 
-					<h2> Prevention </h2>
-					<p> {this.state.prevention} </p>
+					<h5>Prevention</h5>
+					<p>{this.state.prevention}</p>
 
-					<h2> Transmission </h2>
-					<p> {this.state.transmission} </p>
+					<h5>Transmission</h5>
+					<p>{this.state.transmission}</p>
 
-					<h2> Treatment </h2>
-					<p> {this.state.treatment_text} </p>]
-
-					{/* links to medication models */}
-
+					<h5>Treatment</h5>
+					<p>{this.state.treatment_text}</p>
 					<ListGroup>
 					{this.state.treatments.map(function(name, index) {
 						return <ListGroupItem key={index}><Link to={'/medications/' + name}> {name} </Link></ListGroupItem>;
 					}, this)}
 					</ListGroup>
+                    <br />
 
-					<h2> Charities </h2>
-
-					{/* links to charity models */}
-
+					<h5>Charities</h5>
 					<ListGroup>
 					{this.state.charities.map(function(name, index) {
 						return <ListGroupItem key={index}><Link to={'/charities/' + name}> {name} </Link></ListGroupItem>;
 					}, this)}
 					</ListGroup>
+                    <br />
+
+                    <hr />
 
 					<Link to={'/healthconditions'}>Back to Health Conditions</Link>
+
+                    <hr />
+
+                    <footer class="container">
+                        <p>© Know Your Treatment 2018</p>
+                    </footer>
 				</div>
 		);
 

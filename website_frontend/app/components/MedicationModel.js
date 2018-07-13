@@ -4,65 +4,74 @@ import { Link } from 'react-router-dom';
 
 export default class MedicationModel extends React.Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			name: props.match.params.name,
-			text: '',
-			healthconditions: [],
-			wikilink: ''
-		};
-	}
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: props.match.params.name,
+            text: '',
+            healthconditions: [],
+            wikilink: ''
+        };
+    }
 
-	componentWillMount() {
+    componentWillMount() {
 
-		/* call api for info */
-		fetch('http://api.knowyourtreatment.com/api/treatment?q={"filters":[{"name":"name",%20"op":"like",%20"val":"' + this.state.name + '"}]}')
-		.then(results => {
-			return results.json();
-		}).then(data => {
-				/*console.log(data);*/
+        /* call api for info */
+        fetch('http://api.knowyourtreatment.com/api/treatment?q={"filters":[{"name":"name",%20"op":"like",%20"val":"' + this.state.name + '"}]}')
+        .then(results => {
+            return results.json();
+        }).then(data => {
+                /*console.log(data);*/
 
-				data.objects.map((d) => {
+                data.objects.map((d) => {
 
-					/* gathered info for model */
-					this.setState({
+                    /* gathered info for model */
+                    this.setState({
 
-						text: d.text,
-						wikilink: d.wiki_link,
-						healthconditions: d.diseases.map((t) => {
-							return t.name;
-						})
-					});
+                        text: d.text,
+                        wikilink: d.wiki_link,
+                        healthconditions: d.diseases.map((t) => {
+                            return t.name;
+                        })
+                    });
 
-				}, this);
-		    });
-	}
+                }, this);
+            });
+    }
 
-	render() {
+    render() {
 
-		return(
-				<div>
-					<h1> {this.state.name} </h1>;
+        return(
+                <div class="container">
+                    <br />
+                    <h3>{this.state.name}</h3>
+                    <br />
 
-					<h2> Description </h2>
-					<p> {this.state.text} </p>
+                    <h5>Description</h5>
+                    <p>{this.state.text}</p>
 
-					{/* links to healthcondition models */}
-					<h2> Related Health Conditions </h2>
-					<ListGroup>
-					{this.state.healthconditions.map(function(name, index) {
-						return <ListGroupItem key={index}><Link to={'/healthconditions/' + name}> {name} </Link></ListGroupItem>;
-					}, this)}
-					</ListGroup>
+                    <h5>Related Health Conditions </h5>
+                    <ListGroup>
+                    {this.state.healthconditions.map(function(name, index) {
+                        return <ListGroupItem key={index}><Link to={'/healthconditions/' + name}> {name} </Link></ListGroupItem>;
+                    }, this)}
+                    </ListGroup>
+                    <br />
 
-					<h2> Wiki Link </h2>
-					<a href={this.state.wikilink}>{this.state.wikilink}</a>
-					<div>
-					<Link to={'/medications'}>Back to Medications</Link>
-					</div>
-				</div>
-		);
+                    <h5>Wiki Link</h5>
+                    <a href={this.state.wikilink}>{this.state.wikilink}</a>
 
-	}			
+                    <hr />
+
+                    <Link to={'/medications'}>Back to Medications</Link>
+                    
+                    <hr />
+                    
+                    <footer class="container">
+                        <p>© Know Your Treatment 2018</p>
+                    </footer>
+                </div>
+        );
+
+    }           
 }

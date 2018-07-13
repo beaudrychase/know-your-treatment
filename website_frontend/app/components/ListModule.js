@@ -80,13 +80,20 @@ export default class ListModule extends React.Component {
 
 	render() {
 		return(
-			<div>
+			<div class="container">
+                <br />
 				<h1> { this.state.title } </h1>
 				<ListGroup>
 					{this.state.names.map(function(name, index) {
 						return <ListGroupItem key={index}><Link to={this.state.route + name}> {name} </Link></ListGroupItem>;
 					}, this)}
 				</ListGroup>
+
+                <hr />
+
+                <footer class="container">
+                    <p>© Know Your Treatment 2018</p>
+                </footer>
 			</div>
 		);
 	}
