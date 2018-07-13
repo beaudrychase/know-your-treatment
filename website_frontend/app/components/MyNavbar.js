@@ -9,10 +9,10 @@ export default class MyNavbar extends React.Component {
                 <Link to="/" style={{color:'#FFF'}}>Know Your Treatment</Link> 
             </NavbarBrand>
             <NavItem active>
-                <Link to="/charities" style={{color:'#FFF'}}>Charities</Link>&nbsp;&nbsp;&nbsp;&nbsp;
+                <Link to="/healthconditions" style={{color:'#FFF'}}>Health Conditions</Link>&nbsp;&nbsp;&nbsp;&nbsp;
             </NavItem>
             <NavItem active>
-                <Link to="/healthconditions" style={{color:'#FFF'}}>Health Conditions</Link>&nbsp;&nbsp;&nbsp;&nbsp;
+                <Link to="/charities" style={{color:'#FFF'}}>Charities</Link>&nbsp;&nbsp;&nbsp;&nbsp;
             </NavItem>
             <NavItem active>
                 <Link to="/medications" style={{color:'#FFF'}}>Medications</Link>&nbsp;&nbsp;&nbsp;&nbsp;

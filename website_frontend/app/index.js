@@ -7,7 +7,7 @@ var App = require('./components/App').default;
 
 ReactDOM.render((
 	<BrowserRouter>
-	<App />
+    	<App />
 	</BrowserRouter>
 	), document.getElementById('app')
 );

@@ -1,6 +1,7 @@
 // Dependencies
 import React from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
+// import profileTravis from "../../assets/images/profile_travis.jpg"
 
 
 
@@ -106,7 +107,7 @@ export default class About extends React.Component {
     render() {
         return(
         <div>
-            <h2 class="display-3 text-center">About Our Project:</h2>
+            <h2 class="display-3 text-center">About Our Project</h2>
             <table align="center" width="800">
                 <p>We are six Software Engineering students from the University of Texas at Austin and we are creating <b>{this.state.ourDescription}</b>.</p>
                 <p>Our Gitlab project, <b>{this.state.ourName}</b>, was last updated at <b>{this.state.ourLastChange}</b> and is available at <b><a href={this.state.ourURL}>{this.state.ourURL}</a></b>.</p>
@@ -120,13 +121,13 @@ export default class About extends React.Component {
                 </tr>
                 <tr>
                     <td>
-                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_caleb.jpg" width="200" />
+                        <img src={require("../../assets/images/profile_caleb.jpg")} width="200" />
                     </td>
                     <td>
-                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_travis.jpg" width="200" />
+                        <img src={require("../../assets/images/profile_travis.jpg")} width="200" />
                     </td>
                     <td>
-                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_brendan.jpg" width="200" />
+                        <img src={require("../../assets/images/profile_brendan.jpg")} width="200" />
                     </td>
                 </tr>
                 <tr>
@@ -173,13 +174,13 @@ export default class About extends React.Component {
                 </tr>
                 <tr>
                     <td>
-                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_woo.jpg" width="200" />
+                        <img src={require("../../assets/images/profile_woo.jpg")} width="200" />
                     </td>
                     <td>
-                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_beaudry.jpg" width="200" />
+                        <img src={require("../../assets/images/profile_beaudry.jpg")} width="200" />
                     </td>
                     <td>
-                        <img src="https://gitlab.com/cmibarnwell/idb-project-swe/raw/master/website_frontend/assets/images/profile_chris.jpg" width="200" />
+                        <img src={require("../../assets/images/profile_chris.jpg")} width="200" />
                     </td>
                 </tr>
                 <tr>

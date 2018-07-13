@@ -1,15 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Button, Layout} from 'reactstrap';
+import "../../assets/jumbotron.css";
 
 export default class Home extends React.Component {
     render() {return(
         <div>
-            <link rel="icon" href="assets/images/prognosis-icon.png"></link>
-            <link href="jumbotron.css" rel="stylesheet"></link>
             <div class="jumbotron">
                 <div class="container jumbotron-inner">
-                    <h1 class="display-3">Help Stop Health Problems Today.</h1>
+                    <h1 class="display-3">Help Stop Health Problems Today</h1>
                     <p>Understand how you can help current health conditions. Browse our records for information on health conditions, charities, and medications to learn how you can help make the world a better place. </p>
                     <Link to="/charities" class="btn btn-primary">Find charities now</Link>
                 </div>
@@ -33,7 +32,7 @@ export default class Home extends React.Component {
                     </div>
                 </div>
             </div>
-            <hr></hr>
+            <hr />
             <footer class="container">
                 <p>© Know Your Treatment 2018</p>
             </footer>
