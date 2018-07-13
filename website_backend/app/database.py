@@ -23,12 +23,17 @@ class Treatment(db.Model):
     treatment_type = db.Column(db.Unicode)
     text = db.Column(db.Unicode)
     wiki_link = db.Column(db.Unicode)
+    image = db.Column(db.Unicode)
+    price = db.Column(db.Unicode)
 
     def __init__(self, resource):
         self.name = resource['name']
         self.treatment_type = resource['treatment_type']
         self.text = resource['text']
         self.wiki_link = 'https://en.wikipedia.org/wiki/' + resource['name'].replace(' ','%20')
+        self.image = 'http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&pithumbsize=100&&titles='+resource['name'].replace(' ','%20')
+
+
 
 class Charity(db.Model):
     ein = db.Column(db.Integer, primary_key=True)
