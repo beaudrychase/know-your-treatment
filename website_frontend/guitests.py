@@ -72,10 +72,21 @@ class GUI_tests(unittest.TestCase) :
 		websiteURL = self.websiteURL
 		driver = self.driver
 		driver.find_element_by_link_text('About').click()
-		self.driver.implicitly_wait(30)
+		driver.implicitly_wait(30)
 		driver.find_element_by_link_text('Postman').click()
-		self.driver.implicitly_wait(30)
+		driver.implicitly_wait(30)
 		self.assertEqual("https://documenter.getpostman.com/view/4692440/RWMBSAp3", driver.current_url)
+		driver.close()
+
+
+	def test_about_page_links_2(self) :
+		websiteURL = self.websiteURL
+		driver = self.driver
+		driver.find_element_by_link_text('About').click()
+		driver.implicitly_wait(30)
+		driver.find_element_by_link_text('Gitbook').click()
+		driver.implicitly_wait(30)
+		self.assertEqual("https://knowyourtreatment.gitbook.io/project", driver.current_url)
 		driver.close()
 
 	# Test sample of a link in the charities page
