@@ -50,7 +50,7 @@ export default class MedicationModel extends React.Component {
                     <br />
 
                     <div className="container">
-                        <img src={this.state.image_link} max-width="100%" height="auto"
+                        <img src={this.state.image_link} width="400" height="auto"
                              className="rounded mx-auto d-block img-fluid"/>
                     </div>
 
