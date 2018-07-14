@@ -55,7 +55,7 @@ export default class MedicationModel extends React.Component {
                     </div>
 
                     <h5>Description</h5>
-                    <p>{this.state.text}</p>
+                    <p>{(this.state.text === '' || this.state.text === null) ? "No data available." : this.state.text}</p>
 
                     <h5>Related Health Conditions </h5>
                     <ListGroup>

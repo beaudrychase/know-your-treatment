@@ -59,10 +59,10 @@ export default class CharityModel extends React.Component {
                     </div>
 
                     <h5>Category</h5>
-                    <p>{this.state.category}</p>
+                    <p>{(this.state.category === '' || this.state.category === null) ? "No data available." : this.state.category}</p>
 
                     <h5>Location</h5>
-                    <p>{this.state.city}, {this.state.state}</p>
+                    <p>{(this.state.city === '' || this.state.city === null) ? "No data available." : this.state.city}, {(this.state.state === '' || this.state.state === null) ? "No data available." : this.state.state}</p>
 
                     <h5>Related Health Conditions</h5>
                     <p><Link to={'/healthconditions/' + this.state.disease}> {this.state.disease}</Link></p>

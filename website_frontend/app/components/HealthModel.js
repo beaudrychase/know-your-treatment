@@ -65,19 +65,19 @@ export default class HealthModel extends React.Component {
 					</div>
 
 					<h5>Diagnosis</h5>
-					<p>{this.state.diagnosis}</p>
+					<p>{(this.state.diagnosis === '' || this.state.diagnosis === null) ? "No data available." : this.state.diagnosis}</p>
 
 					<h5>Symptoms</h5>
-					<p>{this.state.symptoms }</p>
+					<p>{(this.state.symptoms === '' || this.state.symptoms === null) ? "No data available." : this.state.symptoms }</p>
 
 					<h5>Prevention</h5>
-					<p>{this.state.prevention}</p>
+					<p>{(this.state.prevention === '' || this.state.prevention === null) ? "No data available." : this.state.prevention}</p>
 
 					<h5>Transmission</h5>
-					<p>{this.state.transmission}</p>
+					<p>{(this.state.transmission === '' || this.state.transmission === null) ? "No data available." : this.state.transmission}</p>
 
 					<h5>Treatment</h5>
-					<p>{this.state.treatment_text}</p>
+					<p>{(this.state.treatment_text === '' || this.state.treatment_text === null) ? "No data available." : this.state.treatment_text}</p>
 					<ListGroup>
 					{this.state.treatments.map(function(name, index) {
 						return <ListGroupItem key={index}><Link to={'/medications/' + name}> {name} </Link></ListGroupItem>;
