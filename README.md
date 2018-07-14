@@ -5,7 +5,7 @@
 
 Member              | UTEID   |    GitLab ID    | Phase 1 Estimation (Hrs)   | Phase 1 Actual (Hrs) | Phase 2 Estimation (Hrs)   | Phase 2 Actual (Hrs)
 --------------------|:-------:|:---------------:|:--------------------------:|:--------------------:|:--------------------------:|:--------------------:
-Woo An              |wa3768   |woojunan         |          15                |        8             |               x            |         x
+Woo An              |wa3768   |woojunan         |          15                |        8             |               30           |         16
 Caleb Barnwell      |cmb5827  |cmibarnwell      |          27.5              |       22             |               25           |         x
 Beaudry Chase       |bc29552  |beaudrychase     |          15                |       10             |               x            |         x
 Travis Llado        |tal686   |tllado           |          10                |       15             |               x            |         x
