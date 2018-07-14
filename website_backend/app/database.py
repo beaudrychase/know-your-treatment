@@ -107,7 +107,7 @@ def initDisease():
     data = requests.get(url).json()
     for info in data['diseases']:
         try:
-            image_link = get_image_link(info['name'])
+            image_link = get_image_link(info['name'][: -6])
             info['image_link'] = image_link
             db.session.add( Disease(info) )
             db.session.commit()
