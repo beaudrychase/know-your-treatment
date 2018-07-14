@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 
 class GUI_tests(unittest.TestCase) :
 
-	websiteURL = "http://ourplaceholderwebsite.me/"
+	websiteURL = "http://knowyourtreatment.com/"
 
 	def setUp(self) :
 		self.driver = webdriver.Firefox()
@@ -72,10 +72,21 @@ class GUI_tests(unittest.TestCase) :
 		websiteURL = self.websiteURL
 		driver = self.driver
 		driver.find_element_by_link_text('About').click()
-		self.driver.implicitly_wait(30)
+		driver.implicitly_wait(30)
 		driver.find_element_by_link_text('Postman').click()
-		self.driver.implicitly_wait(30)
-		self.assertEqual("https://documenter.getpostman.com/view/4692440/RWEmKHEN", driver.current_url)
+		driver.implicitly_wait(30)
+		self.assertEqual("https://documenter.getpostman.com/view/4692440/RWMBSAp3", driver.current_url)
+		driver.close()
+
+
+	def test_about_page_links_2(self) :
+		websiteURL = self.websiteURL
+		driver = self.driver
+		driver.find_element_by_link_text('About').click()
+		driver.implicitly_wait(30)
+		driver.find_element_by_link_text('Gitbook').click()
+		driver.implicitly_wait(30)
+		self.assertEqual("https://knowyourtreatment.gitbook.io/project", driver.current_url)
 		driver.close()
 
 	# Test sample of a link in the charities page
@@ -85,7 +96,7 @@ class GUI_tests(unittest.TestCase) :
 		driver.find_element_by_link_text('Charities').click()
 		driver.find_element_by_link_text('RABIES IN THE AMERICAS').click()
 		driver.find_element_by_link_text('Rabies').click()
-		self.assertEqual('http://ourplaceholderwebsite.me/healthconditions/Rabies', driver.current_url)
+		self.assertEqual('http://knowyourtreatment.com/healthconditions/Rabies', driver.current_url)
 		driver.close()
 
 	# Test sample of a link in the health conditions page
@@ -95,7 +106,7 @@ class GUI_tests(unittest.TestCase) :
 		driver.find_element_by_link_text('Health Conditions').click()
 		driver.find_element_by_link_text('Rabies').click()
 		driver.find_element_by_link_text('Rabies vaccine').click()
-		self.assertEqual('http://ourplaceholderwebsite.me/medications/Rabies%20vaccine', driver.current_url)
+		self.assertEqual('http://knowyourtreatment.com/medications/Rabies%20vaccine', driver.current_url)
 		driver.close()
 
 	# Test sample of a link in the medications page
@@ -105,7 +116,7 @@ class GUI_tests(unittest.TestCase) :
 		driver.find_element_by_link_text('Medications').click()
 		driver.find_element_by_link_text('Rabies vaccine').click()
 		driver.find_element_by_link_text('Rabies').click()
-		self.assertEqual('http://ourplaceholderwebsite.me/healthconditions/Rabies', driver.current_url)
+		self.assertEqual('http://knowyourtreatment.com/healthconditions/Rabies', driver.current_url)
 		driver.close()
 
 if __name__ == "__main__":  # pragma: no cover
