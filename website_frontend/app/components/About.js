@@ -64,7 +64,7 @@ export default class About extends React.Component {
             ourLastChange:  "",
             numCommits:     [0, 8, 0, 0, 0, 0],
             numIssues:      [0, 0, 0, 0, 0, 0],
-            numTests:       [0, 0, 0, 12, 34, 0]
+            numTests:       [0, 9, 0, 12, 34, 0]
         };
     }
 
