@@ -20,6 +20,39 @@ const gitlabIssuesURL =  "https://gitlab.com/api/v4/projects/7160520/issues?scop
 
 
 
+// Counts the number of times each name appears on the list
+function tally(ourList, ourNames) {
+    // console.log(ourList);
+    // console.log(ourNames);
+    var totals = [];
+    ourNames.forEach(function() {
+        totals.push(0)
+    });
+
+    ourList.forEach(function(thisItem) {
+        for (var thisName = 0; thisName < ourNames.length; thisName++) {
+            if (thisItem == ourNames[thisName]) {
+                totals[thisName] += 1;
+            }
+        }
+    });
+
+    return totals;
+}
+
+
+
+// Adds two arrays element-wise
+function addArrays(array1, array2) {
+    for(var index = 0; index < array1.length; index++) {
+        array1[index] = array1[index] + array2[index];
+    }
+
+    return array1;
+}
+
+
+
 // Page builder
 export default class About extends React.Component {
 	constructor(props) {
@@ -45,35 +78,6 @@ export default class About extends React.Component {
             ourURL:         projectData.web_url,
             ourLastChange:  projectData.last_activity_at
         }));
-
-        // Counts the number of times each name appears on the list
-        function tally(ourList, ourNames) {
-            // console.log(ourList);
-            // console.log(ourNames);
-            var totals = [];
-            ourNames.forEach(function() {
-                totals.push(0)
-            });
-
-            ourList.forEach(function(thisItem) {
-                for (var thisName = 0; thisName < ourNames.length; thisName++) {
-                    if (thisItem == ourNames[thisName]) {
-                        totals[thisName] += 1;
-                    }
-                }
-            });
-
-            return totals;
-        }
-
-        // Adds two arrays element-wise
-        function addArrays(array1, array2) {
-            for(var index = 0; index < array1.length; index++) {
-                array1[index] = array1[index] + array2[index];
-            }
-
-            return array1;
-        }
 
         // Get commits data
         // Assumes we have <= 10 pages of results (100 per page)
