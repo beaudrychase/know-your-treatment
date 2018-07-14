@@ -92,7 +92,7 @@ class Disease(db.Model):
     backref=db.backref('diseases', lazy=True))
 
     def __init__(self, resource):
-        self.name = resource['name'][: -6] #the -6 removes ' : WHO' from the end of the name
+        self.name = resource['name'][: -6].replace('/','-') #the -6 removes ' : WHO' from the end of the name
         self.symptoms = resource['symptoms']
         self.transmission = resource['transmission']
         self.diagnosis = resource['diagnosis']

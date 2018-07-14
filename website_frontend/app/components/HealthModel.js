@@ -61,7 +61,7 @@ export default class HealthModel extends React.Component {
                     <br />
 
 					<div class="container">
-						<img src={this.state.image_link} max-width="100%" height="auto" class="rounded mx-auto d-block img-fluid"/>
+						<img src={this.state.image_link} width="400" height="auto" class="rounded mx-auto d-block img-fluid"/>
 					</div>
 
 					<h5>Diagnosis</h5>
