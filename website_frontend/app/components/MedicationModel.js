@@ -10,7 +10,8 @@ export default class MedicationModel extends React.Component {
             name: props.match.params.name,
             text: '',
             healthconditions: [],
-            wikilink: ''
+            wikilink: '',
+            image_link: ''
         };
     }
 
@@ -30,6 +31,7 @@ export default class MedicationModel extends React.Component {
 
                         text: d.text,
                         wikilink: d.wiki_link,
+                        image_link: d.image_link,
                         healthconditions: d.diseases.map((t) => {
                             return t.name;
                         })
@@ -46,6 +48,11 @@ export default class MedicationModel extends React.Component {
                     <br />
                     <h3>{this.state.name}</h3>
                     <br />
+
+                    <div className="container">
+                        <img src={this.state.image_link} max-width="100%" height="auto"
+                             className="rounded mx-auto d-block img-fluid"/>
+                    </div>
 
                     <h5>Description</h5>
                     <p>{this.state.text}</p>

@@ -13,7 +13,8 @@ export default class CharityModel extends React.Component {
             sitelink: '',
             category: '',
             donate: '',
-            disease: ''
+            disease: '',
+            image_link: ''
         };
     }
 
@@ -36,7 +37,8 @@ export default class CharityModel extends React.Component {
                         sitelink: d.url,
                         category: d.category,
                         donate: d.donationUrl,
-                        disease: d.disease.name
+                        disease: d.disease.name,
+                        image_link: d.disease.image_link,
                     });
 
                 }, this);
@@ -50,6 +52,11 @@ export default class CharityModel extends React.Component {
                     <br />
                     <h3>{this.state.name}</h3>
                     <br />
+
+                    <div className="container">
+                        <img src={this.state.image_link} max-width="100%" height="auto"
+                             className="rounded mx-auto d-block img-fluid"/>
+                    </div>
 
                     <h5>Category</h5>
                     <p>{this.state.category}</p>

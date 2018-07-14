@@ -14,7 +14,8 @@ export default class HealthModel extends React.Component {
 			transmission: '',
 			treatment_text: '',
 			charities: [],
-			treatments: []
+			treatments: [],
+			image_link: ''
 		};
 	}
 
@@ -37,6 +38,7 @@ export default class HealthModel extends React.Component {
 						symptoms: d.symptoms,
 						transmission: d.transmission,
 						treatment_text: d.treatment,
+						image_link: d.image_link,
 						charities: d.charities.map((c) => {
 							return c.name;
 						}),
@@ -57,6 +59,10 @@ export default class HealthModel extends React.Component {
                     <br />
 					<h3>{this.state.name}</h3>
                     <br />
+
+					<div class="container">
+						<img src={this.state.image_link} max-width="100%" height="auto" class="rounded mx-auto d-block img-fluid"/>
+					</div>
 
 					<h5>Diagnosis</h5>
 					<p>{this.state.diagnosis}</p>
