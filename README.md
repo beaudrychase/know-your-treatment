@@ -9,7 +9,7 @@ Woo An              |wa3768   |woojunan         |          15                |  
 Caleb Barnwell      |cmb5827  |cmibarnwell      |          27.5              |       22             |               25           |         18
 Beaudry Chase       |bc29552  |beaudrychase     |          15                |       10             |               x            |         x
 Travis Llado        |tal686   |tllado           |          10                |       15             |               25           |         40
-Brendan Miller      |bmp665   |bpatmiller       |          12                |       10             |               x            |         x
+Brendan Miller      |bmp665   |bpatmiller       |          12                |       10             |               25           |         24
 Christopher Sauceda |ces3723  |csauce           |          12                |       11             |               x            |         x
 
 
@@ -17,7 +17,7 @@ Christopher Sauceda |ces3723  |csauce           |          12                |  
 knowyourtreatment.gitbook.io/project
 
 ### GitLab SHA
-60576a23325cf6e0a9fbbfc8ccadb868d64696af
+1471f96ef0d7c836cb8766cd3043111f61a61dae
 
 ### Website URL
 www.knowyourtreatment.com
