@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { ListGroup, ListGroupItem, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 export default class HealthModel extends React.Component {
@@ -15,42 +15,49 @@ export default class HealthModel extends React.Component {
 			treatment_text: '',
 			charities: [],
 			treatments: [],
-			image_link: ''
+			image_link: '',
+			pageList: []
 		};
 	}
 
-	componentWillMount() {
+    componentWillMount() {
 
-		/* call api for info */
-		fetch('http://api.knowyourtreatment.com/api/disease?q={"filters":[{"name":"name",%20"op":"like",%20"val":"' + this.state.name + '"}]}')
-		.then(results => {
-			return results.json();
-		}).then(data => {
-				/*console.log(data);*/
+        /* call api for info */
+        fetch('http://api.knowyourtreatment.com/api/disease')
+        .then(results => {
+            return results.json();
+        }).then(data => {
+                /*console.log(data);*/
+                /* pagination implementation: collect all names */
+                this.setState({pageList: data.objects.map((d) => {
 
-				data.objects.map((d) => {
+                                            if(this.state.name == d.name) {
+                                                    /* gathered info for model for the page we're on*/
+                                                    this.setState({
 
-					/* gathered info for model */
-					this.setState({
+														diagnosis: d.diagnosis,
+														prevention: d.prevention,
+														symptoms: d.symptoms,
+														transmission: d.transmission,
+														treatment_text: d.treatment,
+														image_link: d.image_link,
+														charities: d.charities.map((c) => {
+														return c.name;
+														}),
 
-						diagnosis: d.diagnosis,
-						prevention: d.prevention,
-						symptoms: d.symptoms,
-						transmission: d.transmission,
-						treatment_text: d.treatment,
-						image_link: d.image_link,
-						charities: d.charities.map((c) => {
-							return c.name;
-						}),
+														treatments: d.treatments.map((t) => {
+														return t.name;
+														})
+													});
+                                            }
 
-						treatments: d.treatments.map((t) => {
-							return t.name;
-						})
-					});
+                                            return d.name;
 
-				}, this);
-		    });
-	}
+                                        }, this)
+                                        
+                });
+            });
+    }
 
 	render() {
 
@@ -93,6 +100,16 @@ export default class HealthModel extends React.Component {
 					</ListGroup>
                     <br />
 
+                    <Pagination>
+                    {this.state.pageList.map(function(name, index) {
+                        
+                        return (this.state.name == name) ? 
+                                <PaginationItem active key={index}><PaginationLink href={'/healthconditions/' + name}> {index} </PaginationLink></PaginationItem> :
+                                <PaginationItem key={index}><PaginationLink href={'/healthconditions/' + name}> {index} </PaginationLink></PaginationItem>;
+                                
+                    }, this)}
+                    </Pagination>
+
                     <hr />
 
 					<Link to={'/healthconditions'}>Back to Health Conditions</Link>
@@ -104,6 +121,5 @@ export default class HealthModel extends React.Component {
                     </footer>
 				</div>
 		);
-
-	}			
-}
+	}
+}			

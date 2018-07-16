@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 export default class CharityModel extends React.Component {
@@ -14,34 +14,41 @@ export default class CharityModel extends React.Component {
             category: '',
             donate: '',
             disease: '',
-            image_link: ''
+            image_link: '',
+            pageList: []
         };
     }
 
     componentWillMount() {
 
         /* call api for info */
-        fetch('http://api.knowyourtreatment.com/api/charity?q={"filters":[{"name":"name",%20"op":"like",%20"val":"' + this.state.name + '"}]}')
+        fetch('http://api.knowyourtreatment.com/api/charity')
         .then(results => {
             return results.json();
         }).then(data => {
                 /*console.log(data);*/
+                /* pagination implementation: collect all names */
+                this.setState({pageList: data.objects.map((d) => {
 
-                data.objects.map((d) => {
+                                            if(this.state.name == d.name) {
+                                                    /* gathered info for model for the page we're on*/
+                                                    this.setState({
 
-                    /* gathered info for model */
-                    this.setState({
+                                                        city: d.city,
+                                                        state: d.state,
+                                                        sitelink: d.url,
+                                                        category: d.category,
+                                                        donate: d.donationUrl,
+                                                        disease: d.disease.name,
+                                                        image_link: d.disease.image_link,
+                                                    });
+                                            }
 
-                        city: d.city,
-                        state: d.state,
-                        sitelink: d.url,
-                        category: d.category,
-                        donate: d.donationUrl,
-                        disease: d.disease.name,
-                        image_link: d.disease.image_link,
-                    });
+                                            return d.name;
 
-                }, this);
+                                        }, this)
+                                        
+                });
             });
     }
 
@@ -72,6 +79,16 @@ export default class CharityModel extends React.Component {
                     
                     <h5>Donate</h5>
                     <p><a href={this.state.donate}>{this.state.donate}</a></p>
+
+                    <Pagination>
+                    {this.state.pageList.map(function(name, index) {
+                        
+                        return (this.state.name == name) ? 
+                                <PaginationItem active key={index}><PaginationLink href={'/charities/' + name}> {index} </PaginationLink></PaginationItem> :
+                                <PaginationItem key={index}><PaginationLink href={'/charities/' + name}> {index} </PaginationLink></PaginationItem>;
+                                
+                    }, this)}
+                    </Pagination>
 
                     <hr />
 
