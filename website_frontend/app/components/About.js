@@ -27,13 +27,13 @@ export default class About extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {
-            ourDescription: "",
-            ourName:        "",
-            ourURL:         "",
-            ourLastChange:  "",
-            numCommits:     [0, 8, 0, 0, 0, 0],
-            numIssues:      [0, 0, 0, 0, 0, 0],
-            numTests:       [0, 9, 0, 12, 34, 0]
+            ourDescription: "",                     // will be automatically found
+            ourName:        "",                     // will be automatically found
+            ourURL:         "",                     // will be automatically found
+            ourLastChange:  "",                     // will be automatically found
+            numCommits:     [0, 8, 0, 0, 0, 0],     // will be automatically counted, but some people used multiple email addresses
+            numIssues:      [0, 0, 0, 0, 0, 0],     // will be automatically counted
+            numTests:       [0, 9, 0, 12, 34, 0]    // was counted by hand
         };
     }
 
@@ -49,9 +49,10 @@ export default class About extends React.Component {
         }));
 
         // Get commits data
-        // Assumes we have <= 10 pages of results (100 per page)
-        // a while loop that checks the length of the last result would be good
-
+        // Assumes we have <= 1000 results (100 per page, 10 pages)
+        // a while loop that checks the length of the last result would be good,
+        // but that would require us to fetch twice or break our fetches into 
+        // multiple functions
         for(var pageNum = 1; pageNum < 10; pageNum++) {
             fetch(gitlabCommitsURL + "&page=" + pageNum)
             .then(results => results.json())
@@ -62,8 +63,10 @@ export default class About extends React.Component {
         }
 
         // Get issues data
-        // Assumes we have <= 10 pages of results (100 per page)
-        // a while loop that checks the length of the last result would be good
+        // Assumes we have <= 1000 results (100 per page, 10 pages)
+        // a while loop that checks the length of the last result would be good,
+        // but that would require us to fetch twice or break our fetches into 
+        // multiple functions
         for(var pageNum = 1; pageNum < 10; pageNum++) {
             fetch(gitlabIssuesURL + "&page=" + pageNum)
             .then(results => results.json())
