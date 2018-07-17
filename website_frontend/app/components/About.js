@@ -1,6 +1,8 @@
 // Dependencies
 import React from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
+// import {addArrays, tally} from './aboutTools.js';
+var tools = require('./aboutTools');
 
 
 
@@ -17,39 +19,6 @@ const usernames =   ["cmibarnwell", "tllado",       "bpatmiller",     "woojunan"
 const gitlabProjectURL = "https://gitlab.com/api/v4/projects/7160520?private_token=eX7szajR1g6q1C9hyCr4";
 const gitlabCommitsURL = "https://gitlab.com/api/v4/projects/7160520/repository/commits?per_page=100&private_token=eX7szajR1g6q1C9hyCr4";
 const gitlabIssuesURL =  "https://gitlab.com/api/v4/projects/7160520/issues?scope=all&per_page=100&private_token=eX7szajR1g6q1C9hyCr4";
-
-
-
-// Counts the number of times each name appears on the list
-function tally(ourList, ourNames) {
-    // console.log(ourList);
-    // console.log(ourNames);
-    var totals = [];
-    ourNames.forEach(function() {
-        totals.push(0)
-    });
-
-    ourList.forEach(function(thisItem) {
-        for (var thisName = 0; thisName < ourNames.length; thisName++) {
-            if (thisItem == ourNames[thisName]) {
-                totals[thisName] += 1;
-            }
-        }
-    });
-
-    return totals;
-}
-
-
-
-// Adds two arrays element-wise
-function addArrays(array1, array2) {
-    for(var index = 0; index < array1.length; index++) {
-        array1[index] = array1[index] + array2[index];
-    }
-
-    return array1;
-}
 
 
 
@@ -82,12 +51,13 @@ export default class About extends React.Component {
         // Get commits data
         // Assumes we have <= 10 pages of results (100 per page)
         // a while loop that checks the length of the last result would be good
+
         for(var pageNum = 1; pageNum < 10; pageNum++) {
             fetch(gitlabCommitsURL + "&page=" + pageNum)
             .then(results => results.json())
             .then(commitsData => commitsData.map(thisCommit => thisCommit.author_email))
-            .then(commitNames => tally(commitNames, authorEmails))
-            .then(thisPageTotals => addArrays(thisPageTotals, this.state.numCommits))
+            .then(commitNames => tools.tally(commitNames, authorEmails))
+            .then(thisPageTotals => tools.addArrays(thisPageTotals, this.state.numCommits))
             .then(allPagesTotals => this.setState({numCommits: allPagesTotals}));
         }
 
@@ -98,13 +68,13 @@ export default class About extends React.Component {
             fetch(gitlabIssuesURL + "&page=" + pageNum)
             .then(results => results.json())
             .then(issuesData => issuesData.map(thisIssue => thisIssue.author.username))
-            .then(issueNames => tally(issueNames, usernames))
-            .then(thisPageTotals => addArrays(thisPageTotals, this.state.numIssues))
+            .then(issueNames => tools.tally(issueNames, usernames))
+            .then(thisPageTotals => tools.addArrays(thisPageTotals, this.state.numIssues))
             .then(allPagesTotals => this.setState({numIssues: allPagesTotals}));
         }
 
         // Get tests data
-        console.log("You need to code up your test counter");
+        console.log("You need to code up an automatic test counter");
     }
 
     render() {
@@ -116,7 +86,7 @@ export default class About extends React.Component {
                     <p>Our Gitlab project, <b>{this.state.ourName}</b>, was last updated at <b>{this.state.ourLastChange}</b> and is available at <b><a href={this.state.ourURL}>{this.state.ourURL}</a></b>.</p>
                     <p>Our API documentation is available on <b><a href="https://documenter.getpostman.com/view/4692440/RWMBSAp3">Postman</a></b> and our technical report is available on <b><a href="https://knowyourtreatment.gitbook.io/project">Gitbook</a></b>.</p>
                 </table>
-                <table align="center" cellpadding="10">
+                <table align="center" cellPadding="10">
                     <tr>
                         <td>
                             <h2>Our Team</h2>
