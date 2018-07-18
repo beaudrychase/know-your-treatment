@@ -29,9 +29,6 @@ backend_deploy:
 frontend_deploy:
   image: "registry.gitlab.com/cmibarnwell/idb-project-swe"
   before_script:
-    - date
-    - uname -a
-    - ls -l
     - echo "$FRONTEND_KEY" > kytFrontEndKey.pem
     - chmod 400 kytFrontEndKey.pem
   script:
