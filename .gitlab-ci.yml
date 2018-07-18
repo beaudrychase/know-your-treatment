@@ -32,4 +32,4 @@ frontend_deploy:
     - 
     echo "$FRONTEND_PASS" > kytFrontEndKey.pem
   script:
-    - ssh "kytFrontEndKey.pem" ubuntu@18.191.169.207 "./update.sh"
+    - ssh -i "kytFrontEndKey.pem" ubuntu@18.191.169.207 "./update.sh"
