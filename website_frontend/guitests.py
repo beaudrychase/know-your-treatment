@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 
 class GUI_tests(unittest.TestCase) :
 
-	websiteURL = "http://knowyourtreatment.com/"
+	websiteURL = "http://ourplaceholderwebsite.me/"
 
 	def setUp(self) :
 		self.driver = webdriver.Firefox()
@@ -21,7 +21,6 @@ class GUI_tests(unittest.TestCase) :
 
 	# Tests the title of the home page
 	def test_title(self) :
-		websiteURL = self.websiteURL
 		driver = self.driver
 		self.assertEqual('Know Your Treatment', driver.title)
 		driver.close()
@@ -69,7 +68,6 @@ class GUI_tests(unittest.TestCase) :
 
 	# Tests the links on the about page
 	def test_about_page_links(self) :
-		websiteURL = self.websiteURL
 		driver = self.driver
 		driver.find_element_by_link_text('About').click()
 		driver.implicitly_wait(30)
@@ -80,7 +78,6 @@ class GUI_tests(unittest.TestCase) :
 
 
 	def test_about_page_links_2(self) :
-		websiteURL = self.websiteURL
 		driver = self.driver
 		driver.find_element_by_link_text('About').click()
 		driver.implicitly_wait(30)
@@ -91,7 +88,6 @@ class GUI_tests(unittest.TestCase) :
 
 	# Test sample of a link in the charities page
 	def test_charities(self) :
-		websiteURL = self.websiteURL
 		driver = self.driver
 		driver.find_element_by_link_text('Charities').click()
 		driver.find_element_by_link_text('RABIES IN THE AMERICAS').click()
@@ -101,7 +97,6 @@ class GUI_tests(unittest.TestCase) :
 
 	# Test sample of a link in the health conditions page
 	def test_health_conditions(self) :
-		websiteURl = self.websiteURL
 		driver = self.driver
 		driver.find_element_by_link_text('Health Conditions').click()
 		driver.find_element_by_link_text('Rabies').click()
@@ -111,13 +106,31 @@ class GUI_tests(unittest.TestCase) :
 
 	# Test sample of a link in the medications page
 	def test_medications(self) :
-		websiteURl = self.websiteURL
 		driver = self.driver
 		driver.find_element_by_link_text('Medications').click()
 		driver.find_element_by_link_text('Rabies vaccine').click()
 		driver.find_element_by_link_text('Rabies').click()
 		self.assertEqual('http://knowyourtreatment.com/healthconditions/Rabies', driver.current_url)
 		driver.close()
+
+	# Test pagination
+	def test_pagination(self) :
+		driver = self.driver
+		link = driver.find_element_by_link_text('Health Conditions')
+		link.click()
+		link = driver.find_element_by_link_text('Malaria')
+		link.click()
+		link = driver.find_element_by_link_text('5')
+		link.click()
+		self.assertEqual('http://ourplaceholderwebsite.me/healthconditions/Meningococcal%20meningitis', driver.current_url)
+		link = driver.find_element_by_link_text('3')
+		link.click()
+		self.assertEqual('http://ourplaceholderwebsite.me/healthconditions/Tuberculosis', driver.current_url)
+		link = driver.find_element_by_link_text('7')
+		link.click()
+		self.assertEqual('http://ourplaceholderwebsite.me/healthconditions/Plague', driver.current_url)
+		driver.close()
+
 
 if __name__ == "__main__":  # pragma: no cover
 	unittest.main()
