@@ -33,6 +33,6 @@ frontend_deploy:
     - uname -a
     - ls -l
     - echo "$FRONTEND_PASS" > kytFrontEndKey.pem
-    - chmod 400 idb-backend.pem
+    - chmod 400 kytFrontEndKey.pem
   script:
     - ssh -i "kytFrontEndKey.pem" ubuntu@18.191.169.207 "./update.sh"
