@@ -29,6 +29,6 @@ backend_deploy:
 frontend_deploy:
   image: "docker:stable"
   before_script:
-    echo "$FRONTEND_PASS" > kytFrontEndKey.pem
+    - echo "$FRONTEND_PASS" > kytFrontEndKey.pem
   script:
     - ssh "kytFrontEndKey.pem" ssh -i "~/.ssh/kytFrontEndKey.pem" ubuntu@18.191.169.207 "./update.sh"
