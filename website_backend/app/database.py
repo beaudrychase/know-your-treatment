@@ -108,7 +108,7 @@ def initDisease():
     for info in data['diseases']:
         try:
             image_link = get_image_link(info['name'][: -6])
-            info['image_link'] = image_link
+            info['image_link'] = str(image_link)
             db.session.add( Disease(info) )
             db.session.commit()
         except IntegrityError:
