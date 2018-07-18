@@ -27,5 +27,6 @@ backend_deploy:
     - ssh -v -o StrictHostKeyChecking=no -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com 'docker exec $(docker ps --format "{{.Names}}") python test.py'
 
 frontend_test:
+  image: "docker:stable"
   script:
     (cd *front* && mocha test)
