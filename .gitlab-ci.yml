@@ -27,7 +27,6 @@ backend_deploy:
     - ssh -v -o StrictHostKeyChecking=no -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com 'docker exec $(docker ps --format "{{.Names}}") python test.py'
 
 frontend_deploy:
-  image: "registry.gitlab.com/cmibarnwell/idb-project-swe"
   before_script:
     - echo "$FRONTEND_KEY" > kytFrontEndKey.pem
     - chmod 400 kytFrontEndKey.pem
