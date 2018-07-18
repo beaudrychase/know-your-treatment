@@ -25,3 +25,10 @@ backend_deploy:
     - tar cpf - ./website_backend | ssh -o StrictHostKeyChecking=no -v -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com "tar xpf - -C /home/ec2-user"
     - ssh -v -o StrictHostKeyChecking=no -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com '/home/ec2-user/website_backend/deploy.sh'    
     - ssh -v -o StrictHostKeyChecking=no -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com 'docker exec $(docker ps --format "{{.Names}}") python test.py'
+
+frontend_deploy:
+  image: "docker:stable"
+  before_script:
+    echo "$FRONTEND_PASS" > kytFrontEndKey.pem
+  script:
+    - ssh "kytFrontEndKey.pem" ssh -i "~/.ssh/kytFrontEndKey.pem" ubuntu@18.191.169.207 "./update.sh"
