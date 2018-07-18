@@ -91,7 +91,7 @@ class Disease(db.Model):
     treatments = db.relationship('Treatment', secondary=Disease_Treatment, lazy='select',
     backref=db.backref('diseases', lazy=True))
 
-    def __init__(self, resource):
+    def __init__(self, resource, image_link):
         self.name = resource['name'][: -6].replace('/','-') #the -6 removes ' : WHO' from the end of the name
         self.symptoms = resource['symptoms']
         self.transmission = resource['transmission']
@@ -100,7 +100,7 @@ class Disease(db.Model):
         self.prevention = resource['prevention']
         self.more = resource['more']
         self.is_active = resource['is_active']
-        self.image_link = resource['image_link']
+        self.image_link = image_link
 
 def initDisease():
     url = 'https://disease-info-api.herokuapp.com/diseases.json'
@@ -108,8 +108,7 @@ def initDisease():
     for info in data['diseases']:
         try:
             image_link = get_image_link(info['name'][: -6])
-            info['image_link'] = str(image_link)
-            db.session.add( Disease(info) )
+            db.session.add( Disease(info, str(image_link)) )
             db.session.commit()
         except IntegrityError:
             db.session.rollback()
