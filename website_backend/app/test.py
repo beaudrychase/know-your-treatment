@@ -131,12 +131,6 @@ class AppTestCase(unittest.TestCase):
 		self.assertEqual( 2.0, sample.latitude)
 
 
-
-
-
-	def test_treatment_id(self):
-		sample = db.session.query(database.Treatment).filter_by(id=1).one()
-		self.assertEqual( 1, sample.id)
 	
 	def test_treatment_name(self):
 		sample = db.session.query(database.Treatment).filter_by(name='Sample name').one()
