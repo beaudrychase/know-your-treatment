@@ -26,6 +26,11 @@ backend_deploy:
     - ssh -v -o StrictHostKeyChecking=no -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com '/home/ec2-user/website_backend/deploy.sh'    
     - ssh -v -o StrictHostKeyChecking=no -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com 'docker exec $(docker ps --format "{{.Names}}") python test.py'
 
+front_test:
+  image: "node:8"
+  script:
+    - (cd *front* && mocha test)
+
 frontend_deploy:
   before_script:
     - echo "$FRONTEND_KEY" > kytFrontEndKey.pem
