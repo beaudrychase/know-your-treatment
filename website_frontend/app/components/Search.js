@@ -16,7 +16,8 @@ export default class Search extends React.Component {
             completeResults: [],
             displayCharity: true,
             displayDisease: true,
-            displayTreatment: true
+            displayTreatment: true,
+            natSort: true
         };
 
         /*console.log('params: ' + props.match.params.name);*/
@@ -25,6 +26,7 @@ export default class Search extends React.Component {
         this.makeUrl = this.makeUrl.bind(this);
         this.performSearch = this.performSearch.bind(this);
         this.changeFilter = this.changeFilter.bind(this);
+        this.sort = this.sort.bind(this);
     }
 
     /*
@@ -154,6 +156,28 @@ export default class Search extends React.Component {
 
     }
 
+    sort() {
+        let cArr = this.state.charityResults;
+        let dArr = this.state.diseaseResults;
+        let tArr = this.state.treatmentResults;
+        let ns = this.state.natSort;
+
+        cArr.sort();
+        dArr.sort();
+        tArr.sort();
+
+        if(!ns) {
+            cArr.reverse();
+            dArr.reverse();
+            tArr.reverse();
+        }
+
+        ns = !ns;
+
+        this.setState({charityResults: cArr, diseaseResults: dArr, treatmentResults: tArr, natSort: ns});
+
+    }
+
     render() {
 
         return (
@@ -166,6 +190,10 @@ export default class Search extends React.Component {
                     <Button color="primary" onClick={() => this.changeFilter('Disease')} active={this.state.displayDisease}> Disease </Button> 
                     <Button color="primary" onClick={() => this.changeFilter('Treatment')} active={this.state.displayTreatment}> Treatment </Button>
                 </ButtonGroup>
+
+                <p>Sort</p>
+                <Button color="primary" onClick={this.sort}>{this.state.natSort ? "A to Z" : "Z to A"}</Button>
+
                 <p>{((this.state.text == '') || ((this.state.charityResults == []) && (this.state.diseaseResults == []) && (this.state.treatmentResults == []))) ? "No Results" : "Search Results"}</p>
 
                 <p>{(this.state.charityResults == []) ? "" : "Charities"}</p>
