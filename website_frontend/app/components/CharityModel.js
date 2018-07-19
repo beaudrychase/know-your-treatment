@@ -2,42 +2,39 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default class CharityModel extends React.Component {
-
     constructor(props) {
         super(props);
 
         this.state = {
-            name: props.match.params.name,
-            city: '',
-            state: '',
-            sitelink: '',
-            category: '',
-            donate: '',
-            disease: '',
-            image_link: '',
+            name:       props.match.params.name,
+            city:       '',
+            state:      '',
+            sitelink:   '',
+            category:   '',
+            donate:     '',
+            disease:    '',
+            image_link: ''
         };
     }
 
     componentWillMount() {
-
         fetch('http://api.knowyourtreatment.com/api/charity?q={"filters":[{"name":"name", "op":"eq", "val":"' + this.state.name + '"}]}')
-        .then(results => { return results.json(); })
+        .then(results => results.json())
         .then(data => {
-                let cobj = data.objects[0];
-                this.setState({
-                    city: cobj.city,
-                    state: cobj.state,
-                    sitelink: cobj.url,
-                    category: cobj.category,
-                    donate: cobj.donationUrl,
-                    disease: cobj.diseases[0].name,
-                    image_link: cobj.diseases[0].image_link
-                });
+            let cobj = data.objects[0];
+            this.setState({
+                city:       cobj.city,
+                state:      cobj.state,
+                sitelink:   cobj.url,
+                category:   cobj.category,
+                donate:     cobj.donationUrl,
+                disease:    cobj.diseases[0].name,
+                image_link: cobj.diseases[0].image_link
+            });
         });
     }
 
     render() {
-
         return(
                 <div class="container">
                     <br />
@@ -75,6 +72,5 @@ export default class CharityModel extends React.Component {
                     </footer>
                 </div>
         );
-
     }           
 }
