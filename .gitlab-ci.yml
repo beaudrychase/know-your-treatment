@@ -36,4 +36,5 @@ frontend_deploy:
     - echo "$FRONTEND_KEY" > kytFrontEndKey.pem
     - chmod 400 kytFrontEndKey.pem
   script:
+    - npm install --save-dev mocha
     - ssh -v -o StrictHostKeyChecking=no -i "kytFrontEndKey.pem" ubuntu@18.191.169.207 "./update.sh"
