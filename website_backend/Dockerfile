@@ -1,7 +1,7 @@
 FROM python:3
 
 RUN apt-get update            && \
-    apt-get -y install vim
+    apt-get -y install vim mysql-server
 
 RUN pip install --upgrade pip    && \
     pip --version                && \
@@ -14,6 +14,7 @@ RUN pip install --upgrade pip    && \
     pip install flask-restless   && \
     pip install flask-mysql      && \
     pip install flask-sqlalchemy && \
+    pip install mysqlclient      && \
     pip install requests         && \
     pip install flask-cors       && \
     pip install simplejson       && \
@@ -26,4 +27,4 @@ RUN npm install -g newman
 ENV FLASK_DEBUG=1
 ENV FLASK_APP=app.py
 
-CMD ["python", "app.py"]
+CMD /bin/bash
