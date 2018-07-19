@@ -26,7 +26,17 @@ backend_deploy:
     - ssh -v -o StrictHostKeyChecking=no -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com '/home/ec2-user/website_backend/deploy.sh'    
     - ssh -v -o StrictHostKeyChecking=no -i "idb-backend.pem" ec2-user@ec2-34-218-254-20.us-west-2.compute.amazonaws.com 'docker exec $(docker ps --format "{{.Names}}") python test.py'
 
+frontend_test:
+  # currently runs Mocha tests only using generic "node" container
+  image: "node:8"
+  script:
+    - cd website_frontend
+    - ls -al
+    - npm update && npm install -g mocha
+    - mocha test
+
 frontend_deploy:
+  # pushes this code to frontend dev server, accessible at ourplaceholderwebsite.me
   before_script:
     - echo "$FRONTEND_KEY" > kytFrontEndKey.pem
     - chmod 400 kytFrontEndKey.pem
