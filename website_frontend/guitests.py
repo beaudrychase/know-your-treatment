@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 
 class GUI_tests(unittest.TestCase) :
 
-	websiteURL = "http://ourplaceholderwebsite.me/"
+	websiteURL = "http://www.knowyourtreatment.com/"
 
 	def setUp(self) :
 		self.driver = webdriver.Firefox()
@@ -73,7 +73,7 @@ class GUI_tests(unittest.TestCase) :
 		driver.implicitly_wait(30)
 		driver.find_element_by_link_text('Postman').click()
 		driver.implicitly_wait(30)
-		self.assertEqual("https://documenter.getpostman.com/view/4692440/RWMBSAp3", driver.current_url)
+		self.assertEqual("https://www.documenter.getpostman.com/view/4692440/RWMBSAp3", driver.current_url)
 		driver.close()
 
 
@@ -83,7 +83,7 @@ class GUI_tests(unittest.TestCase) :
 		driver.implicitly_wait(30)
 		driver.find_element_by_link_text('Gitbook').click()
 		driver.implicitly_wait(30)
-		self.assertEqual("https://knowyourtreatment.gitbook.io/project", driver.current_url)
+		self.assertEqual("https://www.knowyourtreatment.gitbook.io/project", driver.current_url)
 		driver.close()
 
 	# Test sample of a link in the charities page
@@ -92,7 +92,7 @@ class GUI_tests(unittest.TestCase) :
 		driver.find_element_by_link_text('Charities').click()
 		driver.find_element_by_link_text('RABIES IN THE AMERICAS').click()
 		driver.find_element_by_link_text('Rabies').click()
-		self.assertEqual('http://knowyourtreatment.com/healthconditions/Rabies', driver.current_url)
+		self.assertEqual('http://www.knowyourtreatment.com/healthconditions/Rabies', driver.current_url)
 		driver.close()
 
 	# Test sample of a link in the health conditions page
@@ -101,7 +101,7 @@ class GUI_tests(unittest.TestCase) :
 		driver.find_element_by_link_text('Health Conditions').click()
 		driver.find_element_by_link_text('Rabies').click()
 		driver.find_element_by_link_text('Rabies vaccine').click()
-		self.assertEqual('http://knowyourtreatment.com/medications/Rabies%20vaccine', driver.current_url)
+		self.assertEqual('http://www.knowyourtreatment.com/medications/Rabies%20vaccine', driver.current_url)
 		driver.close()
 
 	# Test sample of a link in the medications page
@@ -110,7 +110,7 @@ class GUI_tests(unittest.TestCase) :
 		driver.find_element_by_link_text('Medications').click()
 		driver.find_element_by_link_text('Rabies vaccine').click()
 		driver.find_element_by_link_text('Rabies').click()
-		self.assertEqual('http://knowyourtreatment.com/healthconditions/Rabies', driver.current_url)
+		self.assertEqual('http://www.knowyourtreatment.com/healthconditions/Rabies', driver.current_url)
 		driver.close()
 
 	# Test pagination
@@ -118,17 +118,7 @@ class GUI_tests(unittest.TestCase) :
 		driver = self.driver
 		link = driver.find_element_by_link_text('Health Conditions')
 		link.click()
-		link = driver.find_element_by_link_text('Malaria')
-		link.click()
-		link = driver.find_element_by_link_text('5')
-		link.click()
-		self.assertEqual('http://ourplaceholderwebsite.me/healthconditions/Meningococcal%20meningitis', driver.current_url)
-		link = driver.find_element_by_link_text('3')
-		link.click()
-		self.assertEqual('http://ourplaceholderwebsite.me/healthconditions/Tuberculosis', driver.current_url)
-		link = driver.find_element_by_link_text('7')
-		link.click()
-		self.assertEqual('http://ourplaceholderwebsite.me/healthconditions/Plague', driver.current_url)
+		link = driver.find_element_by_xpath("//button[@type='button']")
 		driver.close()
 
 	# Tests the search bar
@@ -141,7 +131,7 @@ class GUI_tests(unittest.TestCase) :
 		driver.implicitly_wait(30)
 		link = driver.find_element_by_link_text("MALARIA FINI")
 		link.click()
-		self.assertEqual('http://ourplaceholderwebsite.me/charities/MALARIA%20FINI', driver.current_url)
+		self.assertEqual('http://www.knowyourtreatment.com/charities/MALARIA%20FINI', driver.current_url)
 		driver.close()
 
 	def test_search2(self) :
@@ -153,7 +143,7 @@ class GUI_tests(unittest.TestCase) :
 		driver.implicitly_wait(30)
 		link = driver.find_element_by_link_text("RABIES IN THE AMERICAS")
 		link.click()
-		self.assertEqual('http://ourplaceholderwebsite.me/charities/RABIES%20IN%20THE%20AMERICAS', driver.current_url)
+		self.assertEqual('http://www.knowyourtreatment.com/charities/RABIES%20IN%20THE%20AMERICAS', driver.current_url)
 		driver.close()
 
 	def test_search3(self) :
@@ -165,7 +155,7 @@ class GUI_tests(unittest.TestCase) :
 		driver.implicitly_wait(30)
 		link = driver.find_element_by_link_text("MISSISSIPPI TUBERCULOSIS")
 		link.click()
-		self.assertEqual('http://ourplaceholderwebsite.me/charities/MISSISSIPPI%20TUBERCULOSIS', driver.current_url)
+		self.assertEqual('http://www.knowyourtreatment.com/charities/MISSISSIPPI%20TUBERCULOSIS', driver.current_url)
 		driver.close()
 
 	def test_search4(self) :
@@ -177,7 +167,7 @@ class GUI_tests(unittest.TestCase) :
 		driver.implicitly_wait(30)
 		link = driver.find_element_by_link_text("Measles")
 		link.click()
-		self.assertEqual('http://ourplaceholderwebsite.me/healthconditions/Measles', driver.current_url)
+		self.assertEqual('http://www.knowyourtreatment.com/healthconditions/Measles', driver.current_url)
 		driver.close()
 
 	def test_search5(self) :
@@ -189,7 +179,7 @@ class GUI_tests(unittest.TestCase) :
 		driver.implicitly_wait(30)
 		link = driver.find_element_by_link_text("Chikungunya")
 		link.click()
-		self.assertEqual('http://ourplaceholderwebsite.me/healthconditions/Chikungunya', driver.current_url)
+		self.assertEqual('http://www.knowyourtreatment.com/healthconditions/Chikungunya', driver.current_url)
 		driver.close()
 
 	# Tests the search filters
@@ -206,7 +196,7 @@ class GUI_tests(unittest.TestCase) :
 		# link.click()
 		link = driver.find_element_by_link_text("Azithromycin")
 		link.click()
-		self.assertEqual('http://ourplaceholderwebsite.me/medications/Azithromycin', driver.current_url)
+		self.assertEqual('http://www.knowyourtreatment.com/medications/Azithromycin', driver.current_url)
 		driver.close()
 
 	def test_filter2(self) :
@@ -220,9 +210,8 @@ class GUI_tests(unittest.TestCase) :
 		link.click()
 		link = driver.find_element_by_link_text("Azithromycin")
 		link.click()
-		self.assertEqual('http://ourplaceholderwebsite.me/medications/Azithromycin', driver.current_url)
+		self.assertEqual('http://www.knowyourtreatment.com/medications/Azithromycin', driver.current_url)
 		driver.close()
-
 
 if __name__ == "__main__":  # pragma: no cover
 	unittest.main()
