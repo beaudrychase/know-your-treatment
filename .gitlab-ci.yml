@@ -31,7 +31,7 @@ front_test:
   script:
     - cd website_frontend
     - ls -al
-    - RUN npm update && npm install -g mocha
+    - npm update && npm install -g mocha
     - mocha test
 
 frontend_deploy:
