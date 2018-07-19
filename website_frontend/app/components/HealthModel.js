@@ -122,4 +122,4 @@ export default class HealthModel extends React.Component {
 				</div>
 		);
 	}
-}			
+ }			

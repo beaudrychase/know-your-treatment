@@ -6,6 +6,7 @@ export default class CharityModel extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             name: props.match.params.name,
             city: '',
@@ -21,17 +22,21 @@ export default class CharityModel extends React.Component {
 
     componentWillMount() {
 
-        /* call api for info */
         fetch('http://api.knowyourtreatment.com/api/charity')
         .then(results => {
             return results.json();
         }).then(data => {
-                /*console.log(data);*/
-                /* pagination implementation: collect all names */
+              
+                
                 this.setState({pageList: data.objects.map((d) => {
 
+
                                             if(this.state.name == d.name) {
-                                                    /* gathered info for model for the page we're on*/
+                                                 
+                                                    /* get disease and image_link from object */
+                                                    let dis = d.diseases.map( (d) => { return {name: d.name, image_link: d.image_link} });
+                                                    let iml = dis[0].image_link;
+                                                    let dn = dis[0].name;
                                                     this.setState({
 
                                                         city: d.city,
@@ -39,8 +44,8 @@ export default class CharityModel extends React.Component {
                                                         sitelink: d.url,
                                                         category: d.category,
                                                         donate: d.donationUrl,
-                                                        disease: d.disease.name,
-                                                        image_link: d.disease.image_link,
+                                                        disease: dn,
+                                                        image_link: iml
                                                     });
                                             }
 
@@ -53,6 +58,8 @@ export default class CharityModel extends React.Component {
     }
 
     render() {
+
+        console.log('State' + this.state.state);
 
         return(
                 <div class="container">
