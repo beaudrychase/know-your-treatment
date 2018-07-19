@@ -1,5 +1,4 @@
 import React from 'react';
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 export default class CharityModel extends React.Component {
@@ -16,45 +15,25 @@ export default class CharityModel extends React.Component {
             donate: '',
             disease: '',
             image_link: '',
-            pageList: []
         };
     }
 
     componentWillMount() {
 
-        fetch('http://api.knowyourtreatment.com/api/charity')
-        .then(results => {
-            return results.json();
-        }).then(data => {
-              
-                
-                this.setState({pageList: data.objects.map((d) => {
-
-
-                                            if(this.state.name == d.name) {
-                                                 
-                                                    /* get disease and image_link from object */
-                                                    let dis = d.diseases.map( (d) => { return {name: d.name, image_link: d.image_link} });
-                                                    let iml = dis[0].image_link;
-                                                    let dn = dis[0].name;
-                                                    this.setState({
-
-                                                        city: d.city,
-                                                        state: d.state,
-                                                        sitelink: d.url,
-                                                        category: d.category,
-                                                        donate: d.donationUrl,
-                                                        disease: dn,
-                                                        image_link: iml
-                                                    });
-                                            }
-
-                                            return d.name;
-
-                                        }, this)
-                                        
+        fetch('http://api.knowyourtreatment.com/api/charity?q={"filters":[{"name":"name", "op":"eq", "val":"' + this.state.name + '"}]}')
+        .then(results => { return results.json(); })
+        .then(data => {
+                let cobj = data.objects[0];
+                this.setState({
+                    city: cobj.city,
+                    state: cobj.state,
+                    sitelink: cobj.url,
+                    category: cobj.category,
+                    donate: cobj.donationUrl,
+                    disease: cobj.diseases[0].name,
+                    image_link: cobj.diseases[0].image_link
                 });
-            });
+        });
     }
 
     render() {
@@ -86,16 +65,6 @@ export default class CharityModel extends React.Component {
                     
                     <h5>Donate</h5>
                     <p><a href={this.state.donate}>{this.state.donate}</a></p>
-
-                    <Pagination>
-                    {this.state.pageList.map(function(name, index) {
-                        
-                        return (this.state.name == name) ? 
-                                <PaginationItem active key={index}><PaginationLink href={'/charities/' + name}> {index} </PaginationLink></PaginationItem> :
-                                <PaginationItem key={index}><PaginationLink href={'/charities/' + name}> {index} </PaginationLink></PaginationItem>;
-                                
-                    }, this)}
-                    </Pagination>
 
                     <hr />
 
