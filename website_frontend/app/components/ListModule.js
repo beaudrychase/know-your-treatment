@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { ListGroup, ListGroupItem, Pagination, PaginationItem, Button } from 'reactstrap';
 import { Link, Switch, Route } from 'react-router-dom';
 
 
@@ -17,7 +17,10 @@ export default class ListModule extends React.Component {
             title: '',
             route: '',
             names: [],
-            sort_type: 0
+            sort_type: 0,
+            pages: 1,
+            currPage: 1,
+            pageArr: []
         };
 
         /*console.log(props.location.pathname);*/
@@ -70,35 +73,51 @@ export default class ListModule extends React.Component {
             return results.json();
         }).then(data => {
                 /*console.log(data);*/
+                let tot = data.total_pages;
+                let i;
+                let pArr = [];
+                for(i=1; i<=tot; i++) {
+                    pArr.push(i);
+                }
                 this.setState({
                     names: data.objects.map((d) => {
                         console.log(d[nameLabel]);
                         return d[nameLabel];
-                    })
+                    }),
+                    pages: tot,
+                    pageArr: pArr
                 });
             });
     }
 
     componentWillMount() {
 
-        switch (this.state.title) {
-
-            case 'Health Conditions':
-                this.fetchArray('http://api.knowyourtreatment.com/api/disease', 'name');
-                break;
-
-            case 'Charities':
-                this.fetchArray('http://api.knowyourtreatment.com/api/charity', 'name');
-                break;
-
-            case 'Medications':
-                this.fetchArray('http://api.knowyourtreatment.com/api/treatment', 'name');
-
-        }
+        this.updatePage(1);
         
     }
 
+    updatePage(pn) {
+
+        switch (this.state.title) {
+
+            case 'Health Conditions':
+                this.fetchArray('http://api.knowyourtreatment.com/api/disease?page=' + pn, 'name');
+                break;
+
+            case 'Charities':
+                this.fetchArray('http://api.knowyourtreatment.com/api/charity?page='+ pn, 'name');
+                break;
+
+            case 'Medications':
+                this.fetchArray('http://api.knowyourtreatment.com/api/treatment?page=' + pn, 'name');
+
+        }
+
+        this.setState({currPage: pn});
+    }
+
     render() {
+
         return(
             <div class="container">
                 <br />
@@ -113,6 +132,16 @@ export default class ListModule extends React.Component {
                  <div className="sort-section" style={{paddingTop: '10px'}}>
                 <button class="btn btn-secondary" id='alphabet' onClick= {this.sortBy.bind(this)}>{this.state.sort_type === 1 ? "Z to A" : "A to Z"}</button>
                 </div>
+
+                <Pagination>
+                    {this.state.pageArr.map(function(p, index) {
+                        if(this.state.currPage == p) {
+                            return <PaginationItem key={index}><Button disabled>{p}</Button></PaginationItem>;
+                        } else {
+                            return <PaginationItem key={index}><Button onClick={() => this.updatePage(p)}>{p}</Button></PaginationItem>
+                        }
+                    }, this)}
+                </Pagination>
 
                 <hr />
 
