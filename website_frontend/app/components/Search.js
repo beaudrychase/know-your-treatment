@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { Button, Input, Form, FormGroup } from 'reactstrap';
 
 export default class Search extends React.Component {
     
@@ -7,19 +8,14 @@ export default class Search extends React.Component {
 
         super(props);
 
-        console.log('Route search params:' + props.match.params.term);
-
         this.state = {
+            text: props.match.params.name,
             charityResults: [],
             diseaseResults: [],
-            treatmentResults: [],
-            charityQueries: [],
-            diseaseQueries: [],
-            treatmentQueries: [],
-            charityUrl: '',
-            diseaseUrl: '',
-            treatmentUrl: ''
+            treatmentResults: []
         };
+
+        console.log('params: ' + props.match.params.name);
 
         this.makeQueries = this.makeQueries.bind(this);
         this.makeUrl = this.makeUrl.bind(this);
@@ -44,11 +40,6 @@ export default class Search extends React.Component {
                                          });
 
         /* form the query url */
-        console.log('Statename: ' + stateName);
-
-        this.setState({ [stateName]: queries });
-
-        console.log('Created queries: ' + queries);
 
         return queries;
 
@@ -74,77 +65,51 @@ export default class Search extends React.Component {
 
         base = base + ']}]}';
 
-        console.log(base);
+        /*console.log(base);*/
 
-        this.setState({[modelName + 'Url']: base});
+        return base;
 
     }
 
     componentWillMount() {
-        var search = this.props.match.params.term;
-
-        console.log('The search string is ' + search);
+        let search = this.state.text;
 
         if(search != '') {
 
             /* Search term implementation */
-            var searchArr = search.split(" ");
+            let searchArr = search.split(" ");
 
-            this.makeUrl('charity', this.makeQueries(searchArr, ['name', 'category', 'city', 'missionStatement', 'state'], 'charityQueries'));
+            let url = this.makeUrl('charity', this.makeQueries(searchArr, ['name', 'category', 'city', 'missionStatement', 'state'], 'charityQueries'));
 
-        }
+            console.log('Search url: ' + url);
 
-    }
-
-    componentDidMount() {
-        /* call back end and get results */
-        fetch(this.state.charityUrl)
-        .then(results => {
-            return results.json();
-        }).then(data => {
+            /* call back end and get results */
+            fetch(url)
+            .then(results => { return results.json(); })
+            .then(data => {
                 /*console.log(data);*/
-                /* pagination implementation: collect all names */
+        
                 this.setState({charityResults: data.objects.map((d) => {
-                                            console.log(d.name);
-                                            return d.name;
-
-                                        })
+                                console.log(d.name);
+                                return d.name;
+                            })
                                         
                 });
             });
+        }
     }
 
     render() {
 
-        if ((this.props.match.params.term == '') || ((this.state.charityResults == []) && (this.state.healthResults == []) && (this.state.treatmentResults == [])) ) {
+        return (
+                <div>
+                Search Results:
 
-            return <p> No Results </p>;
+                {this.state.charityResults.map(function(name, index) {
+                    return <p><Link to={'/charities/' + name}> {name} </Link></p>;
+                })}
 
-        } 
-
-        else {
-
-            return (
-                    <div>
-                    <p> {this.state.charityUrl} </p>
-                    {this.state.charityResults.map( function(name, index) {
-                                                        return <Link key={index} to={'/charities/' + name}> {name} </Link>;
-                                                    }
-                                               )
-                    }
-                     {this.state.diseaseResults.map( function(name, index) {
-                                                        return <Link key={index} to={'/healthconditions/' + name}> {name} </Link>;
-                                                    }
-                                                )
-                      }
-                     {this.state.treatmentResults.map( function(name, index) {
-                                                        return <Link key={index} to={'/medications/' + name}> {name} </Link>; 
-
-                                                       }
-                                                  )
-                     }
-                    </div>
-            );
-        }
+                </div>
+        );   
     }
 }

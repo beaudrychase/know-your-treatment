@@ -28,7 +28,7 @@ export default class App extends React.Component {
 
 				<Route exact path='/about' component={About}/>
 
-				<Route path='/search/:term' component={Search}/>
+				<Route path='/search/:name' component={Search}/>
 			</div>
 		);
 	}

@@ -38,8 +38,6 @@ export default class CharityModel extends React.Component {
 
     render() {
 
-        console.log('State' + this.state.state);
-
         return(
                 <div class="container">
                     <br />
