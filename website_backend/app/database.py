@@ -22,9 +22,9 @@ class Treatment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode(100), unique=True)
     treatment_type = db.Column(db.Unicode(100))
-    text = db.Column(db.Unicode(100))
-    wiki_link = db.Column(db.Unicode(100))
-    image_link = db.Column(db.Unicode(100))
+    text = db.Column(db.Unicode(2000))
+    wiki_link = db.Column(db.Unicode(500))
+    image_link = db.Column(db.Unicode(500))
 
     def __init__(self, resource):
         self.name = resource['name']
@@ -37,8 +37,8 @@ class Charity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ein = db.Column(db.Integer)
     name = db.Column(db.Unicode(100), unique=True)
-    url = db.Column(db.Unicode(100))
-    donationUrl = db.Column(db.Unicode(100))
+    url = db.Column(db.Unicode(500))
+    donationUrl = db.Column(db.Unicode(500))
     city = db.Column(db.Unicode(100))
     state = db.Column(db.Unicode(100))
     zipCode = db.Column(db.Unicode(100))
@@ -49,7 +49,7 @@ class Charity(db.Model):
     acceptingDonations = db.Column(db.Boolean)
     category = db.Column(db.Unicode(100))
     eligibleCd = db.Column(db.Boolean)
-    missionStatement = db.Column(db.Unicode(100))
+    missionStatement = db.Column(db.Unicode(2000))
     parent_ein = db.Column(db.Boolean)
     longitude = db.Column(db.Float)
     latitude = db.Column(db.Float)
@@ -80,14 +80,14 @@ class Charity(db.Model):
 class Disease(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode(100), unique=True)
-    symptoms = db.Column(db.Unicode(100))
-    transmission = db.Column(db.Unicode(100))
-    diagnosis = db.Column(db.Unicode(100))
-    treatment = db.Column(db.Unicode(100))
-    prevention = db.Column(db.Unicode(100))
-    more = db.Column(db.Unicode(100))
+    symptoms = db.Column(db.Unicode(2000))
+    transmission = db.Column(db.Unicode(2000))
+    diagnosis = db.Column(db.Unicode(2000))
+    treatment = db.Column(db.Unicode(2000))
+    prevention = db.Column(db.Unicode(2000))
+    more = db.Column(db.Unicode(2000))
     is_active = db.Column(db.Boolean)
-    image_link = db.Column(db.Unicode(100))
+    image_link = db.Column(db.Unicode(500))
     charities = db.relationship('Charity', backref='disease', lazy=True)
     treatments = db.relationship('Treatment', secondary=Disease_Treatment, lazy='select',
     backref=db.backref('diseases', lazy=True))
@@ -187,9 +187,7 @@ def initTreatment(limit):
                             print('IntegrityError', info['name'])
                             db.session.rollback()
                             # in case of adding duplicates
-                        
-
-    print('initialized treatment table with', j, 'objects')
+    print('initialized treatment table')
    
 
 def clearDB():
