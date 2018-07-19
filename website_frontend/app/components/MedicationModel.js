@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListGroup, ListGroupItem, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 export default class MedicationModel extends React.Component {
@@ -11,41 +11,26 @@ export default class MedicationModel extends React.Component {
             text: '',
             healthconditions: [],
             wikilink: '',
-            image_link: '',
-            pageList: []
+            image_link: ''
         };
     }
 
     componentWillMount() {
 
         /* call api for info */
-        fetch('http://api.knowyourtreatment.com/api/treatment')
-        .then(results => {
-            return results.json();
-        }).then(data => {
-                /*console.log(data);*/
-                /* pagination implementation: collect all names */
-                this.setState({pageList: data.objects.map((d) => {
-
-                                            if(this.state.name == d.name) {
-                                                    /* gathered info for model for the page we're on*/
-                                                    this.setState({
-
-                                                        text: d.text,
-                                                        wikilink: d.wiki_link,
-                                                        image_link: d.image_link,
-                                                        healthconditions: d.diseases.map((t) => {
-                                                            return t.name;
-                                                        })
-                                                    });
-                                            }
-
-                                            return d.name;
-
-                                        }, this)
-                                        
+        fetch('http://api.knowyourtreatment.com/api/treatment?q={"filters":[{"name":"name", "op":"eq", "val":"' + this.state.name + '"}]}')
+        .then(results => { return results.json(); })
+        .then(data => {
+                let mobj = data.objects[0];
+                this.setState({
+                    text: mobj.text,
+                    healthconditions: mobj.diseases.map((d) => {
+                        return d.name;
+                    }),
+                    wikilink: mobj.wiki_link,
+                    image_link: mobj.image_link
                 });
-            });
+        });
     }
 
     render() {
@@ -74,16 +59,6 @@ export default class MedicationModel extends React.Component {
 
                     <h5>Wiki Link</h5>
                     <a href={this.state.wikilink}>{this.state.wikilink}</a>
-
-                    <Pagination>
-                    {this.state.pageList.map(function(name, index) {
-                        
-                        return (this.state.name == name) ? 
-                                <PaginationItem active key={index}><PaginationLink href={'/medications/' + name}> {index} </PaginationLink></PaginationItem> :
-                                <PaginationItem key={index}><PaginationLink href={'/medications/' + name}> {index} </PaginationLink></PaginationItem>;
-                                
-                    }, this)}
-                    </Pagination>
 
                     <hr />
 
