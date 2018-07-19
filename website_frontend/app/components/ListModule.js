@@ -107,23 +107,24 @@ export default class ListModule extends React.Component {
                 <br />
                 <h1> { this.state.title } </h1>
 
-                <ListGroup>
+                <div className="sort-section" style={{paddingTop: '10px'}}>
+                    <p>Sort &nbsp; <button class="btn btn-secondary" id='alphabet' onClick= {this.sortBy.bind(this)}>{this.state.sort_type === 1 ? "Z to A" : "A to Z"}</button></p>
+                </div>
+
+                <p><ListGroup>
                     {this.state.names.map(function(name, index) {
                         return <ListGroupItem key={index}><Link to={this.state.route + name}> {name} </Link></ListGroupItem>;
                     }, this)}
-                </ListGroup>
-
-                <div className="sort-section" style={{paddingTop: '10px'}}>
-                    Sort &nbsp; <button class="btn btn-secondary" id='alphabet' onClick= {this.sortBy.bind(this)}>{this.state.sort_type === 1 ? "Z to A" : "A to Z"}</button>
-                </div>
+                </ListGroup></p>
 
                 <p><Pagination>
+                    Go to page &nbsp;
                     {this.state.pageArr.map(function(p, index){
                         if(this.state.currPage == p){
-                            return <PaginationItem key={index}><Button disabled>{p}</Button></PaginationItem>;
+                            return <PaginationItem key={index}><Button disabled>{p}</Button>&nbsp;</PaginationItem>;
                         }
                         else{
-                            return <PaginationItem key={index}><Button onClick={() => this.updatePage(p)}>{p}</Button></PaginationItem>
+                            return <PaginationItem key={index}><Button onClick={() => this.updatePage(p)}>{p}</Button>&nbsp;</PaginationItem>
                         }
                     }, this)}
                 </Pagination></p>
