@@ -7,8 +7,9 @@ import requests
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/kyt.db'
+app.config['SQLALCHEMY_ECHO'] = True
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/kyt'
 db = SQLAlchemy(app)
 
 # for many-to-many relations from diseases to various treatments
@@ -19,11 +20,11 @@ Disease_Treatment = db.Table('disease_treatment',
 
 class Treatment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Unicode, unique=True)
-    treatment_type = db.Column(db.Unicode)
-    text = db.Column(db.Unicode)
-    wiki_link = db.Column(db.Unicode)
-    image_link = db.Column(db.Unicode)
+    name = db.Column(db.Unicode(100), unique=True)
+    treatment_type = db.Column(db.Unicode(100))
+    text = db.Column(db.Unicode(100))
+    wiki_link = db.Column(db.Unicode(100))
+    image_link = db.Column(db.Unicode(100))
 
     def __init__(self, resource):
         self.name = resource['name']
@@ -35,20 +36,20 @@ class Treatment(db.Model):
 class Charity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ein = db.Column(db.Integer)
-    name = db.Column(db.Unicode, unique=True)
-    url = db.Column(db.Unicode)
-    donationUrl = db.Column(db.Unicode)
-    city = db.Column(db.Unicode)
-    state = db.Column(db.Unicode)
-    zipCode = db.Column(db.Unicode)
+    name = db.Column(db.Unicode(100), unique=True)
+    url = db.Column(db.Unicode(100))
+    donationUrl = db.Column(db.Unicode(100))
+    city = db.Column(db.Unicode(100))
+    state = db.Column(db.Unicode(100))
+    zipCode = db.Column(db.Unicode(100))
     start = db.Column(db.Integer)
     rows = db.Column(db.Integer)
     recordCount = db.Column(db.Integer)
     score = db.Column(db.Integer)
     acceptingDonations = db.Column(db.Boolean)
-    category = db.Column(db.Unicode)
+    category = db.Column(db.Unicode(100))
     eligibleCd = db.Column(db.Boolean)
-    missionStatement = db.Column(db.Unicode)
+    missionStatement = db.Column(db.Unicode(100))
     parent_ein = db.Column(db.Boolean)
     longitude = db.Column(db.Float)
     latitude = db.Column(db.Float)
@@ -78,15 +79,15 @@ class Charity(db.Model):
 
 class Disease(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Unicode, unique=True)
-    symptoms = db.Column(db.Unicode)
-    transmission = db.Column(db.Unicode)
-    diagnosis = db.Column(db.Unicode)
-    treatment = db.Column(db.Unicode)
-    prevention = db.Column(db.Unicode)
-    more = db.Column(db.Unicode)
+    name = db.Column(db.Unicode(100), unique=True)
+    symptoms = db.Column(db.Unicode(100))
+    transmission = db.Column(db.Unicode(100))
+    diagnosis = db.Column(db.Unicode(100))
+    treatment = db.Column(db.Unicode(100))
+    prevention = db.Column(db.Unicode(100))
+    more = db.Column(db.Unicode(100))
     is_active = db.Column(db.Boolean)
-    image_link = db.Column(db.Unicode)
+    image_link = db.Column(db.Unicode(100))
     charities = db.relationship('Charity', backref='disease', lazy=True)
     treatments = db.relationship('Treatment', secondary=Disease_Treatment, lazy='select',
     backref=db.backref('diseases', lazy=True))
