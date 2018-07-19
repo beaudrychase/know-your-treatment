@@ -2,6 +2,13 @@ import React from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Link, Switch, Route } from 'react-router-dom';
 
+
+class Sort extends React.Component {
+  sort(field){
+    this.props.sortBy(field);
+  }
+}
+
 export default class ListModule extends React.Component {
     constructor(props) {
         super(props);
@@ -9,7 +16,8 @@ export default class ListModule extends React.Component {
         this.state = {
             title: '',
             route: '',
-            names: []
+            names: [],
+            sort_type: 0
         };
 
         /*console.log(props.location.pathname);*/
@@ -38,6 +46,17 @@ export default class ListModule extends React.Component {
 
         /*console.log(this.state.title);*/
     }
+
+    sortBy(){
+        if(this.state.sort_type === 0 || this.state.sort_type === 2) {
+            this.setState({sort_type: 1});
+            this.setState({names: this.state.names.sort()});
+        }else if(this.state.sort_type === 1)
+        {
+            this.setState({sort_type: 2});
+            this.setState({names: this.state.names.reverse()});
+        }
+  }
 
     /* fetches array of names for each model  
         url -- url to fetch from
@@ -84,11 +103,16 @@ export default class ListModule extends React.Component {
             <div class="container">
                 <br />
                 <h1> { this.state.title } </h1>
+
                 <ListGroup>
                     {this.state.names.map(function(name, index) {
                         return <ListGroupItem key={index}><Link to={this.state.route + name}> {name} </Link></ListGroupItem>;
                     }, this)}
                 </ListGroup>
+
+                 <div className="sort-section" style={{paddingTop: '10px'}}>
+                <button class="btn btn-secondary" id='alphabet' onClick= {this.sortBy.bind(this)}>{this.state.sort_type === 1 ? "Z to A" : "A to Z"}</button>
+                </div>
 
                 <hr />
 
