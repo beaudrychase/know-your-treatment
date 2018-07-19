@@ -17,6 +17,12 @@ Disease_Treatment = db.Table('disease_treatment',
     db.Column('treatment_id', db.Integer, db.ForeignKey('treatment.id'), primary_key=True),
     db.Column('disease_id', db.Integer, db.ForeignKey('disease.id'), primary_key=True)
 )
+# and for diseases to charities
+Disease_Charity = db.Table('disease_charity',
+    db.Column('charity_id', db.Integer, db.ForeignKey('charity.id'), primary_key=True),
+    db.Column('disease_id', db.Integer, db.ForeignKey('disease.id'), primary_key=True)
+)
+
 
 class Treatment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -53,8 +59,7 @@ class Charity(db.Model):
     parent_ein = db.Column(db.Boolean)
     longitude = db.Column(db.Float)
     latitude = db.Column(db.Float)
-    disease_id = db.Column(db.Integer, db.ForeignKey('disease.id'),
-        nullable=False)
+    #disease_id = db.Column(db.Integer, db.ForeignKey('disease.id'))
 
     def __init__(self, resource, disease_id):
         self.ein = resource['ein']
@@ -75,7 +80,7 @@ class Charity(db.Model):
         self.parent_ein = resource['parent_ein']
         self.longitude = resource['longitude']
         self.latitude = resource['latitude']
-        self.disease_id = disease_id
+        #self.disease_id = disease_id
 
 class Disease(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -88,11 +93,12 @@ class Disease(db.Model):
     more = db.Column(db.Unicode(2000))
     is_active = db.Column(db.Boolean)
     image_link = db.Column(db.Unicode(500))
-    charities = db.relationship('Charity', backref='disease', lazy=True)
+    charities = db.relationship('Charity', secondary=Disease_Charity, lazy='select',
+    backref=db.backref('charities', lazy=True))
     treatments = db.relationship('Treatment', secondary=Disease_Treatment, lazy='select',
     backref=db.backref('diseases', lazy=True))
 
-    def __init__(self, resource, image_link):
+    def __init__(self, resource):
         self.name = resource['name'][: -6].replace('/','-') #the -6 removes ' : WHO' from the end of the name
         self.symptoms = resource['symptoms']
         self.transmission = resource['transmission']
@@ -101,15 +107,15 @@ class Disease(db.Model):
         self.prevention = resource['prevention']
         self.more = resource['more']
         self.is_active = resource['is_active']
-        self.image_link = image_link
+        self.image_link = resource['image_link']
 
 def initDisease():
     url = 'https://disease-info-api.herokuapp.com/diseases.json'
     data = requests.get(url).json()
     for info in data['diseases']:
         try:
-            image_link = get_image_link(info['name'][: -6])
-            db.session.add( Disease(info, str(image_link)) )
+            info['image_link'] = str(get_image_link(info['name'][: -6]))
+            db.session.add( Disease( info ) )
             db.session.commit()
         except IntegrityError:
             db.session.rollback()

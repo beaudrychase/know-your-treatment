@@ -52,7 +52,9 @@ class AppTestCase(unittest.TestCase):
 		sample = db.session.query(database.Disease).filter_by(is_active=True, name="Sample disease").one()  # filter on name
 		self.assertEqual(True , sample.is_active)
 
-
+	def test_disease_image_link(self):		
+		sample = db.session.query(database.Disease).filter_by(image_link="www.example.com/image.png").one()  # filter on name
+		self.assertEqual("www.example.com/image.png" , sample.image_link)
 
 
 
@@ -131,11 +133,11 @@ class AppTestCase(unittest.TestCase):
 
 
 
-
+	"""	
 	def test_treatment_id(self):
 		sample = db.session.query(database.Treatment).filter_by(id=1).one()
 		self.assertEqual( 1, sample.id)
-
+	"""
 	def test_treatment_name(self):
 		sample = db.session.query(database.Treatment).filter_by(name='Sample name').one()
 		self.assertEqual( 'Sample name', sample.name)
@@ -166,7 +168,7 @@ def create_sample_disease():
 						'prevention' : 'Sample prevention',
 						'more' : 'Sample more',
 						'is_active' : True,
-						'image_link' : 'www.example.com/image.png'
+						'image_link' : 'www.example.com/image.png',
 						}
 	sample_disease = json.dumps(sample_disease)
 	sample_disease_json = json.loads(sample_disease)
