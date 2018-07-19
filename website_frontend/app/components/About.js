@@ -35,7 +35,7 @@ export default class About extends React.Component {
             ourLastChange:  "",                     // will be automatically found
             numCommits:     [0, 8, 0, 0, 0, 0],     // will be automatically counted, but some people used multiple email addresses
             numIssues:      [0, 0, 0, 0, 0, 0],     // will be automatically counted
-            numTests:       [0, 9, 0, 12, 34, 0]    // was counted by hand
+            numTests:       [0, 9, 0, 18, 34, 0]    // was counted by hand
         };
     }
 
