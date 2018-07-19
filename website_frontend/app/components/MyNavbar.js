@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, NavbarBrand, NavItem, Nav, NavLink, Input, InputGroup } from 'reactstrap';
+import { Button, Navbar, NavbarBrand, NavItem, Nav, NavLink, Input, InputGroup } from 'reactstrap';
 
 export default class MyNavbar extends React.Component {
 
@@ -47,7 +47,7 @@ export default class MyNavbar extends React.Component {
                     </InputGroup>
                 </NavItem>
                 <NavItem>
-                    <NavLink href={'/search/' + this.state.searchText} style={{color:'#FFF', paddingRight:'20px'}}>Search</NavLink>
+                    <Link to={'/search/' + this.state.searchText}  class="btn btn-primary">Search</Link>
                 </NavItem>
                 </Nav>
             </Navbar>
