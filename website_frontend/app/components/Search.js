@@ -154,7 +154,7 @@ export default class Search extends React.Component {
 
     render(){
         return (
-            <div>
+            <div class="container">
                 {/* filters */}
                 <p>Filter by Type</p>
                 <ButtonGroup>
