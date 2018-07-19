@@ -30,7 +30,7 @@ export default class CharityModel extends React.Component {
                 /* pagination implementation: collect all names */
                 this.setState({pageList: data.objects.map((d) => {
 
-                                            if(this.state.name == d.name) {
+                                            if(this.state.name === d.name) {
                                                     /* gathered info for model for the page we're on*/
                                                     this.setState({
 
@@ -83,7 +83,7 @@ export default class CharityModel extends React.Component {
                     <Pagination>
                     {this.state.pageList.map(function(name, index) {
                         
-                        return (this.state.name == name) ? 
+                        return (this.state.name === name) ?
                                 <PaginationItem active key={index}><PaginationLink href={'/charities/' + name}> {index} </PaginationLink></PaginationItem> :
                                 <PaginationItem key={index}><PaginationLink href={'/charities/' + name}> {index} </PaginationLink></PaginationItem>;
                                 
