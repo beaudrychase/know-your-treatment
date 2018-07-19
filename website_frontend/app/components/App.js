@@ -7,6 +7,7 @@ import MyNavbar from './MyNavbar';
 import HealthModel from './HealthModel';
 import CharityModel from './CharityModel';
 import MedicationModel from './MedicationModel';
+import Search from './Search';
 
 export default class App extends React.Component {
 	render() {
@@ -26,6 +27,8 @@ export default class App extends React.Component {
 				<Route path='/medications/:name' component={MedicationModel}/>
 
 				<Route exact path='/about' component={About}/>
+
+				<Route path='/search/:name' component={Search}/>
 			</div>
 		);
 	}
