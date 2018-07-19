@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Input, Form, FormGroup } from 'reactstrap';
+import { Button, Input, ButtonGroup } from 'reactstrap';
 
 export default class Search extends React.Component {
     
@@ -24,6 +24,7 @@ export default class Search extends React.Component {
         this.makeQueries = this.makeQueries.bind(this);
         this.makeUrl = this.makeUrl.bind(this);
         this.performSearch = this.performSearch.bind(this);
+        this.changeFilter = this.changeFilter.bind(this);
     }
 
     /*
@@ -145,11 +146,26 @@ export default class Search extends React.Component {
         this.performSearch('treatment');
     }
 
+    changeFilter(model) {
+
+        let disp = this.state['display' + model];
+        disp = !disp;
+        this.setState({['display' + model]: disp});
+
+    }
+
     render() {
 
         return (
                 <div>
 
+                {/* filters */}
+                <p>Filter by Type</p>
+                <ButtonGroup>
+                    <Button color="primary" onClick={() => this.changeFilter('Charity')} active={this.state.displayCharity}> Charity </Button>
+                    <Button color="primary" onClick={() => this.changeFilter('Disease')} active={this.state.displayDisease}> Disease </Button> 
+                    <Button color="primary" onClick={() => this.changeFilter('Treatment')} active={this.state.displayTreatment}> Treatment </Button>
+                </ButtonGroup>
                 <p>{((this.state.text == '') || ((this.state.charityResults == []) && (this.state.diseaseResults == []) && (this.state.treatmentResults == []))) ? "No Results" : "Search Results"}</p>
 
                 <p>{(this.state.charityResults == []) ? "" : "Charities"}</p>
