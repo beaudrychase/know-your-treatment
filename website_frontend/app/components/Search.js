@@ -155,19 +155,18 @@ export default class Search extends React.Component {
     render(){
         return (
             <div class="container">
+                <br />
                 <h3>{((this.state.text == '') || ((this.state.charityResults == []) && (this.state.diseaseResults == []) && (this.state.treatmentResults == []))) ? "No Results" : "Search Results"}</h3>
                 <br />
                 <div class="row">
-                    <div>
-                        <p>
-                            &nbsp;&nbsp;&nbsp; Filter by Type &nbsp;
-                            <ButtonGroup>
-                                <Button color="primary" onClick={() => this.changeFilter('Charity')} active={this.state.displayCharity}> Charity </Button>
-                                <Button color="primary" onClick={() => this.changeFilter('Disease')} active={this.state.displayDisease}> Disease </Button> 
-                                <Button color="primary" onClick={() => this.changeFilter('Treatment')} active={this.state.displayTreatment}> Treatment </Button>
-                            </ButtonGroup>
-                        </p>
-                    </div>
+                    <div><p style={{paddingLeft: '15px'}}>
+                        Show Types &nbsp;
+                        <ButtonGroup>
+                            <Button color="primary" onClick={() => this.changeFilter('Charity')} active={this.state.displayCharity}> Charity </Button>
+                            <Button color="primary" onClick={() => this.changeFilter('Disease')} active={this.state.displayDisease}> Disease </Button> 
+                            <Button color="primary" onClick={() => this.changeFilter('Treatment')} active={this.state.displayTreatment}> Treatment </Button>
+                        </ButtonGroup>
+                    </p></div>
                     <div>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
