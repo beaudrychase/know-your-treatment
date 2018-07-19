@@ -47,19 +47,19 @@ export default class CharityModel extends React.Component {
                     </div>
 
                     <h5>Category</h5>
-                    <p>{(this.state.category === '' || this.state.category === null) ? "No data available." : this.state.category}</p>
+                    <p style={{paddingLeft: '20px'}}>{(this.state.category === '' || this.state.category === null) ? "No data available." : this.state.category}</p>
 
                     <h5>Location</h5>
-                    <p>{(this.state.city === '' || this.state.city === null) ? "No data available." : this.state.city}, {(this.state.state === '' || this.state.state === null) ? "No data available." : this.state.state}</p>
+                    <p style={{paddingLeft: '20px'}}>{(this.state.city === '' || this.state.city === null) ? "No data available." : this.state.city}, {(this.state.state === '' || this.state.state === null) ? "No data available." : this.state.state}</p>
 
                     <h5>Related Health Conditions</h5>
-                    <p><Link to={'/healthconditions/' + this.state.disease}> {this.state.disease}</Link></p>
+                    <p style={{paddingLeft: '20px'}}><Link to={'/healthconditions/' + this.state.disease}> {this.state.disease}</Link></p>
                     
                     <h5>Site Link</h5>
-                    <p><a href={this.state.sitelink}>{this.state.sitelink}</a></p>
+                    <p style={{paddingLeft: '20px'}}><a href={this.state.sitelink}>{this.state.sitelink}</a></p>
                     
                     <h5>Donate</h5>
-                    <p><a href={this.state.donate}>{this.state.donate}</a></p>
+                    <p style={{paddingLeft: '20px'}}><a href={this.state.donate}>{this.state.donate}</a></p>
 
                     <hr />
 
