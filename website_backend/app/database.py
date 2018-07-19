@@ -17,12 +17,11 @@ Disease_Treatment = db.Table('disease_treatment',
     db.Column('treatment_id', db.Integer, db.ForeignKey('treatment.id'), primary_key=True),
     db.Column('disease_id', db.Integer, db.ForeignKey('disease.id'), primary_key=True)
 )
-# and for diseases to charities
+# and with disease <--> charity
 Disease_Charity = db.Table('disease_charity',
     db.Column('charity_id', db.Integer, db.ForeignKey('charity.id'), primary_key=True),
     db.Column('disease_id', db.Integer, db.ForeignKey('disease.id'), primary_key=True)
 )
-
 
 class Treatment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -59,9 +58,8 @@ class Charity(db.Model):
     parent_ein = db.Column(db.Boolean)
     longitude = db.Column(db.Float)
     latitude = db.Column(db.Float)
-    #disease_id = db.Column(db.Integer, db.ForeignKey('disease.id'))
 
-    def __init__(self, resource, disease_id):
+    def __init__(self, resource):
         self.ein = resource['ein']
         self.name = resource['charityName']
         self.url = resource['url']
@@ -80,7 +78,6 @@ class Charity(db.Model):
         self.parent_ein = resource['parent_ein']
         self.longitude = resource['longitude']
         self.latitude = resource['latitude']
-        #self.disease_id = disease_id
 
 class Disease(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -94,7 +91,7 @@ class Disease(db.Model):
     is_active = db.Column(db.Boolean)
     image_link = db.Column(db.Unicode(500))
     charities = db.relationship('Charity', secondary=Disease_Charity, lazy='select',
-    backref=db.backref('charities', lazy=True))
+    backref=db.backref('diseases', lazy=True))
     treatments = db.relationship('Treatment', secondary=Disease_Treatment, lazy='select',
     backref=db.backref('diseases', lazy=True))
 
@@ -115,7 +112,7 @@ def initDisease():
     for info in data['diseases']:
         try:
             info['image_link'] = str(get_image_link(info['name'][: -6]))
-            db.session.add( Disease( info ) )
+            db.session.add( Disease(info) )
             db.session.commit()
         except IntegrityError:
             db.session.rollback()
@@ -129,7 +126,9 @@ def initCharity():
         data = requests.get(baseUrl + disease.name.replace(' ','%20')).json()
         for info in data['data']:
             try:
-                db.session.add( Charity(info, disease.id) )
+                db.session.add( Charity(info) )
+                db.session.commit()
+                disease.charities = disease.charities + [Charity.query.filter_by(name=info['charityName']).first()]
                 db.session.commit()
             except IntegrityError:
                 db.session.rollback()
