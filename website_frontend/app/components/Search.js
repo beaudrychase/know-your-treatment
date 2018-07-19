@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Input, ButtonGroup } from 'reactstrap';
+import { Button, Input, ButtonGroup, Layout } from 'reactstrap';
 
 export default class Search extends React.Component {
     constructor(props) {
@@ -155,33 +155,56 @@ export default class Search extends React.Component {
     render(){
         return (
             <div class="container">
-                {/* filters */}
-                <p>Filter by Type</p>
-                <ButtonGroup>
-                    <Button color="primary" onClick={() => this.changeFilter('Charity')} active={this.state.displayCharity}> Charity </Button>
-                    <Button color="primary" onClick={() => this.changeFilter('Disease')} active={this.state.displayDisease}> Disease </Button> 
-                    <Button color="primary" onClick={() => this.changeFilter('Treatment')} active={this.state.displayTreatment}> Treatment </Button>
-                </ButtonGroup>
+                <h3>{((this.state.text == '') || ((this.state.charityResults == []) && (this.state.diseaseResults == []) && (this.state.treatmentResults == []))) ? "No Results" : "Search Results"}</h3>
+                <br />
+                <div class="row">
+                    <div>
+                        <p>
+                            &nbsp;&nbsp;&nbsp; Filter by Type &nbsp;
+                            <ButtonGroup>
+                                <Button color="primary" onClick={() => this.changeFilter('Charity')} active={this.state.displayCharity}> Charity </Button>
+                                <Button color="primary" onClick={() => this.changeFilter('Disease')} active={this.state.displayDisease}> Disease </Button> 
+                                <Button color="primary" onClick={() => this.changeFilter('Treatment')} active={this.state.displayTreatment}> Treatment </Button>
+                            </ButtonGroup>
+                        </p>
+                    </div>
+                    <div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div>
+                        <p>Sort &nbsp; <Button color="primary" onClick={this.sort}>{this.state.natSort ? "A to Z" : "Z to A"}</Button></p>
+                    </div>
+                </div>
 
-                <p>Sort</p>
-                <Button color="primary" onClick={this.sort}>{this.state.natSort ? "A to Z" : "Z to A"}</Button>
+                <hr />
 
-                <p>{((this.state.text == '') || ((this.state.charityResults == []) && (this.state.diseaseResults == []) && (this.state.treatmentResults == []))) ? "No Results" : "Search Results"}</p>
-
-                <p>{(this.state.charityResults == []) ? "" : "Charities"}</p>
-                {((this.state.charityResults == []) || (this.state.displayCharity == false)) ? "" : this.state.charityResults.map(function(name, index) {
+                <h5>{(this.state.charityResults == []) ? "" : "Charities"}</h5>
+                <hr />
+                <p>{((this.state.charityResults == []) || (this.state.displayCharity == false)) ? "" : this.state.charityResults.map(function(name, index) {
                     return <p><Link key={index} to={'/charities/' + name}> {name} </Link></p>;
-                })}
+                })}</p>
 
-                <p>{(this.state.diseaseResults == []) ? "" : "Diseases"}</p>
-                {((this.state.diseaseResults == []) || (this.state.displayDisease == false)) ? "" : this.state.diseaseResults.map(function(name, index) {
+                <hr />
+
+                <h5>{(this.state.diseaseResults == []) ? "" : "Diseases"}</h5>
+                <hr />
+                <p>{((this.state.diseaseResults == []) || (this.state.displayDisease == false)) ? "" : this.state.diseaseResults.map(function(name, index) {
                     return <p><Link key={index} to={'/healthconditions/' + name}> {name} </Link></p>;
-                })}
+                })}</p>
 
-                <p>{(this.state.treatmentResults == []) ? "" : "Medicines"}</p>
-                {((this.state.treatmentResults == []) || (this.state.displayTreatment == false)) ? "" : this.state.treatmentResults.map(function(name, index) {
+                <hr />
+
+                <h5>{(this.state.treatmentResults == []) ? "" : "Medicines"}</h5>
+                <hr />
+                <p>{((this.state.treatmentResults == []) || (this.state.displayTreatment == false)) ? "" : this.state.treatmentResults.map(function(name, index) {
                     return <p><Link key={index} to={'/medications/' + name}> {name} </Link></p>;
-                })}
+                })}</p>
+
+                <hr />
+
+                <footer class="container">
+                    <p>© Know Your Treatment 2018</p>
+                </footer>
             </div>
         );   
     }
