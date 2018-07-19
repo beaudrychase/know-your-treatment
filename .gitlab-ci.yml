@@ -31,6 +31,8 @@ front_test:
   script:
     - cd website_frontend
     - ls -al
+    - sudo npm install --save-dev mocha
+    - mocha test
 
 frontend_deploy:
   before_script:
