@@ -8,7 +8,7 @@ Know Your Treatment is a website designed by Beaudry Chase, Brendan Miller, Cale
 
 ### GitLab SHA: c1d1421c85c470642d1bb35ed222cffd4b040306
 
-### Time Worked
+### Time Worked:
 
        Member       | UTEID  |  GitLab ID  | Ph1, Est (hrs) | Ph1, Act (hrs) | Ph2, Est (hrs) | Ph2, Act (hrs) | Ph3, Est (hrs) | Ph3, Act (hrs) 
 --------------------|:------:|:-----------:|:--------------:|:--------------:|:--------------:|:--------------:|:--------------:|:--------------:
