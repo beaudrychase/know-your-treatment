@@ -6,7 +6,7 @@ Know Your Treatment is a website designed by Beaudry Chase, Brendan Miller, Cale
 
 ### [Technical Report](https://knowyourtreatment.gitbook.io/project)
 
-### GitLab SHA: 98458ccf984d0031c288707329f2496abcf3b019
+### GitLab SHA: e7afd4adfb581e4af50db2aacac6866c7c78c7e9
 
 ### Time Worked:
 
