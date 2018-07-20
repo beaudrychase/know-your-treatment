@@ -1,6 +1,6 @@
 @startuml
 Object Charity {
-    id = Integer
+	id = Integer
     ein = Integer
     name = String
     url = String
@@ -46,7 +46,7 @@ Object Treatment {
     image_link = String
 }
 
-Charity <|--|> Disease
-Disease <|--|> Treatment
-Charity <|--|> Treatment
+Charity - Disease
+Disease - Treatment
+Charity - Treatment
 @enduml
