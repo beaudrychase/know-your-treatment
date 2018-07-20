@@ -12,9 +12,9 @@ Know Your Treatment is a website designed by Beaudry Chase, Brendan Miller, Cale
 
        Member       | UTEID  |  GitLab ID  | Ph1, Est (hrs) | Ph1, Act (hrs) | Ph2, Est (hrs) | Ph2, Act (hrs) | Ph3, Est (hrs) | Ph3, Act (hrs) 
 --------------------|:------:|:-----------:|:--------------:|:--------------:|:--------------:|:--------------:|:--------------:|:--------------:
-Woo An              |wa3768  |woojunan     |       15       |        8       |       30       |       16       |        ?       |        ?       
+Woo An              |wa3768  |woojunan     |       15       |        8       |       30       |       16       |       20       |       10       
 Caleb Barnwell      |cmb5827 |cmibarnwell  |       27.5     |       22       |       25       |       18       |        ?       |        ?       
-Beaudry Chase       |bc29552 |beaudrychase |       15       |       10       |       30       |       35       |        ?       |        ?       
+Beaudry Chase       |bc29552 |beaudrychase |       15       |       10       |       30       |       35       |       25       |       27       
 Travis Llado        |tal686  |tllado       |       10       |       15       |       25       |       40       |       20       |       20       
 Brendan Miller      |bmp665  |bpatmiller   |       12       |       10       |       25       |       24       |       10       |        7       
 Christopher Sauceda |ces3723 |csauce       |       12       |       11       |       30       |       40       |       30       |        30       
