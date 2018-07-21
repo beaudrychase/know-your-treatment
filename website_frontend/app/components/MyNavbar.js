@@ -23,8 +23,8 @@ export default class MyNavbar extends React.Component {
 
         return (
             <Navbar color="dark" light expand = "md">
-                <NavbarBrand> 
-                    <NavLink href="/" style={{color:'#FFF'}}>Know Your Treatment</NavLink>
+                <NavbarBrand href="/" style={{color:'#FFF'}}> 
+                    Know Your Treatment
                 </NavbarBrand>
                 <Nav className="ml-auto" navbar>
                 <NavItem active>
@@ -47,7 +47,7 @@ export default class MyNavbar extends React.Component {
                     </InputGroup>
                 </NavItem>
                 <NavItem>
-                    <Link to={'/search/' + this.state.searchText}  class="btn btn-primary">Search</Link>
+                    <Link to={'/search/' + this.state.searchText}  className="btn btn-primary">Search</Link>
                 </NavItem>
                 </Nav>
             </Navbar>
