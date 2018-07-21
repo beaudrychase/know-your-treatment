@@ -36,6 +36,7 @@ export default class Search extends React.Component {
     componentWillReceiveProps(nextProps) {
         console.log('New Text!: ' + nextProps.match.params.name);
         this.props = nextProps;
+        this.state.text = nextProps.match.params.name;
         this.performSearch('charity');
         this.performSearch('disease');
         this.performSearch('treatment');
@@ -371,7 +372,7 @@ class Result extends React.Component {
             text: props.text.toLowerCase(),
             m_type: props.m_type,
             search_terms: props.search_terms.toLowerCase(),
-            matched_words: [],
+            matched_words: '',
             urlBase: props.m_type == 'charity' ? '/charities/' : 
             props.m_type == 'disease' ? '/healthconditions/' : 
             props.m_type == 'treatment' ? '/medications/' : '/medications/'
@@ -379,15 +380,32 @@ class Result extends React.Component {
         /*console.log(JSON.stringify(this.state));*/
     }
 
+    componentWillReceiveProps(nextProps) {
+        let i;
+        let terms = nextProps.search_terms.toLowerCase().split(" ");
+        let len = terms.length;
+        let matches = '';
+        let text = nextProps.text.toLowerCase();
+        for(i=0; i<len; i++) {
+            let t = terms[i];
+            if(text.includes(t)) matches = matches + t + ' ';
+        }
+
+
+        this.setState({name: nextProps.name, text: nextProps.text.toLowerCase(), m_type: nextProps.m_type, search_terms: nextProps.search_terms.toLowerCase(), matched_words: matches, urlBase: nextProps.m_type == 'charity' ? '/charities/' : 
+            nextProps.m_type == 'disease' ? '/healthconditions/' : 
+            nextProps.m_type == 'treatment' ? '/medications/' : '/medications/'});
+    }
+
     componentWillMount() {
         let i;
         let terms = this.state.search_terms.split(" ");
         let len = terms.length;
-        let matches = [];
+        let matches = '';
         let text = this.state.text;
         for(i=0; i<len; i++) {
             let t = terms[i];
-            if(text.includes(t)) matches.push(t);
+            if(text.includes(t)) matches = matches + t + ' '; 
         }
 
         this.setState({matched_words: matches});
