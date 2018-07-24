@@ -10,8 +10,8 @@ def initialize():
 	database.clearDB()
 	db.create_all()
 	db.session.commit()
-	database.initDisease()
-	database.initCharity()
+	database.initDisease(50)
+	database.initCharity(50)
 	database.initTreatment(50)
 	print('all tables initialized')
 

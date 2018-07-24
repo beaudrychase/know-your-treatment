@@ -6,31 +6,13 @@ import json
 import requests
 
 app = Flask(__name__)
-app.config['DEBUG'] = True
-app.config['SQLALCHEMY_ECHO'] = True
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/kyt'
 db = SQLAlchemy(app)
 
-def search_all_fields(term):
-    disease_fields = list(Disease.__table__.columns)
-    return str([c for c in disease_fields])
-    result = []
-    for column in disease_fields:
-        print(column.name)
-        v = column.name
-        result += Disease.query.filter(Disease.name.contains(str(term))).all()
-    return str(result)
-
 # for many-to-many relations from diseases to various treatments
 Disease_Treatment = db.Table('disease_treatment',
-    db.Column('treatment_id', db.Integer, db.ForeignKey('treatment.id'), primary_key=True),
-    db.Column('disease_id', db.Integer, db.ForeignKey('disease.id'), primary_key=True)
-)
-# and with disease <--> charity
-Disease_Charity = db.Table('disease_charity',
-    db.Column('charity_id', db.Integer, db.ForeignKey('charity.id'), primary_key=True),
-    db.Column('disease_id', db.Integer, db.ForeignKey('disease.id'), primary_key=True)
+    db.Column('treatment_id', db.Integer, db.ForeignKey('treatment.id')),
+    db.Column('disease_id', db.Integer, db.ForeignKey('disease.id'))
 )
 
 class Treatment(db.Model):
@@ -68,7 +50,8 @@ class Charity(db.Model):
     parent_ein = db.Column(db.Boolean)
     longitude = db.Column(db.Float)
     latitude = db.Column(db.Float)
-
+    disease_id = db.Column(db.Integer, db.ForeignKey('disease.id'))
+    
     def __init__(self, resource):
         self.ein = resource['ein']
         self.name = resource['charityName']
@@ -88,6 +71,7 @@ class Charity(db.Model):
         self.parent_ein = resource['parent_ein']
         self.longitude = resource['longitude']
         self.latitude = resource['latitude']
+        self.disease_id = resource['disease_id']
 
 class Disease(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -100,8 +84,7 @@ class Disease(db.Model):
     more = db.Column(db.Unicode(2000))
     is_active = db.Column(db.Boolean)
     image_link = db.Column(db.Unicode(500))
-    charities = db.relationship('Charity', secondary=Disease_Charity, lazy='select',
-    backref=db.backref('diseases', lazy=True))
+    charities = db.relationship('Charity', backref='disease', lazy=True)
     treatments = db.relationship('Treatment', secondary=Disease_Treatment, lazy='select',
     backref=db.backref('diseases', lazy=True))
 
@@ -116,10 +99,14 @@ class Disease(db.Model):
         self.is_active = resource['is_active']
         self.image_link = resource['image_link']
 
-def initDisease():
+def initDisease(limit):
     url = 'https://disease-info-api.herokuapp.com/diseases.json'
     data = requests.get(url).json()
+    count = 0
     for info in data['diseases']:
+        if (count>limit):
+            break
+        count+=1
         try:
             info['image_link'] = str(get_image_link(info['name'][: -6]))
             db.session.add( Disease(info) )
@@ -130,15 +117,18 @@ def initDisease():
     print('initialized disease table')
 
 
-def initCharity():
+def initCharity(limit):
     baseUrl = 'http://data.orghunter.com/v1/charitysearch?user_key=5090f8b7b0c373370039798d01066edf&rows=2&searchTerm='
+    count = 0
     for disease in Disease.query.all():
         data = requests.get(baseUrl + disease.name.replace(' ','%20')).json()
         for info in data['data']:
+            if (count>limit):
+                break
+            count+=1
             try:
+                info['disease_id'] = disease.id
                 db.session.add( Charity(info) )
-                db.session.commit()
-                disease.charities = disease.charities + [Charity.query.filter_by(name=info['charityName']).first()]
                 db.session.commit()
             except IntegrityError:
                 db.session.rollback()
@@ -157,11 +147,11 @@ def get_image_link(term):
 def initTreatment(limit):
     baseUrl = 'https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=json&rvsection=0&rvparse&titles='
     baseSearchUrl = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=&srsearch='
-    j = 0
+    count = 0
     for disease in Disease.query.all():
-        j+=1
-        if j>=limit:
+        if (count>limit):
             break
+        count+=1
         # query wikipedia for a given condition  
         searchUrl = baseSearchUrl+(disease.name).replace(' ','%20')
         disease_wiki_title = requests.get(searchUrl).json()['query']['search'][0]['title'].replace(' ', '%20')
@@ -187,7 +177,7 @@ def initTreatment(limit):
                         treatment_wiki_title = requests.get(searchUrl).json()['query']['search'][0]['title'].replace(' ', '%20')
                         text = next(iter(requests.get('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='+treatment_wiki_title).json()['query']['pages'].values()))['extract']
 
-                    if (text!='' and Treatment.query.filter_by(name=suffix.replace('_',' ')).first() is None ):
+                    if text!='':
                         try:
                             info = {'name':suffix.replace('_',' '),
                                     'treatment_type':sectionName,
