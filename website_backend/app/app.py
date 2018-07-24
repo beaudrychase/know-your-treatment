@@ -12,7 +12,7 @@ def initialize():
 	db.session.commit()
 	database.initDisease()
 	database.initCharity()
-	database.initTreatment(5)
+	database.initTreatment(50)
 	print('all tables initialized')
 
 @app.route('/')
@@ -21,17 +21,13 @@ def home_page():
    			'/api/charity/  --  ' + str([x.name for x in database.Charity.query.all()]) + '<br>' +\
     		'/api/treatment/  --  ' + str([x.name for x in database.Treatment.query.all()])
 
-@app.route('/search')
-def search():
-	return database.search_all_fields( request.args.get('q') )
-
 manager = flask_restless.APIManager(database.app, flask_sqlalchemy_db=database.db)
 disease_blueprint = manager.create_api(database.Disease, results_per_page = 10)
 charity_blueprint = manager.create_api(database.Charity, results_per_page = 10)
 treatment_blueprint = manager.create_api(database.Treatment, results_per_page = 10)
 
 if __name__ == '__main__':
-	#initialize()
+	initialize()
 	CORS(app)
 	# Make available to all domains
 	app.run(host="0.0.0.0", port=80)

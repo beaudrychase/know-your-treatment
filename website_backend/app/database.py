@@ -187,7 +187,7 @@ def initTreatment(limit):
                         treatment_wiki_title = requests.get(searchUrl).json()['query']['search'][0]['title'].replace(' ', '%20')
                         text = next(iter(requests.get('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='+treatment_wiki_title).json()['query']['pages'].values()))['extract']
 
-                    if (text!='' && Treatment.query.filter_by(name=suffix.replace('_',' ')).first() is None ):
+                    if (text!='' and Treatment.query.filter_by(name=suffix.replace('_',' ')).first() is None ):
                         try:
                             info = {'name':suffix.replace('_',' '),
                                     'treatment_type':sectionName,
