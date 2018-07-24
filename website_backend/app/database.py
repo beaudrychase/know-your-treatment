@@ -12,6 +12,16 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/kyt'
 db = SQLAlchemy(app)
 
+def search_all_fields(term):
+    disease_fields = list(Disease.__table__.columns)
+    return str([c for c in disease_fields])
+    result = []
+    for column in disease_fields:
+        print(column.name)
+        v = column.name
+        result += Disease.query.filter(Disease.name.contains(str(term))).all()
+    return str(result)
+
 # for many-to-many relations from diseases to various treatments
 Disease_Treatment = db.Table('disease_treatment',
     db.Column('treatment_id', db.Integer, db.ForeignKey('treatment.id'), primary_key=True),
@@ -177,7 +187,7 @@ def initTreatment(limit):
                         treatment_wiki_title = requests.get(searchUrl).json()['query']['search'][0]['title'].replace(' ', '%20')
                         text = next(iter(requests.get('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='+treatment_wiki_title).json()['query']['pages'].values()))['extract']
 
-                    if (text!=''):
+                    if (text!='' && Treatment.query.filter_by(name=suffix.replace('_',' ')).first() is None ):
                         try:
                             info = {'name':suffix.replace('_',' '),
                                     'treatment_type':sectionName,
