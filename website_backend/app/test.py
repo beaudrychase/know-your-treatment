@@ -191,7 +191,9 @@ def create_sample_charity():
 				    'parent_ein' : True,
 				    'longitude' : 1.0,
 				    'latitude' : 2.0,
+				    'disease_id' : db.session.query(database.Disease.id).first()
     				}
+
 	sample_charity = json.dumps(sample_charity)
 	sample_charity_json = json.loads(sample_charity)
 	try:
