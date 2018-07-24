@@ -18,7 +18,9 @@ const authorEmails = ["calebbarnwell@gmail.com", "travisllado@utexas.edu", "bren
 const usernames =   ["cmibarnwell", "tllado",       "bpatmiller",     "woojunan", "beaudrychase",  "csauce"];
 const gitlabProjectURL = "https://gitlab.com/api/v4/projects/7160520?private_token=eX7szajR1g6q1C9hyCr4";
 const gitlabCommitsURL = "https://gitlab.com/api/v4/projects/7160520/repository/commits?per_page=100&private_token=eX7szajR1g6q1C9hyCr4";
+const commitIdentifier = "author_email";
 const gitlabIssuesURL =  "https://gitlab.com/api/v4/projects/7160520/issues?scope=all&per_page=100&private_token=eX7szajR1g6q1C9hyCr4";
+const issueIdentifier = ["author", "username"];
 
 
 
@@ -33,7 +35,7 @@ export default class About extends React.Component {
             ourLastChange:  "",                     // will be automatically found
             numCommits:     [0, 8, 0, 0, 0, 0],     // will be automatically counted, but some people used multiple email addresses
             numIssues:      [0, 0, 0, 0, 0, 0],     // will be automatically counted
-            numTests:       [0, 9, 0, 12, 34, 0]    // was counted by hand
+            numTests:       [0, 9, 0, 25, 34, 0]    // was counted by hand
         };
     }
 
@@ -56,7 +58,7 @@ export default class About extends React.Component {
         for(var pageNum = 1; pageNum < 10; pageNum++) {
             fetch(gitlabCommitsURL + "&page=" + pageNum)
             .then(results => results.json())
-            .then(commitsData => commitsData.map(thisCommit => thisCommit.author_email))
+            .then(commitsData => commitsData.map(thisCommit => thisCommit[commitIdentifier]))
             .then(commitNames => tools.tally(commitNames, authorEmails))
             .then(thisPageTotals => tools.addArrays(thisPageTotals, this.state.numCommits))
             .then(allPagesTotals => this.setState({numCommits: allPagesTotals}));
@@ -70,7 +72,7 @@ export default class About extends React.Component {
         for(var pageNum = 1; pageNum < 10; pageNum++) {
             fetch(gitlabIssuesURL + "&page=" + pageNum)
             .then(results => results.json())
-            .then(issuesData => issuesData.map(thisIssue => thisIssue.author.username))
+            .then(issuesData => issuesData.map(thisIssue => thisIssue[issueIdentifier[0]][issueIdentifier[1]]))
             .then(issueNames => tools.tally(issueNames, usernames))
             .then(thisPageTotals => tools.addArrays(thisPageTotals, this.state.numIssues))
             .then(allPagesTotals => this.setState({numIssues: allPagesTotals}));
