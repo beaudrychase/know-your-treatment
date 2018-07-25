@@ -31,7 +31,7 @@ export default class MedicationModel extends React.Component {
 
     render() {
         return(
-            <div class="container">
+            <div className="container">
                 <br />
                 <h3>{this.state.name}</h3>
                 <br />
@@ -61,7 +61,7 @@ export default class MedicationModel extends React.Component {
                 
                 <hr />
                 
-                <footer class="container">
+                <footer className="container">
                     <p>© Know Your Treatment 2018</p>
                 </footer>
             </div>

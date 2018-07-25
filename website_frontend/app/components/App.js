@@ -8,6 +8,7 @@ import HealthModel from './HealthModel';
 import CharityModel from './CharityModel';
 import MedicationModel from './MedicationModel';
 import Search from './Search';
+import ImageVisual from './ImageVisual';
 
 export default class App extends React.Component {
 	render() {
@@ -29,6 +30,8 @@ export default class App extends React.Component {
 				<Route exact path='/about' component={About}/>
 
 				<Route path='/search/:name' component={Search}/>
+
+				<Route path='/imagevisual' component={ImageVisual}/>
 			</div>
 		);
 	}
