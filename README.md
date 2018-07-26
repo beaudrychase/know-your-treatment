@@ -10,11 +10,12 @@ Know Your Treatment is a website designed by Beaudry Chase, Brendan Miller, Cale
 
 ### Time Worked:
 
-       Member       | UTEID  |  GitLab ID  |       Hours        |   Ph1   |   Ph2   |   Ph3   
---------------------|:------:|:-----------:|:------------------:|:-------:|:-------:|:-------:
-Woo An              |wa3768  |woojunan     | (Actual/Estimated) |  8/15   |  16/30  |  10/20  
-Caleb Barnwell      |cmb5827 |cmibarnwell  |                    |  22/28  |  18/25  |  20/20  
-Beaudry Chase       |bc29552 |beaudrychase |                    |  10/15  |  35/30  |  27/25  
-Travis Llado        |tal686  |tllado       |                    |  15/10  |  40/25  |  20/20  
-Brendan Miller      |bmp665  |bpatmiller   |                    |  10/12  |  24/25  |   7/10  
-Christopher Sauceda |ces3723 |csauce       |                    |  11/12  |  40/30  |  30/30  
+       Member       | UTEID  |  GitLab ID  | <td colspan=3>Hours (actual/estimated)
+--------------------|:------:|:-----------:|:-------:|:-------:|:-------:
+                    |        |             |   Ph1   |   Ph2   |   Ph3   
+Woo An              |wa3768  |woojunan     |  8/15   |  16/30  |  10/20  
+Caleb Barnwell      |cmb5827 |cmibarnwell  |  22/28  |  18/25  |  20/20  
+Beaudry Chase       |bc29552 |beaudrychase |  10/15  |  35/30  |  27/25  
+Travis Llado        |tal686  |tllado       |  15/10  |  40/25  |  20/20  
+Brendan Miller      |bmp665  |bpatmiller   |  10/12  |  24/25  |   7/10  
+Christopher Sauceda |ces3723 |csauce       |  11/12  |  40/30  |  30/30  
