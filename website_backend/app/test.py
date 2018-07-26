@@ -52,7 +52,9 @@ class AppTestCase(unittest.TestCase):
 		sample = db.session.query(database.Disease).filter_by(is_active=True, name="Sample disease").one()  # filter on name
 		self.assertEqual(True , sample.is_active)
 
-
+	def test_disease_image_link(self):		
+		sample = db.session.query(database.Disease).filter_by(image_link="www.example.com/image.png").one()  # filter on name
+		self.assertEqual("www.example.com/image.png" , sample.image_link)
 
 
 
@@ -129,13 +131,7 @@ class AppTestCase(unittest.TestCase):
 		self.assertEqual( 2.0, sample.latitude)
 
 
-
-
-
-	def test_treatment_id(self):
-		sample = db.session.query(database.Treatment).filter_by(id=1).one()
-		self.assertEqual( 1, sample.id)
-
+	
 	def test_treatment_name(self):
 		sample = db.session.query(database.Treatment).filter_by(name='Sample name').one()
 		self.assertEqual( 'Sample name', sample.name)
@@ -157,8 +153,7 @@ class AppTestCase(unittest.TestCase):
 	
 def create_sample_disease():
 	#Assumes the database has already been initialized.
-	sample_disease =   {'id' : 1,
-						'name' : 'Sample disease : WHO', 
+	sample_disease =   {'name' : 'Sample disease : WHO', 
 						'symptoms' : 'Sample symptoms',
 						'transmission' : 'Sample transmission',
 						'diagnosis': 'Sample diagnosis',
@@ -166,7 +161,7 @@ def create_sample_disease():
 						'prevention' : 'Sample prevention',
 						'more' : 'Sample more',
 						'is_active' : True,
-						'image_link' : 'www.example.com/image.png'
+						'image_link' : 'www.example.com/image.png',
 						}
 	sample_disease = json.dumps(sample_disease)
 	sample_disease_json = json.loads(sample_disease)
@@ -178,8 +173,7 @@ def create_sample_disease():
 	return sample_disease_json
 
 def create_sample_charity():
-	sample_charity={'id' : 1,
-					'ein' : 1,
+	sample_charity={'ein' : 1,
 					'charityName' : 'Sample name', 
 				    'url' : 'Sample url', 
 				    'donationUrl' : 'Sample donationUrl', 
@@ -197,11 +191,13 @@ def create_sample_charity():
 				    'parent_ein' : True,
 				    'longitude' : 1.0,
 				    'latitude' : 2.0,
+				    'disease_id' : db.session.query(database.Disease.id).first()
     				}
+
 	sample_charity = json.dumps(sample_charity)
 	sample_charity_json = json.loads(sample_charity)
 	try:
-		db.session.add( database.Charity(sample_charity_json, 1))
+		db.session.add( database.Charity(sample_charity_json))
 	except IntegrityError:
 		pass
 		db.session.rollback()
@@ -209,8 +205,7 @@ def create_sample_charity():
 
 
 def create_sample_treatment():
-	sample_treatment = {'id' : 1,
-					    'name' : 'Sample name',
+	sample_treatment = {'name' : 'Sample name',
 					    'treatment_type' : 'Sample treatment_type',
 					    'text' : 'Sample text',
 					    'wiki_link' : 'Sample wiki_link',

@@ -6,24 +6,22 @@ import json
 import requests
 
 app = Flask(__name__)
-app.config['DEBUG'] = True
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/kyt.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/kyt'
 db = SQLAlchemy(app)
 
 # for many-to-many relations from diseases to various treatments
 Disease_Treatment = db.Table('disease_treatment',
-    db.Column('treatment_id', db.Integer, db.ForeignKey('treatment.id'), primary_key=True),
-    db.Column('disease_id', db.Integer, db.ForeignKey('disease.id'), primary_key=True)
+    db.Column('treatment_id', db.Integer, db.ForeignKey('treatment.id')),
+    db.Column('disease_id', db.Integer, db.ForeignKey('disease.id'))
 )
 
 class Treatment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Unicode, unique=True)
-    treatment_type = db.Column(db.Unicode)
-    text = db.Column(db.Unicode)
-    wiki_link = db.Column(db.Unicode)
-    image_link = db.Column(db.Unicode)
+    name = db.Column(db.Unicode(100), unique=True)
+    treatment_type = db.Column(db.Unicode(100))
+    text = db.Column(db.Unicode(2000))
+    wiki_link = db.Column(db.Unicode(500))
+    image_link = db.Column(db.Unicode(500))
 
     def __init__(self, resource):
         self.name = resource['name']
@@ -35,27 +33,26 @@ class Treatment(db.Model):
 class Charity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ein = db.Column(db.Integer)
-    name = db.Column(db.Unicode, unique=True)
-    url = db.Column(db.Unicode)
-    donationUrl = db.Column(db.Unicode)
-    city = db.Column(db.Unicode)
-    state = db.Column(db.Unicode)
-    zipCode = db.Column(db.Unicode)
+    name = db.Column(db.Unicode(100), unique=True)
+    url = db.Column(db.Unicode(500))
+    donationUrl = db.Column(db.Unicode(500))
+    city = db.Column(db.Unicode(100))
+    state = db.Column(db.Unicode(100))
+    zipCode = db.Column(db.Unicode(100))
     start = db.Column(db.Integer)
     rows = db.Column(db.Integer)
     recordCount = db.Column(db.Integer)
     score = db.Column(db.Integer)
     acceptingDonations = db.Column(db.Boolean)
-    category = db.Column(db.Unicode)
+    category = db.Column(db.Unicode(100))
     eligibleCd = db.Column(db.Boolean)
-    missionStatement = db.Column(db.Unicode)
+    missionStatement = db.Column(db.Unicode(2000))
     parent_ein = db.Column(db.Boolean)
     longitude = db.Column(db.Float)
     latitude = db.Column(db.Float)
-    disease_id = db.Column(db.Integer, db.ForeignKey('disease.id'),
-        nullable=False)
-
-    def __init__(self, resource, disease_id):
+    disease_id = db.Column(db.Integer, db.ForeignKey('disease.id'))
+    
+    def __init__(self, resource):
         self.ein = resource['ein']
         self.name = resource['charityName']
         self.url = resource['url']
@@ -74,19 +71,19 @@ class Charity(db.Model):
         self.parent_ein = resource['parent_ein']
         self.longitude = resource['longitude']
         self.latitude = resource['latitude']
-        self.disease_id = disease_id
+        self.disease_id = resource['disease_id']
 
 class Disease(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Unicode, unique=True)
-    symptoms = db.Column(db.Unicode)
-    transmission = db.Column(db.Unicode)
-    diagnosis = db.Column(db.Unicode)
-    treatment = db.Column(db.Unicode)
-    prevention = db.Column(db.Unicode)
-    more = db.Column(db.Unicode)
+    name = db.Column(db.Unicode(100), unique=True)
+    symptoms = db.Column(db.Unicode(2000))
+    transmission = db.Column(db.Unicode(2000))
+    diagnosis = db.Column(db.Unicode(2000))
+    treatment = db.Column(db.Unicode(2000))
+    prevention = db.Column(db.Unicode(2000))
+    more = db.Column(db.Unicode(2000))
     is_active = db.Column(db.Boolean)
-    image_link = db.Column(db.Unicode)
+    image_link = db.Column(db.Unicode(500))
     charities = db.relationship('Charity', backref='disease', lazy=True)
     treatments = db.relationship('Treatment', secondary=Disease_Treatment, lazy='select',
     backref=db.backref('diseases', lazy=True))
@@ -102,13 +99,16 @@ class Disease(db.Model):
         self.is_active = resource['is_active']
         self.image_link = resource['image_link']
 
-def initDisease():
+def initDisease(limit):
     url = 'https://disease-info-api.herokuapp.com/diseases.json'
     data = requests.get(url).json()
+    count = 0
     for info in data['diseases']:
+        if (count>limit):
+            break
+        count+=1
         try:
-            image_link = get_image_link(info['name'][: -6])
-            info['image_link'] = image_link
+            info['image_link'] = str(get_image_link(info['name'][: -6]))
             db.session.add( Disease(info) )
             db.session.commit()
         except IntegrityError:
@@ -117,13 +117,18 @@ def initDisease():
     print('initialized disease table')
 
 
-def initCharity():
+def initCharity(limit):
     baseUrl = 'http://data.orghunter.com/v1/charitysearch?user_key=5090f8b7b0c373370039798d01066edf&rows=2&searchTerm='
+    count = 0
     for disease in Disease.query.all():
         data = requests.get(baseUrl + disease.name.replace(' ','%20')).json()
         for info in data['data']:
+            if (count>limit):
+                break
+            count+=1
             try:
-                db.session.add( Charity(info, disease.id) )
+                info['disease_id'] = disease.id
+                db.session.add( Charity(info) )
                 db.session.commit()
             except IntegrityError:
                 db.session.rollback()
@@ -142,11 +147,11 @@ def get_image_link(term):
 def initTreatment(limit):
     baseUrl = 'https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=json&rvsection=0&rvparse&titles='
     baseSearchUrl = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=&srsearch='
-    j = 0
+    count = 0
     for disease in Disease.query.all():
-        j+=1
-        if j>=limit:
+        if (count>limit):
             break
+        count+=1
         # query wikipedia for a given condition  
         searchUrl = baseSearchUrl+(disease.name).replace(' ','%20')
         disease_wiki_title = requests.get(searchUrl).json()['query']['search'][0]['title'].replace(' ', '%20')
@@ -172,7 +177,7 @@ def initTreatment(limit):
                         treatment_wiki_title = requests.get(searchUrl).json()['query']['search'][0]['title'].replace(' ', '%20')
                         text = next(iter(requests.get('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='+treatment_wiki_title).json()['query']['pages'].values()))['extract']
 
-                    if (text!=''):
+                    if text!='':
                         try:
                             info = {'name':suffix.replace('_',' '),
                                     'treatment_type':sectionName,
@@ -187,9 +192,7 @@ def initTreatment(limit):
                             print('IntegrityError', info['name'])
                             db.session.rollback()
                             # in case of adding duplicates
-                        
-
-    print('initialized treatment table with', j, 'objects')
+    print('initialized treatment table')
    
 
 def clearDB():
