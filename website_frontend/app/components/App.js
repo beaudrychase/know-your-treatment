@@ -1,14 +1,15 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import Home from './Home';
-import ListModule from './ListModule';
-import About from './About';
-import MyNavbar from './MyNavbar';
-import HealthModel from './HealthModel';
-import CharityModel from './CharityModel';
-import MedicationModel from './MedicationModel';
-import Search from './Search';
-import ImageVisual from './ImageVisual';
+import React from 'react'
+import { Route } from 'react-router-dom'
+import Home from './Home'
+import ListModule from './ListModule'
+import About from './About'
+import MyNavbar from './MyNavbar'
+import HealthModel from './HealthModel'
+import CharityModel from './CharityModel'
+import MedicationModel from './MedicationModel'
+import Search from './Search'
+import ImageVisual from './ImageVisual'
+import CharityVisual from './CharityVisual'
 
 export default class App extends React.Component {
 	render() {
@@ -32,7 +33,9 @@ export default class App extends React.Component {
 				<Route path='/search/:name' component={Search}/>
 
 				<Route path='/imagevisual' component={ImageVisual}/>
+
+				<Route path='/charityvisual' component={CharityVisual}/>
 			</div>
-		);
+		)
 	}
 }

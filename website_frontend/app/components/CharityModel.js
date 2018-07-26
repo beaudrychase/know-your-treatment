@@ -28,8 +28,8 @@ export default class CharityModel extends React.Component {
                 sitelink:   cobj.url,
                 category:   cobj.category,
                 donate:     cobj.donationUrl,
-                disease:    cobj.diseases[0].name,
-                image_link: cobj.diseases[0].image_link
+                disease:    cobj.disease.name,
+                image_link: cobj.disease.image_link
             });
         });
     }

@@ -45,9 +45,6 @@ export default class ImageVisual extends React.Component {
 	render() {
 		return(
 			<div>
-				<h1> Links </h1>
-				<p> HEY </p>
-				<p> YO </p>
 				{this.state.images && this.state.images.map(i => <img src={i} />)}
 			</div>
 		)
