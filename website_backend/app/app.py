@@ -27,7 +27,7 @@ charity_blueprint = manager.create_api(database.Charity, results_per_page = 10)
 treatment_blueprint = manager.create_api(database.Treatment, results_per_page = 10)
 
 if __name__ == '__main__':
-	initialize()
+	#initialize()
 	CORS(app)
 	# Make available to all domains
 	app.run(host="0.0.0.0", port=80)
