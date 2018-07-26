@@ -1,5 +1,5 @@
 # base image
-FROM node:8
+FROM node:9.6.1
 
 # set working directory
 RUN mkdir /usr/src/app
@@ -15,3 +15,6 @@ RUN npm install react-scripts@1.1.1 -g --silent
 
 # start app
 CMD ["npm", "start"]
+# CMD ["npm", "run", "build"]
+# CMD ["npm", "install", "-g", "serve"]
+# CMD ["serve", "-s", "build"]
