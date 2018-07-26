@@ -1,70 +1,55 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default class ImageVisual extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
-			images: []
-		};
+			images: ['boi', 'hey'],
+			test: 'TEST'
+		}
 
-		this.fetchImages = this.fetchImages.bind(this);
+		this.fetchImages = this.fetchImages.bind(this)
 	}
 
 	fetchImages(apiName) {
-		const baseUrl = 'http://api.knowyourtreatment.com/api/';
-		var images = [];
+		const baseUrl = 'http://api.knowyourtreatment.com/api/'
+		var images = []
 		fetch(baseUrl + apiName)
 		.then(results => results.json())
 		.then(data => {
 			const pages = data.total_pages;
-			images.push(data.objects.map((d) => {
-				return d.image_link;
-			}));
+			Array.prototype.push.apply(images, data.objects.filter(d => d.image_link != '')
+			.map(e => e.image_link))
 			var i;
 			for(i=2; i<=pages; i++) {
 				fetch(baseUrl + apiName + '?page=' + i)
 				.then(results => results.json())
 				.then(data => {
-					return data.objects.map((d) => {
-						return d.image_link
-					})
+					return data.objects.filter(d => d.image_link != '')
+					.map(e => e.image_link);
 				})
 				.then(img => {
-					images.push(img);
+					Array.prototype.push.apply(images, img)
+					this.setState({images: images})
 				})
 			}
+			this.setState({images: images})
 		});
-
-		return new Promise((resolve, reject) => {resolve(images);});
 	}
 
 	componentWillMount() {
-		Promise.all([this.fetchImages('treatment'), this.fetchImages('disease')])
-		.then(images => {
-			console.log(images);
-			console.log('Image:' + images[0][0][1]);
-			var imgLinks = [];
-			var i;
-			for(i=0; i<2; i++) {
-				var j;
-				for(j=0; j<images[i].length; j++) {
-					var k;
-					for(k=0; k<images[i][j].length; k++) {
-						var val = images[i][j][k];
-						console.log('ImageLink: ' + val);
-						if(val != '') imgLinks.push(val);
-					}
-				}
-			}
-			this.setState({images: imgLinks}); 	
-		});
+		this.fetchImages('treatment')
 	}
 	
 	render() {
 		return(
 			<div>
-				{this.state.images.map((i) => {return <p>{i}</p>;})}
+				<h1> Links </h1>
+				<p> HEY </p>
+				<p> YO </p>
+				{this.state.images && this.state.images.map(i => <img src={i} />)}
 			</div>
-		);
+		)
 	}
 }
