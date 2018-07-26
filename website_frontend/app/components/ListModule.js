@@ -103,12 +103,12 @@ export default class ListModule extends React.Component {
 
     render() {
         return(
-            <div class="container">
+            <div className="container">
                 <br />
                 <h1> { this.state.title } </h1>
 
                 <div className="sort-section" style={{paddingTop: '10px'}}>
-                    <p>Sort &nbsp; <button class="btn btn-secondary" id='alphabet' onClick= {this.sortBy.bind(this)}>{this.state.sort_type === 1 ? "Z to A" : "A to Z"}</button></p>
+                    <p>Sort &nbsp; <button className="btn btn-secondary" id='alphabet' onClick= {this.sortBy.bind(this)}>{this.state.sort_type === 1 ? "Z to A" : "A to Z"}</button></p>
                 </div>
 
                 <p><ListGroup>
@@ -131,7 +131,7 @@ export default class ListModule extends React.Component {
 
                 <hr />
 
-                <footer class="container">
+                <footer className="container">
                     <p>© Know Your Treatment 2018</p>
                 </footer>
             </div>

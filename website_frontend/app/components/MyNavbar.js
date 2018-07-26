@@ -27,17 +27,29 @@ export default class MyNavbar extends React.Component {
                     Know Your Treatment
                 </NavbarBrand>
                 <Nav className="ml-auto" navbar>
+
                 <NavItem active>
                     <NavLink href="/healthconditions" style={{color:'#FFF', paddingRight:'20px'}}>Health Conditions</NavLink>
                 </NavItem>
+
                 <NavItem active>
                     <NavLink href="/charities" style={{color:'#FFF', paddingRight:'20px'}}>Charities</NavLink>
                 </NavItem>
+
                 <NavItem active>
                     <NavLink href="/medications" style={{color:'#FFF', paddingRight:'20px'}}>Medications</NavLink>
                 </NavItem>
+
                 <NavItem active>
                     <NavLink href="/about" style={{color:'#FFF', paddingRight:'20px'}}>About</NavLink>
+                </NavItem>
+
+                <NavItem active>
+                    <NavLink href="/imagevisual" style={{color:'#FFF', paddingRight:'20px'}}>Image Visual</NavLink>
+                </NavItem>
+
+                <NavItem active>
+                    <NavLink href="/charityvisual" style={{color:'#FFF', paddingRight:'20px'}}>Charity Visual</NavLink>
                 </NavItem>
 
                 {/* Search bar */}
@@ -46,6 +58,7 @@ export default class MyNavbar extends React.Component {
                         <Input placeholder="Search for something..." onChange={this.handleSearch}/>
                     </InputGroup>
                 </NavItem>
+
                 <NavItem>
                     <Link to={'/search/' + this.state.searchText}  className="btn btn-primary">Search</Link>
                 </NavItem>
