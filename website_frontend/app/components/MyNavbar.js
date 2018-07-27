@@ -41,15 +41,11 @@ export default class MyNavbar extends React.Component {
                 </NavItem>
 
                 <NavItem active>
+                    <NavLink href="/charityvisual" style={{color:'#FFF', paddingRight:'20px'}}>Visualizations</NavLink>
+                </NavItem>
+
+                <NavItem active>
                     <NavLink href="/about" style={{color:'#FFF', paddingRight:'20px'}}>About</NavLink>
-                </NavItem>
-
-                <NavItem active>
-                    <NavLink href="/imagevisual" style={{color:'#FFF', paddingRight:'20px'}}>Image Visual</NavLink>
-                </NavItem>
-
-                <NavItem active>
-                    <NavLink href="/charityvisual" style={{color:'#FFF', paddingRight:'20px'}}>Charity Visual</NavLink>
                 </NavItem>
 
                 {/* Search bar */}
