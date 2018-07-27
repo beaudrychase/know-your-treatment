@@ -149,11 +149,11 @@ export default class CharityVisual extends React.Component {
                     <tr><td><a href="http://www.ourplaceholderwebsite.me.s3-website.us-east-2.amazonaws.com/vis2.html">Average Book Length by Subject</a></td></tr>
                     <tr><td><a href="http://www.ourplaceholderwebsite.me.s3-website.us-east-2.amazonaws.com/vis3.html">Number of Pages in the Book vs Number of Letter in the Title</a></td></tr>
                 </table>
+                <hr />
+                <footer className="container">
+                    <p>© Know Your Treatment 2018</p>
+                </footer>
             </div>
-            <hr />
-            <footer className="container">
-                <p>© Know Your Treatment 2018</p>
-            </footer>
         )
     }
 }

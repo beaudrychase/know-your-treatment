@@ -27,7 +27,7 @@ backend_deploy:
 
 frontend_test:
   # currently runs Mocha tests only using generic "node" container
-  image: "node:9.6.1"
+  image: "node:8"
   script:
     - cd website_frontend
     - ls -al
