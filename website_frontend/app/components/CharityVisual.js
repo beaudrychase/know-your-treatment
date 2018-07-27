@@ -160,6 +160,7 @@ export default class CharityVisual extends React.Component {
 
     componentWillMount() {
         this.fetchImages('treatment')
+        console.log(this.state.data);
 
         fetch('http://api.knowyourtreatment.com/api/charity')
         .then(results => results.json())
@@ -231,6 +232,22 @@ export default class CharityVisual extends React.Component {
                 </table>
 
                 <br /><br />
+
+                <h1>Associated Media</h1>
+                <div>{this.state.images && this.state.images.map(i => <img src={i} />)}</div>
+
+                <br /><br />
+
+                <table>
+                    <tr><td><h3>Visualizations for our Provider:</h3></td></tr>
+                    <tr><td><a href="http://www.ourplaceholderwebsite.me.s3-website.us-east-2.amazonaws.com/vis1.html">Commits by User, by Phase</a></td></tr>
+                    <tr><td><a href="http://www.ourplaceholderwebsite.me.s3-website.us-east-2.amazonaws.com/vis2.html">Average Book Length by Subject</a></td></tr>
+                    <tr><td><a href="http://www.ourplaceholderwebsite.me.s3-website.us-east-2.amazonaws.com/vis3.html">Number of Pages in the Book vs Number of Letter in the Title</a></td></tr>
+                </table>
+                <hr />
+                <footer className="container">
+                    <p>© Know Your Treatment 2018</p>
+                </footer>
             </div>
         )
     }
