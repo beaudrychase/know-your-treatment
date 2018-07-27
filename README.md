@@ -16,7 +16,7 @@ Know Your Treatment is a website designed by Beaudry Chase, Brendan Miller, Cale
     <tr><td>Woo An</td><td>wa3768</td><td>woojunan</td><td>8/15</td><td>16/30</td><td>10/20</td><td>7/15</td></tr>
     <tr><td>Caleb Barnwell</td><td>cmb5827</td><td>cmibarnwell</td><td>22/28</td><td>18/25</td><td>20/20</td><td>17/15</td></tr>
     <tr><td>Beaudry Chase</td><td>bc29552</td><td>beaudrychase</td><td>10/15</td><td>35/30</td><td>27/25</td><td>?/?</td></tr>
-    <tr><td>Travis Llado</td><td>tal686</td><td>tllado</td><td>15/10</td><td>40/25</td><td>20/20</td><td>?/?</td></tr>
+    <tr><td>Travis Llado</td><td>tal686</td><td>tllado</td><td>15/10</td><td>40/25</td><td>20/20</td><td>15/15</td></tr>
     <tr><td>Brendan Miller</td><td>bmp665</td><td>bpatmiller</td><td>10/12</td><td>24/25</td><td>7/10</td><td>12/10</td></tr>
     <tr><td>Christopher Sauceda</td><td>ces3723</td><td>csauce</td><td>11/12</td><td>40/30</td><td>30/30</td><td>?/?</td></tr>
 </table>
