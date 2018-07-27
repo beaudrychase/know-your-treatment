@@ -2,12 +2,6 @@ import React from 'react';
 import { ListGroup, ListGroupItem, Pagination, PaginationItem, Button } from 'reactstrap';
 import { Link, Switch, Route } from 'react-router-dom';
 
-class Sort extends React.Component {
-    sort(field){
-        this.props.sortBy(field);
-    }
-}
-
 export default class ListModule extends React.Component {
     constructor(props) {
         super(props);
@@ -19,7 +13,8 @@ export default class ListModule extends React.Component {
             sort_type:  0,
             pages:      1,
             currPage:   1,
-            pageArr:    []
+            pageArr:    [],
+            sort:       ''
         };
 
         /*console.log(props.location.pathname);*/
@@ -44,13 +39,29 @@ export default class ListModule extends React.Component {
     }
 
     sortBy(){
-        if(this.state.sort_type === 0 || this.state.sort_type === 2){
+        var type = '';
+        if(this.state.sort_type !== 1){
             this.setState({sort_type: 1});
-            this.setState({names: this.state.names.sort()});
+            this.setState({sort: 'q={"order_by":[{"field":"name","direction":"asc"}]}&'});
+            this.state.title === 'Health Conditions' ? type = 'disease' : this.state.title === 'Charities' ? type = 'charity' : type = "treatment";
+            fetch('http://api.knowyourtreatment.com/api/' + type + '?q={"order_by":[{"field":"name","direction":"asc"}]}&page=' + this.state.currPage)
+            .then(results => results.json())
+            .then(data => {
+                this.setState({names: data.objects.map((d) => {return d['name']})
+                });
+             });
+
         }
-        else if(this.state.sort_type === 1){
+        else{
             this.setState({sort_type: 2});
-            this.setState({names: this.state.names.reverse()});
+            this.setState({sort: 'q={"order_by":[{"field":"name","direction":"desc"}]}&'});
+            this.state.title === 'Health Conditions' ? type = 'disease' : this.state.title === 'Charities' ? type = 'charity' : type = "treatment";
+            fetch('http://api.knowyourtreatment.com/api/' + type + '?q={"order_by":[{"field":"name","direction":"desc"}]}&page=' + this.state.currPage)
+            .then(results => results.json())
+            .then(data => {
+                this.setState({names: data.objects.map((d) => {return d['name']})
+                });
+             });
         }
   }
 
@@ -90,13 +101,13 @@ export default class ListModule extends React.Component {
     updatePage(pn) {
         switch (this.state.title) {
             case 'Health Conditions':
-                this.fetchArray('http://api.knowyourtreatment.com/api/disease?page=' + pn, 'name');
+                this.fetchArray('http://api.knowyourtreatment.com/api/disease?'+ this.state.sort + 'page=' + pn, 'name');
                 break;
             case 'Charities':
-                this.fetchArray('http://api.knowyourtreatment.com/api/charity?page='+ pn, 'name');
+                this.fetchArray('http://api.knowyourtreatment.com/api/charity?'+ this.state.sort + 'page=' + pn, 'name');
                 break;
             case 'Medications':
-                this.fetchArray('http://api.knowyourtreatment.com/api/treatment?page=' + pn, 'name');
+                this.fetchArray('http://api.knowyourtreatment.com/api/treatment?' + this.state.sort + 'page=' + pn, 'name');
         }
         this.setState({currPage: pn});
     }
