@@ -55,10 +55,10 @@ export default class CharityVisual extends React.Component {
                       .domain([0, 20])
                       .range([0, 1500])
         d3.select(node)
-        .selectAll('rect')
-        .data(this.state.data)
-        .enter()
-        .append('rect')
+            .selectAll('rect')
+            .data(this.state.data)
+            .enter()
+            .append('rect')
             .attr('width', 30)
             .attr('height', r => scale(r))
             .attr('x', (r, i) => i * 30)
@@ -70,6 +70,7 @@ export default class CharityVisual extends React.Component {
 
     componentWillMount() {
         this.fetchImages('treatment')
+        console.log(this.state.data);
 
         fetch('http://api.knowyourtreatment.com/api/charity')
         .then(results => results.json())
@@ -139,6 +140,15 @@ export default class CharityVisual extends React.Component {
 
                 <h1>Associated Media</h1>
                 <div>{this.state.images && this.state.images.map(i => <img src={i} />)}</div>
+
+                <br /><br />
+
+                <table>
+                    <tr><td>Visualizations for our Provider:</td></tr>
+                    <tr><td><a href="http://www.ourplaceholderwebsite.me.s3-website.us-east-2.amazonaws.com/vis1.html">Commits by User, by Phase</a></td></tr>
+                    <tr><td><a href="http://www.ourplaceholderwebsite.me.s3-website.us-east-2.amazonaws.com/vis2.html">Average Book Length by Subject</a></td></tr>
+                    <tr><td><a href="http://www.ourplaceholderwebsite.me.s3-website.us-east-2.amazonaws.com/vis3.html">Number of Pages in the Book vs Number of Letter in the Title</a></td></td>
+                </table>
             </div>
         )
     }
