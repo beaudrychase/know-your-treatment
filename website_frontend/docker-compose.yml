@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+
+  website_frontend:
+    container_name: website_frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '8080:8080'
+    environment:
+      - NODE_ENV=development
