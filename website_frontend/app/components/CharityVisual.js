@@ -233,11 +233,6 @@ export default class CharityVisual extends React.Component {
 
                 <br /><br />
 
-                <h1>Associated Media</h1>
-                <div>{this.state.images && this.state.images.map(i => <img src={i} />)}</div>
-
-                <br /><br />
-
                 <table>
                     <tr><td><h3>Visualizations for our Provider:</h3></td></tr>
                     <tr><td><a href="http://www.ourplaceholderwebsite.me.s3-website.us-east-2.amazonaws.com/vis1.html">Commits by User, by Phase</a></td></tr>
